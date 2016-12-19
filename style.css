@@ -79,19 +79,7 @@ body {
 	bottom: 24px;
 }
 
-/*
-.gradient {
-	width: 600px;
-	height: 600px;
-	position: fixed;
-	left: 50%;
-	top: 50%;
-	margin-left: -300px;
-	margin-top: -300px;
-	
-	background: url(images/gradient.png) no-repeat;
-}
-*/
+
  .menuItem{
    font-family: 'Bree Serif', serif;
    background-color: grey;
