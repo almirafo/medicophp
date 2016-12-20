@@ -21,10 +21,11 @@
 	<a href="#" class="menuItem">Agenda</a>
 	<a href="#" class="menuItem">Marcação de Consultas</a>
 	<a href="#" class="menuItem">Cadastro de Pacientes</a>	
-	<a href="#" class="menuItem">Sair</a>
+        <a href="index.php"  id="sair" class="menuItem">Sair</a>
 
 </div>
-<div class="gradient"></div>
+
 
 </body>
+    <script src="scripts/menu.js" type="text/javascript"></script>
 </html>

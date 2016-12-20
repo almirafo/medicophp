@@ -1,10 +1,13 @@
 
 <!DOCTYPE html>
-<script src="scripts/jquery-3.1.1.min.js" type="text/javascript"></script>
 
-<script src="scripts/registre.js" type="text/javascript"></script>
 <html lang='en'>
 <head>
+    
+    <script src="scripts/jquery-3.1.1.min.js" type="text/javascript"></script>
+
+
+     
     <meta charset="UTF-8" /> 
     <title>
         HTML Document Structure
@@ -33,9 +36,9 @@
 		
 
 		
-                <input type="submit" name="submit" value="Salvar" onclick="" id="salvar" class="salvar" />
-		<input type="reset"  name="submit"  value="Limpar" id="reset" class="limpar" />
-		<input type="submit" name="submit" value="Sair"    id="sair"  class="sair" />
+                <input type="submit" name="submit" value="Salvar "  id="salvar" class="salvar" />
+		<input type="reset"  name="submit"  value="Limpar " id="reset" class="limpar" />
+		<input type="submit" name="submit" value="Sair "    id="sair"  class="sair" />
 		</div>
 
 	</form>
@@ -44,7 +47,7 @@
 <div class="gradient"></div>
 
 
-
+<script src="scripts/registre.js" type="text/javascript"></script>
 
 
 </body>

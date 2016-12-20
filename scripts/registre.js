@@ -1,11 +1,11 @@
 
 
-$( "salvar" ).click(function() {
+$( "#salvar" ).click(function() {
   $( "#registre-form" ).attr("action","index.php");
   $( "#registre-form" ).submit();
 });
 
-$( "sair" ).click(function() {
+$( "#sair" ).click(function() {
   $( "#registre-form" ).attr("action","index.php");
   $( "#registre-form" ).submit();
 });
