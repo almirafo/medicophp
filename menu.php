@@ -23,7 +23,6 @@
 	<a href="#" class="menuItem">Cadastro de Pacientes</a>	
 	<a href="#" class="menuItem">Sair</a>
 
-
 </div>
 <div class="gradient"></div>
 

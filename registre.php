@@ -1,7 +1,8 @@
 
 <!DOCTYPE html>
-<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
-<script src="scripts/registre.js"></script> 
+<script src="scripts/jquery-3.1.1.min.js" type="text/javascript"></script>
+
+<script src="scripts/registre.js" type="text/javascript"></script>
 <html lang='en'>
 <head>
     <meta charset="UTF-8" /> 
@@ -32,9 +33,9 @@
 		
 
 		
-		<input type="submit" name="submit" value="Salvar" id="salvar" class="salvar" />
-		<input type="reset" name="submit"  value="Limpar" id="reset" class="limpar" />
-		<input type="submit" name="submit" value="Sair"   id="sair"  class="sair" />
+                <input type="submit" name="submit" value="Salvar" onclick="" id="salvar" class="salvar" />
+		<input type="reset"  name="submit"  value="Limpar" id="reset" class="limpar" />
+		<input type="submit" name="submit" value="Sair"    id="sair"  class="sair" />
 		</div>
 
 	</form>

@@ -446,6 +446,17 @@ FOOTER
 	text-shadow: 0px 1px 0 rgba(256,256,256,0.5);
 }
 
+.salvar:hover {
+	color: #3f9db8;
+}
+
+.salvar:focus {
+	position: relative;
+	bottom: -1px;
+}
+
+
+
 
 .limpar {
 	display: block;
@@ -461,6 +472,16 @@ FOOTER
 	text-shadow: 0px 1px 0 rgba(256,256,256,0.5);
 }
 
+.limpar:hover {
+	color: #3f9db8;
+}
+
+.limpar:focus {
+	position: relative;
+	bottom: -1px;
+}
+
+
 .sair {
 	display: block;
 	
@@ -473,4 +494,13 @@ FOOTER
 	font-size: 18px;
 	color: #414848;
 	text-shadow: 0px 1px 0 rgba(256,256,256,0.5);
+}
+
+.sair:hover {
+	color: #3f9db8;
+}
+
+.sair:focus {
+	position: relative;
+	bottom: -1px;
 }
