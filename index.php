@@ -37,18 +37,8 @@
 <div class="gradient"></div>
 
 
-<script>
+<script src="scripts/registre.js" type="text/javascript"></script>
 
-$( "#register" ).click(function() {
-  $( "#login-form" ).attr("action","registre.php");
-  $( "#login-form" ).submit();
-});
-
-
-$( "#entrar" ).click(function() {
-  $( "#login-form" ).attr("action","menu.php");
-  $( "#login-form" ).submit();
-});
 </script>
 
 </body>
