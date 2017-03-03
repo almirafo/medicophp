@@ -1,5 +1,6 @@
 <?php
- class RegistreModel {
+ 
+ class RegistreModel extends dbConnect {
 
     function __construct() {
         
@@ -17,5 +18,6 @@
         $sql = "Select * fom usuario where idUsuario = ?";
                 $sql = str_replace($sql, "?", $idUsuario) ;
     }
+    
     
 }
