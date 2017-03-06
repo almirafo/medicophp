@@ -19,7 +19,7 @@ $database = new PDO("odbc:DRIVER={Microsoft Access Driver (*.mdb, *.accdb)}; DBQ
 
 
 
-$sql = 'SELECT  top 400 codigo_paciente,nome,numeroProntuario FROM paciente order by nome ';
+$sql = 'SELECT  codigo_paciente,nome,numeroProntuario FROM paciente';
     
 $array = $database->query($sql)->fetchAll();
 header("Content-type: application/json; charset=utf-8");
