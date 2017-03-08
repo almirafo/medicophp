@@ -15,10 +15,24 @@ if (!file_exists($database_path)) {
 
 //create a new PDO object
 $database = new PDO("odbc:DRIVER={Microsoft Access Driver (*.mdb, *.accdb)}; DBQ=$database_path; Uid=$db_username; Pwd=$db_password;charset=utf-8");
+/*
 
-
-
-
+SELECT *
+FROM (
+  SELECT Top 15 
+  *
+  FROM
+  (
+   SELECT TOP 900
+ 
+   *
+   FROM paciente
+   ORDER BY nome
+  ) AS sub1
+  ORDER BY sub1.nome desc
+ ) AS clients
+ORDER BY nome;
+*/
 $sql = 'SELECT  codigo_paciente,nome,numeroProntuario FROM paciente';
     
 $array = $database->query($sql)->fetchAll();
