@@ -9,8 +9,8 @@
         
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
         
-        <script src="scripts/angular.js" type="text/javascript"></script>
         <script src="scripts/jquery.dataTables.min.js" type="text/javascript"></script>
         <script src="scripts/pacientesApp.js" type="text/javascript"></script>
         <script src="scripts/dirPagination.js" type="text/javascript"></script>
@@ -19,8 +19,9 @@
     </head>
 
     <body  ng_controller="listar" style="align-items: center ">
-
-        <div style="width: 70%;  top:20px; left:130px">
+        <div ng-include="'views/navbar.htm'"></div>
+                
+        <div style="width: 90%;  top:20px; left:130px">
 				
 				<form class="form-inline">
 				        <div class="form-group">
@@ -41,7 +42,7 @@
                <table class="table table-striped table-hover">
                    <thead>
                        <tr >
-                           <th ng-click="sort(nome)">Nome
+                           <th ng-click="sort('nome')">Nome
                            		<span class="glyphicon sort-icon" ng-show="sortKey=='nome'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
                            </th>
                            <th >numero Prontuario</th>
