@@ -5,24 +5,13 @@
  */
 
 
-var app = angular.module("agendamentoApp",['']);
+var app = angular.module("agendamentoApp",[]);
 
-app.controller('agendamentoCtrl',function ($scope, $http){
+app.controller('agendamentoCtrl',function ($scope,$http){
+    $scope.paciente =[]; 
     
-        $scope.getAgendamento = function(nome){
-
-        };
-
-        $scope.addAgendamento = function($scope){
-
-
-        };
-
-        $scope.updateAgendamento = function($scope){
-
-
-        };
-    
-    
-    
+    $scope.salvar = function(){
+        
+        $http.get('pacientes.php')
+    }
 });
