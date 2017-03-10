@@ -12,6 +12,7 @@ app.controller('agendamentoCtrl',function ($scope,$http){
     
     $scope.salvar = function(){
         
+    	
         $http.get('pacientes.php')
     }
 });
