@@ -12,13 +12,13 @@ $(document).ready(function() {
 
 var app = angular.module("pacientesApp",['angularUtils.directives.dirPagination']);
 
-app.controller('listar',function ($scope, $http){
+app.controller('listar',function ($scope, $http,$q){
     $scope.pacientes =[];
 
 
     $http.get("http://localhost:90/medico/testeAccess.php").then(
             function(response){
-                $scope.pacientes = response.data;
+                    $scope.pacientes = response.data;
             }) ;
     
 
