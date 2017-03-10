@@ -18,11 +18,11 @@
         <script src="scripts/app/agendamento.js" type="text/javascript"></script>
     </head>
 
-    <body>
+    <body ng-controller="agendamentoCtrl">
         <div ng-include="'views/navbar.htm'"></div>
                 
  
-        <form ng-submit="salvarAgendamento">
+        <form >
               <div class="form-group row">
                 <label for="nome" class="col-sm-2 col-form-label col-form-label-sm">Nome</label>
                 <div class="col-sm-8">
@@ -59,7 +59,7 @@
                 
                 <div class="form-group row">
                 <div class="col-sm-1">
-                    <button type="button" class="btn btn-primary" ng-click="salvar">Salvar</button>
+                    <button type="button" class="btn btn-primary" ng-click="salvar()">Salvar</button>
                 </div>
                 <div class="col-sm-11">        
                     <button type="button" class="btn btn-info" ng-click="geraConsulta">Gerar Consulta</button>
