@@ -4,9 +4,15 @@ require 'utils/coxexao.php';
 
 $conexao =  new Conexao();
 $database =$conexao->getdatabase(); 
+$sql="";
 
-$sql = 'SELECT  codigo_paciente,nome,numeroProntuario FROM paciente order by nome';
-
+if (!isset($_GET["nome"])){ 
+$sql = 'SELECT Top 400 * FROM paciente order by nome';
+}
+else{
+$nome = $_GET['nome'];
+$sql = "SELECT Top 400 * FROM paciente where nome like '$nome%' order by nome";
+};
 /*$sql = "SELECT codigo_paciente,nome,numeroProntuario
 		FROM (
 		  SELECT Top {$pageSize} 
