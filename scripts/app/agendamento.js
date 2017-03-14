@@ -62,6 +62,7 @@ app.filter('propsFilter', function() {
 app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
   var vm = this;
     $scope.paciente = {};
+    $scope.agendamento = {};
     $scope.medico={"nome":"Verea","id":"1"};
     $scope.pacientes =[];
     $scope.agenda=[];
@@ -137,6 +138,10 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
             }
     };
     
+    
+    $scope.reservar =  function(){
+        $scope.agendamento.data =  moment($scope.agenda.dia).format('DD-MM-YYYY') + " " + moment($scope.agenda.hora).format('HH:mm'); 
+    }
     
     $scope.listaAgenda= function (){
         
