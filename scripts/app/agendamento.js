@@ -150,7 +150,9 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
         ];
         
         
-        
+   $scope.delete = function (item) {
+    $scope.agenda.splice($scope.agenda.indexOf(item), 1);
+}     
         
         
     }

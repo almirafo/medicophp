@@ -128,7 +128,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Agenda - Verea</h4>
+        <h4 class="modal-title">Agenda - {{medico.nome}}</h4>
       </div>
       <div class="modal-body">
             <div class="table-responsive">
@@ -151,7 +151,7 @@
                           <td>{{item1.horade}}</td>
                           <td>{{item1.horaAte}}</td>
                           <td>
-                              <button type="button" class="btn btn-default btn-sm" title="apagar">
+                              <button type="button" class="btn btn-default btn-sm" title="apagar"  ng-click="delete(item1)">
                                 <span class="glyphicon glyphicon-trash"></span> 
                               </button>
                           </td>    
