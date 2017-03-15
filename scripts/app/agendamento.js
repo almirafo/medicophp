@@ -66,6 +66,8 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
     $scope.medico={"nome":"Verea","id":"1"};
     $scope.pacientes =[];
     $scope.agenda=[];
+    
+    //$scope.selectedOption={};
   vm.disabled = undefined;
   vm.searchEnabled = undefined;
 
@@ -97,14 +99,12 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
     vm.state.selected    = undefined;
   };
   
-  vm.getPaciente =  function (){
-      $scope.paciente.nome="Eu";
+  $scope.getPaciente =  function (){
+      $scope.agendamento.nome=$scope.paciente.selected.nome;
+      
+      
   };
   
-  vm.getPaciente = function(){
-      
-      vm.paciente = $scope.paciente.selected;
-  }
   
   
       vm.salvar = function(){
@@ -167,8 +167,15 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
                     $scope.pacientes = response.data;
             }) ;
   
-   
 
+ $scope.convenios = {
+    availableOptions: [
+      {cod_convenio: 'PAR',   name: 'Particular'},
+      {cod_convenio: 'OMINI', name: 'OMINI'},
+      {cod_convenio: 'BRA',   name: 'Bradesco'}
+    ]
+
+ }
   });
   
  

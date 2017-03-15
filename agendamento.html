@@ -29,11 +29,11 @@
         <form id="agendarCosulta">
             <div> Código : {{paciente.selected.numeroProntuario}}</div>
               <div class="form-group row" >
-                <label for="nome" class="col-sm-2 col-form-label col-form-label-sm">Nome</label>
+                <label for="nome" class="col-sm-2 col-form-label col-form-label-sm">Pesquia Paciente</label>
                 <div class="col-sm-8">
                     
-                    <ui-select  ng-model="paciente.selected" name="paciente" theme="bootstrap" title="Selecione o Paciente"   >
-                        <ui-select-match   placeholder="Selecione ou procure o paciente na lista ...">{{$select.selected.nome}}</ui-select-match>
+                    <ui-select  ng-model="paciente.selected" name="paciente" theme="bootstrap" title="Selecione o Paciente"  >
+                        <ui-select-match   placeholder="Selecione ou procure o paciente na lista ..." >{{$select.selected.nome}}</ui-select-match>
                         <ui-select-choices repeat="paciente in pacientes | filter: $select.search" refresh="buscar($select.search)" >
                           <span ng-bind-html="paciente.nome | highlight: $select.search"></span>
                           <small ng-bind-html="paciente.codigo_paciente | highlight: $select.search"></small>
@@ -43,25 +43,39 @@
                     
                 </div>
                 
-                
-                <label for="novo" class="col-sm-1 col-form-label col-form-label-sm">Novo</label>
-                <div class="col-sm-1">
-                    <input type="checkbox" class="form-check-input" id="novo">
+                <div class="col-sm-2">
+                     <button type="button" class="btn btn-primary" ng-click="getPaciente()">Carregar</button>
                 </div>
+                
               </div>
-            
+              <hr>
+              
+              <div class="form-group row">  
+                   <label for="nomePaciente" class="col-sm-2 col-form-label col-form-label-sm">Paciente</label>
+                   <div class="col-sm-4" >
+                       <input id="nomePaciente" class="form-control form-control-sm" ng-model="agendamento.nome" placeholder="Nome do Paciente">
+                   </div>
+                   
+                   <label for="novo" class="col-sm-1 col-form-label col-form-label-sm">Novo</label>
+                    <div class="col-sm-4">
+                        <input type="checkbox" class="form-check-input col-form-label " id="novo">
+                    </div>
+              </div>
+              
               <div class="form-group row">  
                 
+                  
+                  
                     <label for="FoneContato" class="col-sm-2 col-form-label col-form-label-sm">Contato</label>
                     <div class="col-sm-4">
                         <input type="phone" class="form-control form-control-sm" ng-model="paciente.selected.fone_res"   id="FoneContato" maxlength="11" size="11" >
                     </div>
 
-                    <label for="example-date-input" class="col-sm-2 col-form-label" >Data</label>
+                    <label for="example-date-input" class="col-sm-2 col-form-label" >Data Agendada</label>
                     
                     
                     <div class="col-sm-2">
-                        <span>{{agendamento.data}}</span>
+                        <span class="label label-default">{{agendamento.data}}</span>
                     </div>
                     
                     <div class="col-sm-2">
@@ -76,19 +90,22 @@
                 <label  class="col-sm-2 col-form-label-sm ">Convênio</label>
                 </div>
                 <div class="col-sm-2">
-                <input ng-model="paciente.selected.cod_convenio">
+                    
+                    <select class="form-control form-control-sm" ng-model="paciente.selected.cod_convenio" ng-value="paciente.selected.cod_convenio"
+                        ng-options="convenio.name for convenio in convenios.availableOptions track by convenio.cod_convenio"></select>    
+                
                </div>
                 <div class="col-sm-2">
                 <label  class="col-sm-2 col-form-label-sm ">Carteira</label>
                 </div>
                 <div class="col-sm-2">
-                <input ng-model="paciente.selected.numeroCartao">
+                <input class="form-control form-control-sm" ng-model="paciente.selected.numeroCartao">
                 </div>
                 <div class="col-sm-2">
                 <label  class="col-sm-2 col-form-label-sm ">Sexo</label>
                 </div>
                 <div class="col-sm-2">
-                <input ng-model="paciente.selected.sexo">
+                <input class="form-control form-control-sm" ng-model="paciente.selected.sexo">
                </div>
             </div>
             
