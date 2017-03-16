@@ -27,10 +27,12 @@
                 
  
         <form id="agendarCosulta">
-            <div> Código : {{paciente.selected.numeroProntuario}}</div>
+              <div class="form-group row" >
+                    <div class="col-sm-2  col-form-label col-form-label-sm"> Código : {{paciente.selected.numeroProntuario}}</div>
+              </div>
               <div class="form-group row" >
                 <label for="nome" class="col-sm-2 col-form-label col-form-label-sm">Pesquia Paciente</label>
-                <div class="col-sm-8">
+                <div class="col-sm-4">
                     
                     <ui-select  ng-model="paciente.selected" name="paciente" theme="bootstrap" title="Selecione o Paciente"  >
                         <ui-select-match   placeholder="Selecione ou procure o paciente na lista ..." >{{$select.selected.nome}}</ui-select-match>
@@ -43,9 +45,14 @@
                     
                 </div>
                 
-                <div class="col-sm-2">
+                <div class="col-sm-1">
                      <button type="button" class="btn btn-primary" ng-click="getPaciente()">Carregar</button>
                 </div>
+
+                <div class="col-sm-1">
+                     <button type="button" class="btn btn-warning">Paciente Novo</button>
+                </div>
+                
                 
               </div>
               <hr>
@@ -92,20 +99,26 @@
                 <div class="col-sm-2">
                     
                     <select class="form-control form-control-sm" ng-model="paciente.selected.cod_convenio" ng-value="paciente.selected.cod_convenio"
-                        ng-options="convenio.name for convenio in convenios.availableOptions track by convenio.cod_convenio"></select>    
+                        ng-options="convenio.cod_convenio as convenio.name for convenio in convenios.availableOptions"></select>    
                 
                </div>
-                <div class="col-sm-2">
+                <div class="col-sm-1">
                 <label  class="col-sm-2 col-form-label-sm ">Carteira</label>
                 </div>
                 <div class="col-sm-2">
                 <input class="form-control form-control-sm" ng-model="paciente.selected.numeroCartao">
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-1">
                 <label  class="col-sm-2 col-form-label-sm ">Sexo</label>
                 </div>
+                
+
                 <div class="col-sm-2">
-                <input class="form-control form-control-sm" ng-model="paciente.selected.sexo">
+                    <select class="form-control form-control-sm" ng-model="paciente.selected.sexo" ng-value="paciente.selected.sexo"
+                        ng-options="sexo.cod_sexo as sexo.name for sexo in sexos.availableOptions"></select>    
+               </div>
+                    
+                
                </div>
             </div>
             

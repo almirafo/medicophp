@@ -162,6 +162,16 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
         
     }
   
+  
+  $scope.getPlano = function (cod_convenio){
+       $http.get("http://localhost:90/medico/getPlanoAPI.php?codConvenio="+cod_convenio ).then(
+            function(response){
+                    $scope.planos = response.data;
+            }) ;
+  };
+  
+  
+  
     $http.get("http://localhost:90/medico/testeAccess.php" ).then(
             function(response){
                     $scope.pacientes = response.data;
@@ -176,6 +186,17 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
     ]
 
  }
+ 
+ 
+ $scope.sexos = {
+    availableOptions: [
+      {cod_sexo: 'M',   name: 'Masculino'},
+      {cod_sexo: 'F', name: 'Feminino'}
+    ]
+
+ }
+ 
+ 
   });
   
  
