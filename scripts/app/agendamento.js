@@ -163,6 +163,7 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
     }
   
   
+  
   $scope.getPlano = function (cod_convenio){
        $http.get("http://localhost:90/medico/getPlanoAPI.php?codConvenio="+cod_convenio ).then(
             function(response){
