@@ -77,7 +77,7 @@
                   
                   
                     <label for="FoneContato" class="col-sm-2 col-form-label col-form-label-sm">Contato</label>
-                    <div class="col-sm-4">
+                    <div class="col-sm-2">
                         <input type="phone" class="form-control form-control-sm" ng-model="paciente.selected.fone_res"   id="FoneContato" maxlength="11" size="11" >
                     </div>
 
@@ -87,6 +87,13 @@
                     <div class="col-sm-2">
                         <span class="label label-default">{{agendamento.data}}</span>
                     </div>
+                 
+                    
+                    <div class="col-sm-2">
+                       <select class="form-control form-control-sm" ng-model="agendamento.CodigoMedico" ng-value="agendamento.CodigoMedico"
+                        ng-options="medico.CODIGOMEDICO as medico.Nome for medico in medicos"></select> 
+                    </div>
+                    
                     
                     <div class="col-sm-2">
                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal" ng-click="listaAgenda()">Consulta Agenda</button>
@@ -106,7 +113,7 @@
                 
                </div>
                 <div class="col-sm-2">    
-                 <button class="btn btn-primary" >Rede Crendenciada</button>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#PlanosModal" ng-click="getPlano(paciente.selected.cod_convenio)" >Rede Crendenciada</button>
                 </div>
                 
                 
@@ -128,9 +135,8 @@
                </div>
                     
                 
-               </div>
-            </div>
-            
+               
+            </div>            
             
                <div class="form-group row"> 
                 <label for="exampleTextarea" class="col-sm-2 col-form-label-sm ">Observação</label>
@@ -167,7 +173,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Agenda - {{medico.nome}}</h4>
+        <h4 class="modal-title">Agenda - {{agendamento.CodigoMedico}}</h4>
       </div>
       <div class="modal-body">
             <div class="table-responsive">
@@ -223,6 +229,50 @@
   </div>
 </div>
 
+
+
+
+
+
+
+<!-- Modal Planos-->
+<div id="PlanosModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Rede Credenciada</h4>
+      </div>
+      <div class="modal-body">
+            <div class="table-responsive">
+                <table class="table table-condensed" >
+                    <thead>
+                        <tr>
+                          <th>Rede</th>
+                        </tr>
+                        
+                        
+                      </thead>
+                    <tbody>
+                        <tr ng-repeat="item1 in planos">
+                          <td>{{item1.NomePlano}}</td>
+                        </tr>
+                    </tbody>
+                      
+                      
+              </table>
+            </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 
         

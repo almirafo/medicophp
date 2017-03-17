@@ -12,7 +12,7 @@ require '../db/pdoConect.php';
  *
  * @author almir
  */
-class Plano extends dbConnect{
+class Medico extends dbConnect{
     
      function utf8_converter($array)
 {
@@ -25,25 +25,12 @@ class Plano extends dbConnect{
     return $array;
 }
     
-    
-       public function getPlanoByCodigoConvenio($cod_convenio){
-            $name = addslashes($cod_convenio); 
-
+       public function listMedico(){
             $db = $this->getdatabase();  
-            $sql = "Select * from convenio_plano where codigoConvenio = '$name' AND ativo=true";
-            
+            $sql = "Select CODIGOMEDICO, Nome from Medico";
             $array = $db->query($sql)->fetchAll();
             header("Content-type: application/json; charset=utf-8"); 
-
-            //array_walk_recursive($array, 'toUtf8');
-            
-                   return  json_encode($this->utf8_converter($array));
-    }
-    
-    
-    
-    function toUtf8(&$v, $k) {
-        $v = utf8_encode($v);
+            return  json_encode($this->utf8_converter($array));
     }
 
 }

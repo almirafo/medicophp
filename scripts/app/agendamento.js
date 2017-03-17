@@ -8,22 +8,6 @@
 var app = angular.module("agendamentoApp", ['ngSanitize', 'ui.select']);
 
 
-
-//Select2 controller - basic
-/*
-app.controller('selectConvenios', ['$scope', '$http', '$routeParams',
-  function ($scope, $http, $routeParams) {
-      
-    	$http.get("http://localhost:90/medico/convenioAPI.php/buscar/").then(function(response) {
-    		$scope.convenios = response.data;
-                //$scope.options = ['PAR', 'BRA', 'UNIMED', 'OMINI'];
-    	});
-      
-      
-    
-  }
-]);
-*/
 app.filter('propsFilter', function() {
   return function(items, props) {
     var out = [];
@@ -63,10 +47,10 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
   var vm = this;
     $scope.paciente = {};
     $scope.agendamento = {};
-    $scope.medico={"nome":"Verea","id":"1"};
+    
     $scope.pacientes =[];
     $scope.agenda=[];
-    
+    $scope.medicos=[];
     //$scope.selectedOption={};
   vm.disabled = undefined;
   vm.searchEnabled = undefined;
@@ -102,7 +86,7 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
   $scope.getPaciente =  function (){
       $scope.agendamento.nome=$scope.paciente.selected.nome;
       $scope.agendamento.ultimaConsulta="17-01-2017";
-      
+      $scope.agendamento.CodigoMedico =1;
   };
   
   
@@ -126,6 +110,7 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
             }) ;
     };
 
+    
   
   
   
@@ -143,7 +128,14 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
         $scope.agendamento.data =  moment($scope.agenda.dia).format('DD-MM-YYYY') + " " + moment($scope.agenda.hora).format('HH:mm'); 
     }
     
-    $scope.listaAgenda= function (){
+    $scope.listaAgenda= function (cod_medico){
+      /*
+        $http.get("http://localhost:90/medico/api/agendaAPI.php?cod_medico="+cod_medico ).then(
+            function(response){
+                    $scope.agenda = response.data;
+            }) ;
+      */
+        
         
         $scope.agenda = [   {"descricao":"lorepruo1", "dia":"01-03-2017","horade":"12:00","horaAte":"12:25"}, 
                             {"descricao":"lorepruo2","dia":"02-03-2017","horade":"12:00","horaAte":"12:25"},
@@ -165,7 +157,7 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
   
   
   $scope.getPlano = function (cod_convenio){
-       $http.get("http://localhost:90/medico/getPlanoAPI.php?codConvenio="+cod_convenio ).then(
+       $http.get("http://localhost:90/medico/api/getPlanoAPI.php?cod_convenio="+cod_convenio ).then(
             function(response){
                     $scope.planos = response.data;
             }) ;
@@ -173,35 +165,34 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
   
   
   
+    //Lista Medicos
+    $http.get("http://localhost:90/medico/api/medicoAPI.php?action=listar" ).then(
+            function(response){
+                    $scope.medicos = response.data;
+            }) ;
+    
+  
+    //Lista Pacientes 
     $http.get("http://localhost:90/medico/testeAccess.php" ).then(
             function(response){
                     $scope.pacientes = response.data;
             }) ;
   
+    //lista Convenios
+    $http.get("http://localhost:90/medico/api/convenioAPI.php?action=listar" ).then(
+                function(response){
+                        $scope.convenios
+                                = response.data;
+                }) ;
 
-$http.get("http://localhost:90/medico/api/convenioAPI.php?action=listar" ).then(
-            function(response){
-                    $scope.convenios
-                            = response.data;
-            }) ;
- /*           
- $scope.convenios = {
-    availableOptions: [
-      {cod_convenio: 'PAR',   name: 'Particular'},
-      {cod_convenio: 'OMINI', name: 'OMINI'},
-      {cod_convenio: 'BRA',   name: 'Bradesco'}
-    ]
 
- }
- */
- 
- $scope.sexos = {
-    availableOptions: [
-      {cod_sexo: 'M',   name: 'Masculino'},
-      {cod_sexo: 'F', name: 'Feminino'}
-    ]
+     $scope.sexos = {
+        availableOptions: [
+          {cod_sexo: 'M',   name: 'Masculino'},
+          {cod_sexo: 'F', name: 'Feminino'}
+        ]
 
- }
+     }
  
  
   });
