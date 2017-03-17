@@ -101,7 +101,7 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
   
   $scope.getPaciente =  function (){
       $scope.agendamento.nome=$scope.paciente.selected.nome;
-      
+      $scope.agendamento.ultimaConsulta="17-01-2017";
       
   };
   
@@ -179,6 +179,12 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
             }) ;
   
 
+$http.get("http://localhost:90/medico/api/convenioAPI.php?action=listar" ).then(
+            function(response){
+                    $scope.convenios
+                            = response.data;
+            }) ;
+ /*           
  $scope.convenios = {
     availableOptions: [
       {cod_convenio: 'PAR',   name: 'Particular'},
@@ -187,7 +193,7 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
     ]
 
  }
- 
+ */
  
  $scope.sexos = {
     availableOptions: [

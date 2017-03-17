@@ -63,8 +63,11 @@
                        <input id="nomePaciente" class="form-control form-control-sm" ng-model="agendamento.nome" placeholder="Nome do Paciente">
                    </div>
                    
+                   <label class="col-sm-2 col-form-label col-form-label-sm">Ultima Consulta: {{agendamento.ultimaConsulta}}</label>
+                   
+                   
                    <label for="novo" class="col-sm-1 col-form-label col-form-label-sm">Novo</label>
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                         <input type="checkbox" class="form-check-input col-form-label " id="novo">
                     </div>
               </div>
@@ -99,9 +102,14 @@
                 <div class="col-sm-2">
                     
                     <select class="form-control form-control-sm" ng-model="paciente.selected.cod_convenio" ng-value="paciente.selected.cod_convenio"
-                        ng-options="convenio.cod_convenio as convenio.name for convenio in convenios.availableOptions"></select>    
+                        ng-options="convenio.cod_convenio as convenio.name for convenio in convenios"></select>    
                 
                </div>
+                <div class="col-sm-2">    
+                 <button class="btn btn-primary" >Rede Crendenciada</button>
+                </div>
+                
+                
                 
                 <div class="col-sm-1">
                 <label  class="col-sm-2 col-form-label-sm ">Carteira</label>
@@ -140,7 +148,7 @@
                 <div class="col-sm-9">        
                     <button type="button" class="btn btn-info" ng-click="geraConsulta()">Gerar Consulta</button>
                 </div>
-                 <div class="col-sm-2">    
+                <div class="col-sm-2">    
                  <button class="btn btn-default" ng-click="clear()">Limpar</button>
                 </div>
                     

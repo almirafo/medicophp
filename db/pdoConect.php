@@ -27,7 +27,7 @@ class dbConnect {
     	}
     	
     	//create a new PDO object
-    	$this->database = new PDO("odbc:DRIVER={Microsoft Access Driver (*.mdb, *.accdb)}; DBQ=$database_path; Uid=$db_username; Pwd=$db_password;charset=utf-8");
+    	$this->database = new PDO("odbc:DRIVER={Microsoft Access Driver (*.mdb, *.accdb)}; DBQ=$database_path; Uid=$db_username; Pwd=$db_password");
     	 
     }
     

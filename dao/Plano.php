@@ -22,9 +22,9 @@ class Plano extends dbConnect{
             $array = $db->query($sql)->fetchAll();
             header("Content-type: application/json; charset=utf-8"); 
 
-            array_walk_recursive($array, 'toUtf8');
-
-       return  json_encode($array);
+            //array_walk_recursive($array, 'toUtf8');
+            
+                   return  json_encode($array);
     }
     
     
