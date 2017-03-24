@@ -25,6 +25,16 @@ class Pacientes extends dbConnect{
        return  json_encode($array);
     }
 
+    public function incluir ($paciente){
+        
+       $conexao = new Conexao();
+       $database =$conexao->getdatabase();  
+       $sql = "insert into Paciente set  nome = $paciente->nome from pacientes where nome like '$name%'";
+       $array = $database->query($sql)->fetchAll();
+        
+        
+    }
+
 
     public function find($id){
        $id = addslashes($id); 

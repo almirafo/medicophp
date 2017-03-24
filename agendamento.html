@@ -32,7 +32,7 @@
               </div>
               <div class="form-group row" >
                 <label for="nome" class="col-sm-2 col-form-label col-form-label-sm">Pesquia Paciente</label>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     
                     <ui-select  ng-model="paciente.selected" name="paciente" theme="bootstrap" title="Selecione o Paciente"  >
                         <ui-select-match   placeholder="Selecione ou procure o paciente na lista ..." >{{$select.selected.nome}}</ui-select-match>
@@ -49,9 +49,15 @@
                      <button type="button" class="btn btn-primary" ng-click="getPaciente()">Carregar</button>
                 </div>
 
-                <div class="col-sm-1">
+                <div class="col-sm-2">
                      <button type="button" class="btn btn-warning">Paciente Novo</button>
                 </div>
+                
+                <div class="col-sm-1">
+                     <button type="button" title="Visualizar Paciente" class="btn btn-primary">
+                        Paciente
+                     </button>
+                </div>                
                 
                 
               </div>
