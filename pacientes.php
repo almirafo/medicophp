@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-route.min.js">
         
         <script src="scripts/jquery.dataTables.min.js" type="text/javascript"></script>
         <script src="scripts/pacientesApp.js" type="text/javascript"></script>
@@ -18,10 +19,10 @@
         
     </head>
 
-    <body  ng_controller="listar" style="align-items: center ">
+    <body  ng-controller="pacienteCtrl" style="align-items: center ">
         <div ng-include="'views/navbar.htm'"></div>
                 
-        <div style="width: 90%;  top:20px; left:130px">
+        <div style="width: 90%;  top:20px; left:130px" >
 				
 				<form class="form-inline">
 				        <div class="form-group">
@@ -53,6 +54,7 @@
                            <td>{{item.nome}}</td>
                            <td>{{item.numeroProntuario}}</td>
                            <td><button type="button" class="btn btn-primary" ng-click="showForm()">Editar</button></td>
+                           <td><a href='pacientevisualizar.html?codigo_paciente={{item.codigo_paciente}}&action=buscar' class="btn btn-primary" >Visualizar</a></td>
                            <td><button type="button" class="btn btn-info">Marcar Consulta</button></td>
                        </tr>
                    </tbody>

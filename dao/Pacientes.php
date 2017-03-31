@@ -1,5 +1,5 @@
 <?php
-
+require '../db/pdoConect.php';
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,11 +11,27 @@
  *
  * @author almir.oliveira
  */
-class Pacientes extends dbConnect{
+class Pacientes extends dbConnect {
+    public function __construct(){
+        parent::__construct();
+    }
+    
+    function utf8_converter($array)
+    {
+    array_walk_recursive($array, function(&$item, $key){
+        if(!mb_detect_encoding($item, 'utf-8', true)){
+                $item = utf8_encode($item);
+        }
+    });
+ 
+    return $array;
+    }
+    
+    
     public function getByName($name){
        $name = addslashes($name); 
-       $conexao = new Conexao();
-       $database =$conexao->getdatabase();  
+       
+       $database =  $this->getdatabase();
        $sql = "Select nome, codigo_paciente from pacientes where nome like '$name%'";
        $array = $database->query($sql)->fetchAll();
        header("Content-type: application/json; charset=utf-8"); 
@@ -27,8 +43,8 @@ class Pacientes extends dbConnect{
 
     public function incluir ($paciente){
         
-       $conexao = new Conexao();
-       $database =$conexao->getdatabase();  
+       
+       $database =  $this->getdatabase();
        $sql = "insert into Paciente set  nome = $paciente->nome from pacientes where nome like '$name%'";
        $array = $database->query($sql)->fetchAll();
         
@@ -38,25 +54,19 @@ class Pacientes extends dbConnect{
 
     public function find($id){
        $id = addslashes($id); 
-       $conexao = new Conexao();
-       $database =$conexao->getdatabase();  
-       $sql = "Select * from pacientes where nome = $id ";
-       $array = $database->query($sql)->fetch();
-       header("Content-type: application/json; charset=utf-8"); 
+         
+       $database =  $this->getdatabase();  
+       $sql = "SELECT * FROM paciente where codigo_paciente = $id ";
+       $array = $database->prepare($sql);
+       $array->execute();
        
-       array_walk_recursive($array, 'toUtf8');
-
-       return  json_encode($array);
+       $_array = $array->fetchAll();
+       header("Content-type: application/json; charset=utf-8"); 
+       $_array = $this->utf8_converter($_array);
+      
+       return  json_encode($_array);
     }
 
-
-
-    
-    function toUtf8(&$v, $k) {
-        $v = utf8_encode($v);
-    }
-
-    
 }
 
 

@@ -108,6 +108,7 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
             function(response){
                     $scope.pacientes = response.data;
             }) ;
+            
     };
 
     
