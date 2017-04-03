@@ -86,9 +86,9 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
          .then(function (response){
                 $scope.paciente1 = response.data[0];
                 $scope.paciente.selected ={};
-                $scope.agendamento.nome=$scope.paciente1.nome;
-                $scope.agendamento.ultimaConsulta="17-01-2017";
-                $scope.agendamento.CodigoMedico = 1;
+                $scope.agendamento.nomePaciente=$scope.paciente1.nome;
+                $scope.agendamento.ultimaConsulta="";
+                $scope.agendamento.CodigoMedico = "1";
                 $scope.paciente.selected=$scope.paciente1;
              
              
@@ -129,7 +129,7 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
   };
   
   $scope.getPaciente =  function (){
-      $scope.agendamento.nome=$scope.paciente.selected.nome;
+      $scope.agendamento.nomePaciente=$scope.paciente.selected.nome;
       $scope.agendamento.ultimaConsulta="17-01-2017";
       $scope.agendamento.CodigoMedico =1;
   };
