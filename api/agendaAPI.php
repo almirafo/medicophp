@@ -9,7 +9,11 @@ if($action=="listar"){
 };
 
 if($action=="inserir"){
-    
+   $agendaDados = isset($_POST['$agendaDados']) ?$_POST['$agendaDados']:"";
+   
+   echo $agendaDados;
+   
+   $agenda->insertAgenda($agendaDados); 
 };
 
 if($action=="alterar"){

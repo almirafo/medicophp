@@ -35,4 +35,17 @@ class Agenda extends dbConnect {
 
             
     }
+    public function insertAgenda($agendaDados){
+
+        $db = $this->getdatabase(); 
+        $sql = "insert into Agendamento set ".
+                "cod_medico   = $agendaDados->cod_medico   , ". 
+                "DataAgendada = $agendaDados->DataAgendada, ";
+                "nomePaciente = $agendaDados->nome";
+
+        $array = $db->prepare($sql)->execute();
+
+
+        
+    }
 }

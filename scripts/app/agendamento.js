@@ -136,15 +136,34 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
   
   
   
-      vm.salvar = function(){
+    $scope.salvar = function(){
     	
-    	$http.post("http://localhost:90/medico/pacienteAPI.php/salvar").then(
-    		function(response){
-    			$scope.status = "salvo com sucesso";
-    		}	
-    	);
-    	
-    	 $window.location.href = 'pacientes.php';
+          
+        
+    	    $http({
+            url:"api/agendaAPI.php",
+            params:{codigo_paciente    : $scope.codigo_paciente,
+                    codigoMedico       : $scope.agendamento.CodigoMedico,
+                    DataAgendamento    : $scope.agendamento.data,
+                    FoneContato        : $scope.paciente.selected.fone_res,
+                    Observacao         : $scope.agendamento.observacao,
+                    action             :"inserir"
+                    
+                   },
+                   method:"post"
+             
+         })
+         .then(function (response){
+                $scope.paciente1 = response.data[0];
+                $scope.paciente.selected ={};
+                $scope.agendamento.nome=$scope.paciente1.nome;
+                $scope.agendamento.ultimaConsulta="17-01-2017";
+                $scope.agendamento.CodigoMedico = 1;
+                $scope.paciente.selected=$scope.paciente1;
+             
+             
+          });
+
     };
     
     
@@ -173,6 +192,11 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
     $scope.reservar =  function(){
         $scope.agendamento.data =  moment($scope.agenda.dia).format('DD-MM-YYYY') + " " + moment($scope.agenda.hora).format('HH:mm'); 
     }
+    
+    
+    
+    
+    
     
     $scope.listaAgenda= function (cod_medico){
       /*
