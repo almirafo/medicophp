@@ -4,13 +4,13 @@ $paciente  = new Pacientes();
 $action = $_GET['action'];
 
 if($action=='buscar'){
-    $id = $_GET['id'];
-    echo $paciente->find($_GET['id']); 
+    $id = $_GET['codigo_paciente'];
+    echo $paciente->find($_GET['codigo_paciente']); 
 }
 if($action=='incluir'){
-    $id = $_GET['id'];
+    $id = $_GET['codigo_paciente'];
 }
 
 if($action=='alterar'){
-    $id = $_GET['id'];
+    $id = $_GET['codigo_paciente'];
 }

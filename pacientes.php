@@ -55,7 +55,7 @@
                            <td>{{item.numeroProntuario}}</td>
                            <td><button type="button" class="btn btn-primary" ng-click="showForm()">Editar</button></td>
                            <td><a href='pacientevisualizar.html?codigo_paciente={{item.codigo_paciente}}&action=buscar' class="btn btn-primary" >Visualizar</a></td>
-                           <td><button type="button" class="btn btn-info">Marcar Consulta</button></td>
+                           <td><a href="agendamento.html?codigo_paciente={{item.codigo_paciente}}&action=buscar" class="btn btn-info">Agendar Consulta</a></td>
                        </tr>
                    </tbody>
                </table>

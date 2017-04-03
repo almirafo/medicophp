@@ -26,7 +26,7 @@ class Agenda extends dbConnect {
     
     public function getAgendaByMedico($cod_medico){
         $db = $this->getdatabase(); 
-        $sql = "Select * from agenda where cod_medico = $cod_medico";
+        $sql = "Select * from agenda where cod_medico = $cod_medico and DataAgendada>= now()";
 
         $array = $db->query($sql)->fetchAll();
         header("Content-type: application/json; charset=utf-8"); 

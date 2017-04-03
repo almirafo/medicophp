@@ -41,17 +41,62 @@ app.filter('propsFilter', function() {
 
 
 
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
 
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
 
 app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
   var vm = this;
     $scope.paciente = {};
     $scope.agendamento = {};
-    
+    $scope.paciente.selected ={};
     $scope.pacientes =[];
     $scope.agenda=[];
     $scope.medicos=[];
     //$scope.selectedOption={};
+    
+    
+  /*
+   * Carregar se tiver paramentro codigo_paciente
+   * 
+   */  
+   
+   $scope.action          = getUrlParameter('action');
+   $scope.codigo_paciente = getUrlParameter('codigo_paciente');
+   if($scope.codigo_paciente!=null){
+    	$http({
+            url:"api/pacienteAPI.php",
+            params:{codigo_paciente    :$scope.codigo_paciente,
+                    action             :$scope.action
+                   },
+                   method:"get"
+             
+         })
+         .then(function (response){
+                $scope.paciente1 = response.data[0];
+                $scope.paciente.selected ={};
+                $scope.agendamento.nome=$scope.paciente1.nome;
+                $scope.agendamento.ultimaConsulta="17-01-2017";
+                $scope.agendamento.CodigoMedico = 1;
+                $scope.paciente.selected=$scope.paciente1;
+             
+             
+          });
+       
+   }
+   
+    
   vm.disabled = undefined;
   vm.searchEnabled = undefined;
 
