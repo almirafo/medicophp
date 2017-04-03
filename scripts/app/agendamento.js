@@ -138,15 +138,38 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
   
     $scope.salvar = function(){
     	
+          numeroProntuario
+          FoneContato
+          DataAgendada
+          Horario
+          Convenio
+          Retorno
+          NovoPaciente
+          NomePaciente
+          Reagendamento
+          StatusAgendamento
+          codigo_convenio_plano
+          CodigoMedico
+          codigo_paciente
           
         
     	    $http({
             url:"api/agendaAPI.php",
-            params:{codigo_paciente    : $scope.codigo_paciente,
-                    codigoMedico       : $scope.agendamento.CodigoMedico,
-                    DataAgendamento    : $scope.agendamento.data,
-                    FoneContato        : $scope.paciente.selected.fone_res,
-                    Observacao         : $scope.agendamento.observacao,
+            params:{
+
+                    numeroProntuario      : $scope.paciente.selected.numeroProntuario,
+                    FoneContato           : "",
+                    DataAgendada          : "",
+                    Horario               : "",
+                    Convenio              : "",
+                    Retorno               : "",
+                    NovoPaciente          : "",
+                    NomePaciente          : $scope.paciente.selected.nome,
+                    Reagendamento         : "",
+                    StatusAgendamento     : "",
+                    codigo_convenio_plano : $scope.paciente.selected.codigo_convenio_plano,
+                    CodigoMedico          : $scope.agendamento.CodigoMedico,
+
                     action             :"inserir"
                     
                    },
@@ -154,13 +177,13 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
              
          })
          .then(function (response){
-                $scope.paciente1 = response.data[0];
-                $scope.paciente.selected ={};
-                $scope.agendamento.nome=$scope.paciente1.nome;
-                $scope.agendamento.ultimaConsulta="17-01-2017";
-                $scope.agendamento.CodigoMedico = 1;
-                $scope.paciente.selected=$scope.paciente1;
-             
+                $scope.paciente1                  = response.data[0];
+                $scope.paciente.selected          = {};
+                $scope.agendamento.nome           = $scope.paciente1.nome;
+                $scope.agendamento.ultimaConsulta = "";
+                $scope.agendamento.CodigoMedico   = "";
+                $scope.paciente.selected          = $scope.paciente1;
+                $scope.mensagem="Agendado!!!";
              
           });
 
