@@ -1,5 +1,5 @@
 <?php
-
+require '../db/pdoConect.php';
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -12,6 +12,12 @@
  * @author almir.oliveira
  */
 class Agenda extends dbConnect {
+    
+        public function __construct(){
+        parent::__construct();
+    }
+
+    
     
     function utf8_converter($array)
     {
@@ -26,8 +32,9 @@ class Agenda extends dbConnect {
     
     public function getAgendaByMedico($cod_medico){
         $db = $this->getdatabase(); 
-        $sql = "Select * from agenda where cod_medico = $cod_medico and DataAgendada>= now()";
-
+        $sql = "Select * from agendamento where CodigoMedico = $cod_medico";// and DataAgendada>= now()";
+        //echo $sql;
+        //die;
         $array = $db->query($sql)->fetchAll();
         header("Content-type: application/json; charset=utf-8"); 
 
@@ -36,16 +43,60 @@ class Agenda extends dbConnect {
             
     }
     public function insertAgenda($agendaDados){
-
-        $db = $this->getdatabase(); 
-        $sql = "insert into Agendamento set ".
-                "cod_medico   = $agendaDados->cod_medico   , ". 
-                "DataAgendada = $agendaDados->DataAgendada, ";
-                "nomePaciente = $agendaDados->nome";
-
-        $array = $db->prepare($sql)->execute();
-
-
         
+        $db = $this->getdatabase(); 
+                    //"StatusAgendamento     = '$agendaDados[StatusAgendamento]'    ,".
+        $sql = "insert into Agendamento (  numeroProntuario ,    					
+                                           FoneContato      ,    
+					   Convenio         ,  
+                                           codigo_paciente  ,
+                                           DataAgendada     ,
+                                           observacao       ,
+                                           CodigoMedico     ,
+                                           Retorno          ,
+                                           NovoPaciente     ,
+                                           Reagendamento    ,
+                                           codigo_convenio_plano,
+
+
+					   NomePaciente      )  ".
+                    
+					"values  ".
+                                        "(   '".$agendaDados['numeroProntuario']."' ,  ".    					
+					"    '". $agendaDados['FoneContato']    ."' ,  ".   
+					"    '". $agendaDados['Convenio']       ."' ,  ".  
+                                        "    ". $agendaDados['codigo_paciente'] ."  ,  ".
+                                        "    ". "'".$agendaDados['DataAgendada']."'" ." ,  ".  
+                
+                                        "    '". $agendaDados['observacao']   ."' ,  ". 
+                                        "    ". $agendaDados['CodigoMedico']   ." ,  ".  
+
+                                        "    ". $agendaDados['Retorno']   ." ,  ".  
+                                        "    ". $agendaDados['NovoPaciente']   ." ,  ".  
+                                        "    ". $agendaDados['Reagendamento']   ." ,  ".  
+                                        "    ". $agendaDados['codigo_convenio_plano']   ." ,  ".      
+                
+                
+                                        "    '". $agendaDados['NomePaciente']   ."')  ";
+         
+             
+         
+       
+         
+         
+         $db->beginTransaction();
+         echo $sql;
+         if($db->prepare($sql)->execute())
+            {
+             
+             $db->commit();
+                echo 'success'.  $sql;
+            }else{
+
+                $db_err = $database->errorInfo();
+                echo $sql.' Error : ('. $db_err[0] .') -- ' . $db_err[2];
+            }
+        
+         
     }
 }

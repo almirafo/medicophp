@@ -66,7 +66,7 @@
               <div class="form-group row">  
                    <label for="nomePaciente" class="col-sm-2 col-form-label col-form-label-sm">Paciente</label>
                    <div class="col-sm-4" >
-                       <input id="nomePaciente" class="form-control form-control-sm" ng-model="agendamento.nomePaciente"  placeholder="Nome do Paciente">
+                       <input id="nomePaciente" class="form-control form-control-sm" required ng-model="agendamento.nomePaciente"  placeholder="Nome do Paciente">
                    </div>
                    
                    <label class="col-sm-2 col-form-label col-form-label-sm">Ultima Consulta: {{agendamento.ultimaConsulta}}</label>
@@ -74,7 +74,7 @@
                    
                    <label for="novo" class="col-sm-1 col-form-label col-form-label-sm">Novo</label>
                     <div class="col-sm-3">
-                        <input type="checkbox" class="form-check-input col-form-label " id="novo">
+                        <input type="checkbox" class="form-check-input col-form-label " ng-model="agendamento.novo" id="novo">
                     </div>
               </div>
               
@@ -120,6 +120,8 @@
                </div>
                 <div class="col-sm-2">    
                     <button class="btn btn-primary" data-toggle="modal" data-target="#PlanosModal" ng-click="getPlano(paciente.selected.cod_convenio)" >Rede Crendenciada</button>
+                    
+                    <label class="label label-default" >{{agendamento.NomePlano}}</label>
                 </div>
                 
                 
@@ -144,12 +146,26 @@
                
             </div>            
             
-               <div class="form-group row"> 
-                <label for="exampleTextarea" class="col-sm-2 col-form-label-sm ">Observação</label>
-                <div class="col-sm-10">
-                    <textarea class="form-control" ng-model="agendamento.observacao" ng-value="agendamento.observacao" id="observacao" rows="3"></textarea>
-                </div>
-               </div>
+            <div class="form-group row">
+                   <label for="retorno" class="col-sm-2 col-form-label col-form-label-sm">Retorno</label>
+                    <div class="col-sm-3">
+                        <input type="checkbox" class="form-check-input col-form-label " ng-model="agendamento.retorno" id="retorno">
+                    </div>
+
+                   <label for="reagendamento" class="col-sm-2 col-form-label col-form-label-sm">Reagendamento</label>
+                    <div class="col-sm-3">
+                        <input type="checkbox" class="form-check-input col-form-label " ng-model="agendamento.reagendamento" id="reagendamento">
+                    </div>
+
+
+            </div>  
+            
+              <div class="form-group row"> 
+             <label for="exampleTextarea" class="col-sm-2 col-form-label-sm ">Observação</label>
+             <div class="col-sm-10">
+                 <textarea class="form-control" ng-model="agendamento.observacao" ng-value="agendamento.observacao" id="observacao" rows="3"></textarea>
+             </div>
+            </div>
                 
                 
                 
@@ -263,7 +279,7 @@
                       </thead>
                     <tbody>
                         <tr ng-repeat="item1 in planos">
-                          <td>{{item1.NomePlano}}</td>
+                            <td><a href="#" data-dismiss="modal" ng-click="escolherPlano(item1)">{{item1.NomePlano}}</a> </td>
                         </tr>
                     </tbody>
                       

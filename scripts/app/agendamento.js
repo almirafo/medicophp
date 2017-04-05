@@ -137,52 +137,40 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
   
   
     $scope.salvar = function(){
-    	
-          numeroProntuario
-          FoneContato
-          DataAgendada
-          Horario
-          Convenio
-          Retorno
-          NovoPaciente
-          NomePaciente
-          Reagendamento
-          StatusAgendamento
-          codigo_convenio_plano
-          CodigoMedico
-          codigo_paciente
-          
         
-    	    $http({
-            url:"api/agendaAPI.php",
-            params:{
+        if ($scope.agendamento.data==null){
+            
+            alert("data de agendamento é obrigatório");
+            return;
+        }
+        
+        var params1 ={
 
                     numeroProntuario      : $scope.paciente.selected.numeroProntuario,
-                    FoneContato           : "",
-                    DataAgendada          : "",
-                    Horario               : "",
-                    Convenio              : "",
-                    Retorno               : "",
-                    NovoPaciente          : "",
-                    NomePaciente          : $scope.paciente.selected.nome,
-                    Reagendamento         : "",
-                    StatusAgendamento     : "",
-                    codigo_convenio_plano : $scope.paciente.selected.codigo_convenio_plano,
+                    FoneContato           : $scope.paciente.selected.fone_res,
+                    DataAgendada          : $scope.agendamento.data,
+                    Horario               : "null",
+                    Convenio              : $scope.paciente.selected.cod_convenio,
+                    Retorno               : $scope.agendamento.retorno,
+                    NovoPaciente          : $scope.agendamento.novo,
+                    NomePaciente          : $scope.agendamento.nomePaciente,
+                    Reagendamento         : $scope.agendamento.reagendamento,
+                    StatusAgendamento     : "null",
+                    codigo_convenio_plano : $scope.agendamento.codigo_convenio_plano,
                     CodigoMedico          : $scope.agendamento.CodigoMedico,
-
-                    action             :"inserir"
+                    codigo_paciente       : $scope.paciente.selected.codigo_paciente,
+                    observacao            : $scope.agendamento.observacao,
+                    action                : "inserir"
                     
-                   },
-                   method:"post"
+                   }
+    	    $http({
+                    url    : "api/agendaAPI.php",
+                    params : params1   ,
+                    method : "POST"
              
          })
          .then(function (response){
-                $scope.paciente1                  = response.data[0];
-                $scope.paciente.selected          = {};
-                $scope.agendamento.nome           = $scope.paciente1.nome;
-                $scope.agendamento.ultimaConsulta = "";
-                $scope.agendamento.CodigoMedico   = "";
-                $scope.paciente.selected          = $scope.paciente1;
+             alert(response.data);
                 $scope.mensagem="Agendado!!!";
              
           });
@@ -247,7 +235,11 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
         
     }
   
-  
+  $scope.escolherPlano = function(item1){
+      
+      $scope.agendamento.codigo_convenio_plano = item1.codigo_convenio_plano
+      $scope.agendamento.NomePlano = item1.NomePlano
+  }
   
   $scope.getPlano = function (cod_convenio){
        $http.get("http://localhost:90/medico/api/getPlanoAPI.php?cod_convenio="+cod_convenio ).then(

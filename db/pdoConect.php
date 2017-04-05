@@ -28,7 +28,16 @@ class dbConnect {
     	
     	//create a new PDO object
     	$this->database = new PDO("odbc:DRIVER={Microsoft Access Driver (*.mdb, *.accdb)}; DBQ=$database_path; Uid=$db_username; Pwd=$db_password");
-    	 
+        $this->database->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        /*
+            $db = 'C:\\sistemas\\verea_db.accdb';
+            $conn = new COM('ADODB.Connection');
+            $conn->Open("DRIVER={Driver do Microsoft Access (*.mdb)}; DBQ=$db");
+            $this->database =$conn; 
+        */
+        
+        
+        
     }
     
     
