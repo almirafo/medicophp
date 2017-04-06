@@ -9,6 +9,20 @@ if($action=="listar"){
     echo $agenda->getAgendaByMedico($cod_medico);
 };
 
+
+if($action == 'alterarStatus'){
+    $statusAgendamento      = isset($_GET['statusAgendamento'])      ?$_GET['statusAgendamento']     :"";
+    $codigo_agenda          = isset($_GET['codigo_agenda'])      ?$_GET['codigo_agenda']     :0;
+    
+    
+    $agendaDados = array(
+		    "statusAgendamento"      => $statusAgendamento   ,
+                    "codigo_agenda"           => $codigo_agenda        
+        
+    );
+    $agenda->alterarAgendaStatus($agendaDados);
+}
+
 if($action=="inserir"){
     
                     $numeroProntuario      = isset($_GET['numeroProntuario'])      ?$_GET['numeroProntuario']     :"";

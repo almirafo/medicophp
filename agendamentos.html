@@ -40,7 +40,8 @@
                            <th ng-click="sort('NomePaciente')">Nome
                            		<span class="glyphicon sort-icon" ng-show="sortKey=='nome'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
                            </th>
-                           <th >numero Prontuario</th>
+                           <th>numero Prontuario</th>
+                           <th>Status</th>
                        </tr>
                    </thead>
                    <tbody>
@@ -48,7 +49,12 @@
                            <td>{{item.DataAgendada}}</td>
                            <td>{{item.NomePaciente}}</td>
                            <td>{{item.numeroProntuario}}</td>
-                           <td><a href='pacientevisualizar.html?codigo_paciente={{item.codigo_paciente}}&action=buscar' class="btn btn-primary" >Visualizar</a></td>
+                           <td>
+                               <select ng-change="alterarStatus(item.StatusAgendamento ,item.codigo_agenda)" class="form-control form-control-sm" ng-model="item.StatusAgendamento" ng-value="item.StatusAgendamento"
+                                    ng-options="statusAgenda.StatusAgendamento as statusAgenda.StatusAgendamento for statusAgenda in statusAgenda.availableOptions"></select>    
+
+                           </td>
+                           <td><a href='pacientevisualizar.html?codigo_paciente={{item.codigo_paciente}}&action=buscar' class="btn btn-primary" >Visualizar Paciente</a></td>
                            <td><a href="agendamento.html?codigo_paciente={{item.codigo_paciente}}&action=buscar&from=listaAgendamento" class="btn btn-info">Confirmar Consulta</a></td>
                        </tr>
                    </tbody>

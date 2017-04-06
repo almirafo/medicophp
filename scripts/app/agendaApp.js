@@ -29,10 +29,32 @@ app.controller('agendamentosCtrl',[ '$scope', '$http',  function ($scope, $http 
             }) ;
     
  
+ 
+        $scope.alterarStatus = function(status,codigo_agenda){
+        $http.get("http://localhost:90/medico/api/agendaAPI.php?action=alterarStatus&statusAgendamento="+status+"&codigo_agenda="+codigo_agenda).then(
+            function(response){
+                    $scope.mensagem = response.data;
+                    
+            }) ;
+            
+        }    
+ 
 	$scope.sort = function(keyname){
 	    $scope.sortKey = keyname;   //set the sortKey to the param passed
 	    $scope.reverse = !$scope.reverse; //if true make it false and vice versa
 	}
+        
+        $scope.statusAgenda ={
+         availableOptions: [
+                            {StatusAgendamento : "Não veio"  },
+                            {StatusAgendamento : "Atrasado"  },
+                            {StatusAgendamento : "Confirmado"},
+                            {StatusAgendamento : "Presente"  }
+         ]
+     }
+        
+        
+        
 }]);
 
 

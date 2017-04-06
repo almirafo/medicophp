@@ -29,7 +29,7 @@
 				            <label >Search</label>
 				            <input type="text" ng-model="search" class="form-control" placeholder="Search">
                                             <button type="button" class="btn btn-primary">Novo Paciente</button>
-                                            <button type="button" class="btn btn-info">Agendar Consulta</button>
+                                            <a href="agendamento.html" class="btn btn-info">Agendar Nova Consulta</a>
 				        </div>
 				</form>
             

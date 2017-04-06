@@ -14,89 +14,99 @@ require '../db/pdoConect.php';
 class Agenda extends dbConnect {
     
         public function __construct(){
-        parent::__construct();
-    }
-
-    
-    
-    function utf8_converter($array)
-    {
-    array_walk_recursive($array, function(&$item, $key){
-        if(!mb_detect_encoding($item, 'utf-8', true)){
-                $item = utf8_encode($item);
+            parent::__construct();
         }
-    });
- 
-    return $array;
-    }
+
+        function utf8_converter($array)
+        {
+            array_walk_recursive($array, function(&$item, $key){
+                if(!mb_detect_encoding($item, 'utf-8', true)){
+                        $item = utf8_encode($item);
+                }
+            });
+
+            return $array;
+        }
     
-    public function getAgendaByMedico($cod_medico){
-        $db = $this->getdatabase(); 
-        $sql = "Select * from agendamento where CodigoMedico = $cod_medico";// and DataAgendada>= now()";
-        //echo $sql;
-        //die;
-        $array = $db->query($sql)->fetchAll();
-        header("Content-type: application/json; charset=utf-8"); 
+    
+        public function alterarAgendaStatus($agendaDados){
+         $db = $this->getdatabase(); 
 
-        return  json_encode($this->utf8_converter($array));
+            $sql = "update Agendamento set statusAgendamento ='$agendaDados[statusAgendamento]' ".
+                    " where codigo_agenda = $agendaDados[codigo_agenda]";
 
-            
-    }
-    public function insertAgenda($agendaDados){
+             $db->beginTransaction();
+
+             if($db->prepare($sql)->execute())
+                {
+
+                 $db->commit();
+
+                }else{
+
+                    $db_err = $database->errorInfo();
+                    echo $sql.' Error : ('. $db_err[0] .') -- ' . $db_err[2];
+                }
+        }
+
+        public function getAgendaByMedico($cod_medico){
+            $db = $this->getdatabase(); 
+            $sql = "SELECT *
+            FROM Agendamento where CodigoMedico = $cod_medico order by DataAgendada desc; ";// and DataAgendada>= now()";
+
+            $array = $db->query($sql)->fetchAll();
+            header("Content-type: application/json; charset=utf-8"); 
+
+            return  json_encode($this->utf8_converter($array));
+        }
+
+        public function insertAgenda($agendaDados){
         
-        $db = $this->getdatabase(); 
-                    //"StatusAgendamento     = '$agendaDados[StatusAgendamento]'    ,".
-        $sql = "insert into Agendamento (  numeroProntuario ,    					
-                                           FoneContato      ,    
-					   Convenio         ,  
-                                           codigo_paciente  ,
-                                           DataAgendada     ,
-                                           observacao       ,
-                                           CodigoMedico     ,
-                                           Retorno          ,
-                                           NovoPaciente     ,
-                                           Reagendamento    ,
-                                           codigo_convenio_plano,
+            $db = $this->getdatabase(); 
+                        //"StatusAgendamento     = '$agendaDados[StatusAgendamento]'    ,".
+            $sql = "insert into Agendamento (  numeroProntuario ,    					
+                                               FoneContato      ,    
+                                               Convenio         ,  
+                                               codigo_paciente  ,
+                                               DataAgendada     ,
+                                               observacao       ,
+                                               CodigoMedico     ,
+                                               Retorno          ,
+                                               NovoPaciente     ,
+                                               Reagendamento    ,
+                                               codigo_convenio_plano,
+                                               StatusAgendamento,
 
+                                               NomePaciente      )  ".
 
-					   NomePaciente      )  ".
-                    
-					"values  ".
-                                        "(   '".$agendaDados['numeroProntuario']."' ,  ".    					
-					"    '". $agendaDados['FoneContato']    ."' ,  ".   
-					"    '". $agendaDados['Convenio']       ."' ,  ".  
-                                        "    ". $agendaDados['codigo_paciente'] ."  ,  ".
-                                        "    ". "'".$agendaDados['DataAgendada']."'" ." ,  ".  
-                
-                                        "    '". $agendaDados['observacao']   ."' ,  ". 
-                                        "    ". $agendaDados['CodigoMedico']   ." ,  ".  
+                                            "values  ".
+                                            "(   '".$agendaDados['numeroProntuario']."' ,  ".    					
+                                            "    '". $agendaDados['FoneContato']    ."' ,  ".   
+                                            "    '". $agendaDados['Convenio']       ."' ,  ".  
+                                            "    ". $agendaDados['codigo_paciente'] ."  ,  ".
+                                            "    ". "'".$agendaDados['DataAgendada']."'" ." ,  ".  
 
-                                        "    ". $agendaDados['Retorno']   ." ,  ".  
-                                        "    ". $agendaDados['NovoPaciente']   ." ,  ".  
-                                        "    ". $agendaDados['Reagendamento']   ." ,  ".  
-                                        "    ". $agendaDados['codigo_convenio_plano']   ." ,  ".      
-                
-                
-                                        "    '". $agendaDados['NomePaciente']   ."')  ";
-         
-             
-         
-       
-         
-         
-         $db->beginTransaction();
-         echo $sql;
-         if($db->prepare($sql)->execute())
-            {
-             
-             $db->commit();
-                echo 'success'.  $sql;
-            }else{
+                                            "   '". $agendaDados['observacao']   ."' ,  ". 
+                                            "    ". $agendaDados['CodigoMedico']   ." ,  ".  
 
-                $db_err = $database->errorInfo();
-                echo $sql.' Error : ('. $db_err[0] .') -- ' . $db_err[2];
-            }
-        
-         
-    }
+                                            "    ". $agendaDados['Retorno']   ." ,  ".  
+                                            "    ". $agendaDados['NovoPaciente']   ." ,  ".  
+                                            "    ". $agendaDados['Reagendamento']   ." ,  ".  
+                                            "    ". $agendaDados['codigo_convenio_plano']   ." ,  ".      
+                                            "   '". $agendaDados[StatusAgendamento]."' ,".
+
+                                            "    '". $agendaDados['NomePaciente']   ."')  ";
+
+             $db->beginTransaction();
+             echo $sql;
+             if($db->prepare($sql)->execute()){
+                 $db->commit();
+                    echo 'success'.  $sql;
+             }
+             else{
+
+                    $db_err = $database->errorInfo();
+                    echo $sql.' Error : ('. $db_err[0] .') -- ' . $db_err[2];
+             }
+        }
 }

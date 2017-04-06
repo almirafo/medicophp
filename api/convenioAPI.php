@@ -8,6 +8,9 @@ if(isset( $_GET['action'])){
         echo $convenio->listConvenio(); 
     }
     
-   
+      if( $_GET['action']=='buscarConvenioPLano'){
+        echo $convenio->buscarConvenioPLano($_GET['codigoConvenioPlano']); 
+    }
+     
 }
 

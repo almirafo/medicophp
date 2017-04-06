@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="col-sm-2">
-                     <button type="button" class="btn btn-warning">Paciente Novo</button>
+                     <button type="button" class="btn btn-warning" ng-click="setPaciente('novo')">Paciente Novo</button>
                 </div>
                 
                 <div class="col-sm-1">
@@ -152,15 +152,23 @@
                         <input type="checkbox" class="form-check-input col-form-label " ng-model="agendamento.retorno" id="retorno">
                     </div>
 
-                   <label for="reagendamento" class="col-sm-2 col-form-label col-form-label-sm">Reagendamento</label>
-                    <div class="col-sm-3">
+                   <label for="reagendamento" class="col-sm-1 col-form-label col-form-label-sm">Reagendamento</label>
+                    <div class="col-sm-2">
                         <input type="checkbox" class="form-check-input col-form-label " ng-model="agendamento.reagendamento" id="reagendamento">
                     </div>
 
 
             </div>  
             
-              <div class="form-group row"> 
+              <div class="form-group row">
+                  <label for="statusAgendamento" class="col-sm-2 col-form-label col-form-label-sm">Status</label>
+                   
+                    <div class="col-sm-2">
+                        <select class="form-control form-control-sm" ng-model="agendamento.statusAgenda" ng-value="agendamento.statusAgenda"
+                        ng-options="statusAgenda.StatusAgendamento as statusAgenda.StatusAgendamento for statusAgenda in statusAgenda.availableOptions"></select>    
+                    </div>    
+              </div> 
+             <div class="form-group row"> 
              <label for="exampleTextarea" class="col-sm-2 col-form-label-sm ">Observação</label>
              <div class="col-sm-10">
                  <textarea class="form-control" ng-model="agendamento.observacao" ng-value="agendamento.observacao" id="observacao" rows="3"></textarea>
