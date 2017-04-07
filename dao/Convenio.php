@@ -47,7 +47,10 @@ class Convenio extends dbConnect{
             $array = $db->query($sql)->fetch();
             header("Content-type: application/json; charset=utf-8"); 
             
-          $array= $this->utf8_converter($array);
+            if ($array!=""){
+                $array= $this->utf8_converter($array);
+                return [];
+            }
        return  json_encode($array);
         
     }

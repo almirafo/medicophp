@@ -182,7 +182,7 @@
                     <button type="button" class="btn btn-primary" ng-click="salvar()">Salvar</button>
                 </div>
                 <div class="col-sm-9">        
-                    <button type="button" class="btn btn-info" ng-click="geraConsulta()">Gerar Consulta</button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#GeraconsultaModal"  ng-click="">Gerar Consulta</button>
                 </div>
                 <div class="col-sm-2">    
                  <button class="btn btn-default" ng-click="clear()">Limpar</button>
@@ -303,6 +303,55 @@
 
   </div>
 </div>
+
+
+
+
+
+<!-- Modal Planos-->
+<div id="GeraconsultaModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Gera Consulta</h4>
+      </div>
+      <div class="modal-body">
+            <div class="table-responsive">
+                
+                <form ng-submit="inserirConsulta()">
+                    
+                    <p>{{paciente.selected.nome}}<p>
+                    <p>{{paciente.selected.numeroProntuario}}</p>
+                    
+                    <p>{{agendamento.data}}</p>
+                    
+                    <p>Guia <input type="text" ng-model="agendamento.numeroGuia"></p>
+                    
+                    <div class="form-group row"> 
+                    <label for="exampleTextarea" class="col-sm-2 col-form-label-sm ">Observação</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" ng-model="consulta.observacao" ng-value="consulta.observacao" id="observacao" rows="3"></textarea>
+                    </div>
+                    
+                </form>
+            </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-primary" ng-click="gerarConsulta()" data-dismiss="modal">Salvar</button>  
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
 
 
         

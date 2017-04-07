@@ -10,8 +10,9 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-route.min.js">
-        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-route.min.js"></script>
+                <script src="scripts/modal.js" type="text/javascript"></script>
+        <script src="scripts/moment.min.js" type="text/javascript"></script>
         <script src="scripts/jquery.dataTables.min.js" type="text/javascript"></script>
         <script src="scripts/pacientesApp.js" type="text/javascript"></script>
         <script src="scripts/dirPagination.js" type="text/javascript"></script>
@@ -47,12 +48,17 @@
                            		<span class="glyphicon sort-icon" ng-show="sortKey=='nome'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
                            </th>
                            <th >numero Prontuario</th>
+                           <th ></th>
+                           <th ></th>
+                           <th ></th>
+                           <th ></th>
                        </tr>
                    </thead>
                    <tbody>
                        <tr dir-paginate="item in pacientes|orderBy:sortKey:reverse |filter:search|itemsPerPage:20">
                            <td>{{item.nome}}</td>
                            <td>{{item.numeroProntuario}}</td>
+                           <td><button class="glyphicon glyphicon-paste" data-toggle="modal" data-target="#PlanosModal" ng-click="listaConsultas()"></button></td>
                            <td><button type="button" class="btn btn-primary" ng-click="showForm()">Editar</button></td>
                            <td><a href='pacientevisualizar.html?codigo_paciente={{item.codigo_paciente}}&action=buscar' class="btn btn-primary" >Visualizar</a></td>
                            <td><a href="agendamento.html?codigo_paciente={{item.codigo_paciente}}&action=buscar" class="btn btn-info">Agendar Consulta</a></td>
@@ -66,6 +72,50 @@
                 </dir-pagination-controls>
          </div>
  
+        
+        
+<!-- Modal Ultimas Consultas-->
+<div id="PlanosModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Ultimas Consultas</h4>
+      </div>
+      <div class="modal-body">
+          <div class="table-responsive">
+             <table class="table table-condensed" >
+                    <thead>
+                        <tr>
+                          <th>Data</th>
+                        </tr>
+                        
+                        
+                      </thead>
+                    <tbody>
+                        <tr ng-repeat="consulta in consultas">
+                          <td>{{consulta.DataAtendimento}}</td>
+                        </tr>
+                    </tbody>
+              </table>
+            </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+        
+        
+        
+        
+        
+        
     </body>
 </html>
 

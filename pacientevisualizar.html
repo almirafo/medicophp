@@ -79,7 +79,7 @@
                   <ul class="nav nav-tabs">
                     <li class="active"> <a data-toggle="tab" href="#home"> <span class="glyphicon glyphicon-home"></span> Endereço Residencial</a></li>
                     <li>               <a data-toggle="tab" href="#menu1">Endereço Comercial</a></li>
-                    <li>               <a data-toggle="tab" href="#menu2">Ultimas Consultas</a></li>
+                    <li>               <a data-toggle="tab" href="#menu2" ng-click="listaConsultas()">Ultimas Consultas</a></li>
                     <li>               <a data-toggle="tab" href="#menu3">Ultimos Agendamentos</a></li>
                   </ul>
                 <div class="tab-content">
@@ -107,8 +107,10 @@
 
                         <div id="menu2" class="tab-pane fade">
                             <h3>Ultimas Consultas</h3>
-                            <p>30/11/2016</p>
-                            <p>30/10/2016</p>
+                            <div ng-repeat="consulta in consultas">
+                                <p>{{consulta.DataAtendimento}}</p>
+                                
+                            </div>
                         </div>
 
                         <div id="menu3" class="tab-pane fade">

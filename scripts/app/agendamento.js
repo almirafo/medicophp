@@ -64,6 +64,7 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
     $scope.pacientes =[];
     $scope.agenda=[];
     $scope.medicos=[];
+    $scope.consulta={};
     //$scope.selectedOption={};
     
     
@@ -131,12 +132,14 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
   $scope.getPaciente =  function (){
       $scope.agendamento.nomePaciente=$scope.paciente.selected.nome;
       $scope.agendamento.ultimaConsulta="17-01-2017";
-      
+      if($scope.paciente.selected.codigo_convenio_plano==null){
+          $scope.paciente.selected.codigo_convenio_plano= 0;
+      }
     	 $http.get("http://localhost:90/medico/api/convenioAPi.php?action=buscarConvenioPLano&codigoConvenioPlano="+$scope.paciente.selected.codigo_convenio_plano).then(
             function(response){
                     
                     $scope.agendamento.NomePlano = response.data.NomePlano;
-                    $scope.agendamento.codigo_convenio_plano = $scope.paciente.selected.codigo_convenio_plano
+                    $scope.agendamento.codigo_convenio_plano = $scope.paciente.selected.codigo_convenio_plano;
             }) ;
       
       
@@ -314,6 +317,99 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
             $scope.agendamento.novo=true;
         }
      }
+ 
+     $scope.gerarConsulta=function(){
+         if($scope.agendamento.codigo_agenda==null){
+             
+            $scope.consulta.codigo_paciente = $scope.paciente.selected.codigo_paciente;
+            $scope.consulta.DataAtendimento = Date.now();
+            $scope.consulta.codigo_medico   = $scope.agendamento.CodigoMedico;
+            
+            $scope.consulta.numeroProntuario = $scope.paciente.selected.numeroProntuario;
+            $scope.consulta.dataAtendimento  =  Date.now();
+            $scope.consulta.codigoConvenio   =  $scope.paciente.selected.cod_convenio;
+            $scope.consulta.numeroGuia       =  $scope.agendamento.numeroGuia;
+
+            $scope.consulta.Retorno               = $scope.agendamento.retorno;
+            $scope.consulta.codigo_convenio_plano = $scope.agendamento.codigo_convenio_plano;
+             
+           
+             
+        
+        if ($scope.agendamento.data==null){
+            
+            alert("data de agendamento é obrigatório");
+            return;
+        }
+        
+        if ($scope.agendamento.codigo_convenio_plano==null){
+            alert("Escolha a rede Credenciada do Convênio");
+            return;
+            
+        }
+        
+        if ($scope.agendamento.CodigoMedico ==null){
+            alert("Escolha o médico");
+            return;
+            
+        }
+
+        
+        
+        var params1 ={           
+	   codigo_paciente        : $scope.consulta.codigo_paciente ,
+           DataAtendimento        : $scope.consulta.DataAtendimento ,
+           codigo_medico          : $scope.consulta.codigo_medico   ,
+            
+           numeroProntuario       : $scope.consulta.numeroProntuario,
+           dataAtendimento        : $scope.consulta.dataAtendimento ,
+           codigoConvenio         : $scope.consulta.codigoConvenio  ,
+           numeroGuia             : $scope.consulta.numeroGuia      ,
+           
+           Retorno                : $scope.consulta.Retorno          ,     
+           codigo_convenio_plano  : $scope.consulta.codigo_convenio_plano ,
+           action                 : "inserir"
+	   }
+    	   $http({
+                    url    : "api/consultaAPI.php",
+                    data : params1   ,
+                    method : "POST"
+             
+         })
+         .success(function (response){
+             alert(response.data);
+                $scope.mensagem="Salvo!!!";
+             
+          })
+          .error(function (response){
+             alert("Eita!!!");
+                
+             
+          }
+                  );
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+         }else{
+             alert("Gere consulta somente após salvar o agendamento")
+             
+	     
+             
+             
+             return;
+         }
+     }
+ 
  
   });
   

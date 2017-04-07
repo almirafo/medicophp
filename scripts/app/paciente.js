@@ -62,5 +62,11 @@ app.controller('pacienteController',['$scope','$http', function ($scope,$http){
                      $scope.paciente.nascimento = dataAtualFormatada($scope.paciente.nascimento);
           });
          
+            $scope.listaConsultas = function (){
+             $http.get("http://localhost:90/medico/api/consultaAPI.php?action=listarByPaciente&codigo_paciente=1").then(
+                     function(response){
+                        $scope.consultas = response.data;
+            }) ;
+        };
 
 }]);
