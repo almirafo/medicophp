@@ -65,6 +65,7 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
     $scope.agenda=[];
     $scope.medicos=[];
     $scope.consulta={};
+    $scope.Ultimaconsulta={};
     //$scope.selectedOption={};
     
     
@@ -73,8 +74,40 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
    * 
    */  
    
-   $scope.action          = getUrlParameter('action');
-   $scope.codigo_paciente = getUrlParameter('codigo_paciente');
+   $scope.action                    = getUrlParameter('action');
+   $scope.codigo_paciente           = getUrlParameter('codigo_paciente');
+   $scope.from                      = getUrlParameter('from');
+   $scope.agendamento.codigo_agenda = getUrlParameter('codigoAgenda');
+    
+    if ($scope.from !=null && $scope.from=='listaAgendamento'){
+     /* vá buscar de Agendamento*/
+        
+        $http({
+            url:"api/agendaAPI.php",
+            params:{codigo_paciente    :$scope.codigo_paciente,
+                    codigo_agenda      : $scope.agendamento.codigo_agenda,
+                    action             :$scope.action
+                   },
+                   method:"get"
+             
+         })
+         .success(function (response){
+                
+                $scope.agendamento={};
+                $scope.paciente.selected ={};
+                $scope.agendamento.nomePaciente=response[0].nomePaciente;
+                
+                $scope.agendamento.CodigoMedico = response[0].CodigoMedico;
+                $scope.agendamento.data = response[0].DataAgendada;
+                if(response.data[0].codigo_paciente!=null){
+                   // $scope.paciente.selected=$scope.paciente1;
+                }
+             
+             
+          });
+        
+   }
+//------------------------------------------------------------------------------       
    if($scope.codigo_paciente!=null){
     	$http({
             url:"api/pacienteAPI.php",
@@ -130,22 +163,31 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
   };
   
   $scope.getPaciente =  function (){
+      this.getUltimaConsulta($scope.paciente.selected.codigo_paciente);
       $scope.agendamento.nomePaciente=$scope.paciente.selected.nome;
-      $scope.agendamento.ultimaConsulta="17-01-2017";
+      $scope.agendamento.ultimaConsulta= this.Ultimaconsulta.dataAtendimento;
       if($scope.paciente.selected.codigo_convenio_plano==null){
           $scope.paciente.selected.codigo_convenio_plano= 0;
       }
-    	 $http.get("http://localhost:90/medico/api/convenioAPi.php?action=buscarConvenioPLano&codigoConvenioPlano="+$scope.paciente.selected.codigo_convenio_plano).then(
+    	 $http.get("http://localhost:90/medico/api/convenioAPI.php?action=buscarConvenioPlano&codigoConvenioPlano="+$scope.paciente.selected.codigo_convenio_plano).then(
             function(response){
                     
-                    $scope.agendamento.NomePlano = response.data.NomePlano;
+                    $scope.agendamento.NomePlano = response.data[0].NomePlano;
                     $scope.agendamento.codigo_convenio_plano = $scope.paciente.selected.codigo_convenio_plano;
             }) ;
       
       
   };
   
-  
+  $scope.getUltimaConsulta = function (codigo_paciente){
+      
+      	 $http.get("http://localhost:90/medico/api/consultaAPI.php?action=ultimaConsulta&codigoPaciente="+codigo_paciente).then(
+            function(response){
+                
+                    $scope.Ultimaconsulta= response.data[0];
+            }) ;
+      
+  }
   
     $scope.salvar = function(){
         
@@ -326,7 +368,7 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
             $scope.consulta.codigo_medico   = $scope.agendamento.CodigoMedico;
             
             $scope.consulta.numeroProntuario = $scope.paciente.selected.numeroProntuario;
-            $scope.consulta.dataAtendimento  =  Date.now();
+            $scope.consulta.dataAtendimento  = $scope.agendamento.data;
             $scope.consulta.codigoConvenio   =  $scope.paciente.selected.cod_convenio;
             $scope.consulta.numeroGuia       =  $scope.agendamento.numeroGuia;
 
@@ -356,7 +398,7 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
 
         
         
-        var params1 ={           
+        var params1 = $.param({           
 	   codigo_paciente        : $scope.consulta.codigo_paciente ,
            DataAtendimento        : $scope.consulta.DataAtendimento ,
            codigo_medico          : $scope.consulta.codigo_medico   ,
@@ -368,16 +410,18 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
            
            Retorno                : $scope.consulta.Retorno          ,     
            codigo_convenio_plano  : $scope.consulta.codigo_convenio_plano ,
+           observacoes            : $scope.consulta.observacao,
            action                 : "inserir"
-	   }
+	   });
     	   $http({
                     url    : "api/consultaAPI.php",
                     data : params1   ,
-                    method : "POST"
+                    method : "POST",
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
              
          })
          .success(function (response){
-             alert(response.data);
+             alert(response);
                 $scope.mensagem="Salvo!!!";
              
           })

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
-<html lang='en'>
+<html>
 <head>
     <meta charset="UTF-8" /> 
     <title>
-        HTML Document Structure
+        Controle de Agenda Médica e Pacientes 
     </title>
     <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
@@ -37,9 +37,7 @@
 <div class="gradient"></div>
 
 
-<script src="scripts/registre.js" type="text/javascript"></script>
-
-</script>
+<script src="scripts/registre.js" type="text/javascript"></script></script>
 
 </body>
 </html>

@@ -41,16 +41,18 @@ class Convenio extends dbConnect{
     
     public function buscarConvenioPLano($codigoConvenioPlano){
             $db = $this->getdatabase();  
-            $sql = "SELECT NomePlano
+            $sql = "SELECT *
                     FROM convenio_plano where codigo_convenio_plano = $codigoConvenioPlano";
             
-            $array = $db->query($sql)->fetch();
+            $array = $db->query($sql)->fetchAll();
             header("Content-type: application/json; charset=utf-8"); 
             
             if ($array!=""){
                 $array= $this->utf8_converter($array);
-                return [];
+                return json_encode($array);
             }
+            
+           
        return  json_encode($array);
         
     }

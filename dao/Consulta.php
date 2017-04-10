@@ -67,16 +67,43 @@ public function inserir($consultaDados){
                 . "$consultaDados[Retorno], "
                 . "$consultaDados[codigo_convenio_plano], "
                 . "$consultaDados[codigo_paciente]);";
+        
         $db = $this->getdatabase(); 
-        $db->beginTransaction();
+        
 
         if($db->prepare($sql)->execute()) {
-            
-            $db->commit();
             echo $sql;
            }else{
                $db_err = $database->errorInfo();
                echo $sql.' Error : ('. $db_err[0] .') -- ' . $db_err[2];
         }
     }
+    
+    public function ultimaConsulta($consultaDados){
+        
+       $sql = " select * from consulta " .
+              " where codigo_paciente = $consultaDados[codigo_paciente] " .
+              " and dataAtendimento =(select max (dataAtendimento) from consulta  WHERE  codigo_paciente = $consultaDados[codigo_paciente] ) ";
+        
+                $db = $this->getdatabase(); 
+       
+                $array = $db->query($sql)->fetchAll();
+                
+                //return  json_encode($this->utf8_converter($array));
+                return  json_encode($array);
+        }
+        
+        public function buscarPorCodigoAgenda($consultaDados){
+            $sql = " select * from consulta " .
+              " where codigo_paciente = $consultaDados[codigo_paciente] " .
+              " and dataAtendimento =(select max (dataAtendimento) from consulta  WHERE  codigo_paciente = $consultaDados[codigo_paciente] ) ";
+        
+                $db = $this->getdatabase(); 
+       
+                $array = $db->query($sql)->fetchAll();
+                
+                //return  json_encode($this->utf8_converter($array));
+                return  json_encode($array);
+        }
+    
 }

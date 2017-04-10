@@ -326,7 +326,7 @@
                     <p>{{paciente.selected.nome}}<p>
                     <p>{{paciente.selected.numeroProntuario}}</p>
                     
-                    <p>{{agendamento.data}}</p>
+                    <p><input type="date" class="form-control" ng-model="consulta.DataAtendimento" ng-value="agendamento.data"/>-<input type="time" class="form-control" ng-model="consulta.horaAtendimento" ng-value="agendamento.data"/></p>
                     
                     <p>Guia <input type="text" ng-model="agendamento.numeroGuia"></p>
                     

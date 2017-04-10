@@ -67,6 +67,14 @@ if($action=="alterar"){
 if($action=="apagar"){
     
 };
+
 if($action=="buscar"){
+
+    $consultaDados = array(
+            "codigo_agenda"         => $_GET['codigo_agenda']     ,
+            "codigo_paciente"       => $_GET['codigo_paciente']
+            );
+     
+    echo $agenda->buscarPorCodigoAgenda($consultaDados);
     
-};
+}

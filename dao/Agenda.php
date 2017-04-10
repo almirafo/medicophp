@@ -109,4 +109,23 @@ class Agenda extends dbConnect {
                     echo $sql.' Error : ('. $db_err[0] .') -- ' . $db_err[2];
              }
         }
+        
+        
+        
+        public function buscarPorCodigoAgenda($consultaDados){
+
+            $db = $this->getdatabase(); 
+            $sql = "SELECT *
+                    FROM Agendamento where codigo_agenda = $consultaDados[codigo_agenda]  ";
+            
+            $array = $db->query($sql)->fetchAll();
+            header("Content-type: application/json; charset=utf-8"); 
+
+            return  json_encode($this->utf8_converter($array));
+
+
+
+            
+        }
+        
 }

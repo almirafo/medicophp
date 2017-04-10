@@ -3,27 +3,52 @@
 require '../dao/Consulta.php'; 
 
 
+
 $consulta  = new Consulta();
-$action = !isset($_GET['action'])?$_POST['action']:"";
+$action = isset($_GET['action'])?$_GET['action']:$_POST['action'];
+
+
 if($action=="listarByPaciente"){
-    $codigo_paciente= $_GET['codigo_paciente'];
+    $codigo_paciente= $_GET['codigoPaciente'];
     echo $consulta->listarByPaciente($codigo_paciente);
+}
+
+
+if($action=="ultimaConsulta"){
+    
+    $consultaDados = array( "codigo_paciente"      => $_GET['codigoPaciente']);
+    
+    echo $consulta->ultimaConsulta($consultaDados);
+};
+
+
+if($action=="buscar"){
+
+     $consultaDados = array(
+            "codigo_agenda"      => $_POST['codigo_agenda']     ,
+            "codigo_paciente"       => $_POST['codigo_paciente']
+            );
+     
+           echo $consulta->buscarPorCodigoAgenda($consultaDados);
+
+
+    
 }
 
 if($action=="inserir"){
     
      $consultaDados = array(
-            "numeroProntuario"      => $_GET['numeroProntuario']     ,
-            "dataAtendimento"       => $_GET['dataAtendimento']      ,
-            "codigoConvenio"        => $_GET['codigoConvenio']       ,
-            "numeroGuia"            => $_GET['numeroGuia']           ,
-            "observacoes"           => $_GET['observacoes']          ,
-            "Retorno"               => $_GET['Retorno']              , 
-            "codigo_convenio_plano" => $_GET['codigo_convenio_plano'],
-            "codigo_paciente"       => $_GET['codigo_paciente']
+            "numeroProntuario"      => $_POST['numeroProntuario']     ,
+            "dataAtendimento"       => $_POST['dataAtendimento']      ,
+            "codigoConvenio"        => $_POST['codigoConvenio']       ,
+            "numeroGuia"            => $_POST['numeroGuia']           ,
+            "observacoes"           => $_POST['observacoes']          ,
+            "Retorno"               => "false"            , 
+            "codigo_convenio_plano" => $_POST['codigo_convenio_plano'],
+            "codigo_paciente"       => $_POST['codigo_paciente']
             );
      
-     echo $consultaDados; //$consulta->inserir($consultaDados);
+           echo $consulta->inserir($consultaDados);
 }
 /* 
  * To change this license header, choose License Headers in Project Properties.

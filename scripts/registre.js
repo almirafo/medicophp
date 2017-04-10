@@ -18,6 +18,6 @@ $( "#register" ).click(function() {
 
 
 $( "#entrar" ).click(function() {
-  $( "#login-form" ).attr("action","menu.php");
+  $( "#login-form" ).attr("action","pacientes.php");
   $( "#login-form" ).submit();
 });
