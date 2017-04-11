@@ -39,8 +39,34 @@ class Consulta extends dbConnect {
  * 
  *  */
     
+
+public function listar(){
+      $sql = "SELECT  consulta.*, paciente.nome FROM consulta  inner join paciente on (consulta.codigo_paciente= paciente.codigo_paciente) order by dataAtendimento desc";
+    
+        $db = $this->getdatabase(); 
+        $lista = $db->query($sql);
+
+            $lista = $lista->fetchAll();
+    
+    return  json_encode($this->utf8_converter($lista));
+    
+}
+
+
         
 public function listarByPaciente($codigo_paciente){
+      $sql = "SELECT top 6 * FROM consulta  WHERE  codigo_paciente = $codigo_paciente  ";
+    
+        $db = $this->getdatabase(); 
+        $lista = $db->query($sql);
+
+        
+            $lista = $lista->fetchAll();
+        
+    
+    
+    
+    /*
     $lista= array(
              array("DataAtendimento"=>'10/08/2016'),
              array("DataAtendimento"=>'10/07/2016'),
@@ -48,7 +74,7 @@ public function listarByPaciente($codigo_paciente){
              array("DataAtendimento"=>'10/05/2016'),
              array("DataAtendimento"=>'10/04/2016')
             );
-    
+    */
     
     
     return  json_encode($this->utf8_converter($lista));
@@ -72,7 +98,7 @@ public function inserir($consultaDados){
         
 
         if($db->prepare($sql)->execute()) {
-            echo $sql;
+            echo "Consulta Gerada prontuário : $consultaDados[numeroProntuario]";
            }else{
                $db_err = $database->errorInfo();
                echo $sql.' Error : ('. $db_err[0] .') -- ' . $db_err[2];

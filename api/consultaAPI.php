@@ -8,8 +8,14 @@ $consulta  = new Consulta();
 $action = isset($_GET['action'])?$_GET['action']:$_POST['action'];
 
 
+if($action=="listar"){
+    
+    echo $consulta->listar();
+}
+
+
 if($action=="listarByPaciente"){
-    $codigo_paciente= $_GET['codigoPaciente'];
+    $codigo_paciente= $_GET['codigo_paciente'];
     echo $consulta->listarByPaciente($codigo_paciente);
 }
 

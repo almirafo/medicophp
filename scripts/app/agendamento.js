@@ -11,11 +11,9 @@ var app = angular.module("agendamentoApp", ['ngSanitize', 'ui.select']);
 app.filter('propsFilter', function() {
   return function(items, props) {
     var out = [];
-
     if (angular.isArray(items)) {
       items.forEach(function(item) {
         var itemMatches = false;
-
         var keys = Object.keys(props);
         for (var i = 0; i < keys.length; i++) {
           var prop = keys[i];
@@ -25,7 +23,6 @@ app.filter('propsFilter', function() {
             break;
           }
         }
-
         if (itemMatches) {
           out.push(item);
         }
@@ -34,7 +31,6 @@ app.filter('propsFilter', function() {
       // Let the output be the input untouched
       out = items;
     }
-
     return out;
   }
 });
@@ -46,7 +42,6 @@ var getUrlParameter = function getUrlParameter(sParam) {
         sURLVariables = sPageURL.split('&'),
         sParameterName,
         i;
-
     for (i = 0; i < sURLVariables.length; i++) {
         sParameterName = sURLVariables[i].split('=');
 
@@ -58,16 +53,14 @@ var getUrlParameter = function getUrlParameter(sParam) {
 
 app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
   var vm = this;
-    $scope.paciente = {};
-    $scope.agendamento = {};
-    $scope.paciente.selected ={};
-    $scope.pacientes =[];
-    $scope.agenda=[];
-    $scope.medicos=[];
-    $scope.consulta={};
-    $scope.Ultimaconsulta={};
-    //$scope.selectedOption={};
-    
+    $scope.paciente          = {};
+    $scope.agendamento       = {};
+    $scope.paciente.selected = {};
+    $scope.pacientes         = [];
+    $scope.agenda            = [];
+    $scope.medicos           = [];
+    $scope.consulta          = {};
+    $scope.Ultimaconsulta    = {};
     
   /*
    * Carregar se tiver paramentro codigo_paciente
@@ -78,58 +71,90 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
    $scope.codigo_paciente           = getUrlParameter('codigo_paciente');
    $scope.from                      = getUrlParameter('from');
    $scope.agendamento.codigo_agenda = getUrlParameter('codigoAgenda');
-    
-    if ($scope.from !=null && $scope.from=='listaAgendamento'){
+   
+    //------------------------------------------------------------------------
+    if ($scope.from !==null && $scope.from==='listaAgendamento'){
      /* vá buscar de Agendamento*/
-        
         $http({
             url:"api/agendaAPI.php",
-            params:{codigo_paciente    :$scope.codigo_paciente,
+            params:{codigo_paciente    : $scope.codigo_paciente,
                     codigo_agenda      : $scope.agendamento.codigo_agenda,
-                    action             :$scope.action
+                    action             : $scope.action
                    },
                    method:"get"
-             
          })
          .success(function (response){
-                
-                $scope.agendamento={};
-                $scope.paciente.selected ={};
-                $scope.agendamento.nomePaciente=response[0].nomePaciente;
-                
+                $scope.consulta          = {};
+                $scope.agendamento       = {};
+                $scope.paciente.selected = {};
+                $scope.agendamento.nomePaciente = response[0].NomePaciente;
                 $scope.agendamento.CodigoMedico = response[0].CodigoMedico;
-                $scope.agendamento.data = response[0].DataAgendada;
-                if(response.data[0].codigo_paciente!=null){
-                   // $scope.paciente.selected=$scope.paciente1;
+                $scope.agendamento.data         = response[0].DataAgendada;
+                
+                //getUltimaConsulta($scope.paciente.selected.codigo_paciente);
+                
+                $http.get("http://localhost:90/medico/api/consultaAPI.php?action=ultimaConsulta&codigoPaciente="+$scope.codigo_paciente)
+              .then(
+                    function(result){
+                            $scope.agendamento.ultimaConsulta= result.data[0].dataAtendimento;
+                    }) ;
+                
+                
+                
+              $http.get("http://localhost:90/medico/api/convenioAPI.php?action=buscarConvenioPlano&codigoConvenioPlano="+response[0].codigo_convenio_plano)
+              .then(
+                    function(responsePlano){
+                            $scope.agendamento.NomePlano             = responsePlano.data[0].NomePlano;
+                            $scope.agendamento.codigo_convenio_plano = responsePlano.data[0].codigo_convenio_plano;
+                    }) ;
+                
+               // $scope.agendamento.ultimaConsulta= $scope.Ultimaconsulta.dataAtendimento;
+
+                
+                
+                
+                
+                
+                // pege o resto das informações do cadastro de paciente caso exista
+                if(response[0].codigo_paciente!==null){
+                        $http({
+                            url:"api/pacienteAPI.php",
+                            params:{codigo_paciente    :$scope.codigo_paciente,
+                                    action             :$scope.action
+                                   },
+                                   method:"get"
+                         })
+                         .then(function (response){
+                                $scope.paciente1 = response.data[0];
+                                $scope.paciente.selected=$scope.paciente1;
+                          });
                 }
-             
-             
           });
-        
+      
+          
+   } else{
+   //------------------------------------------------------------------------------       
+        if($scope.codigo_paciente!==null){
+             $http({
+                url    : "api/pacienteAPI.php",
+                params : {codigo_paciente    : $scope.codigo_paciente,
+                          action             : $scope.action
+                         },
+                method : "get"
+              })
+              .then(function (response){
+                     $scope.paciente1 = response.data[0];
+                     $scope.paciente.selected = {};
+                     $scope.agendamento       = {};
+                     $scope.agenda            = [];
+                     $scope.consulta          = {};
+                     $scope.paciente.selected          = $scope.paciente1;
+                     $scope.agendamento.nomePaciente   = $scope.paciente1.nome;
+                     $scope.agendamento.ultimaConsulta = null;
+                     
+               });
+      }
    }
-//------------------------------------------------------------------------------       
-   if($scope.codigo_paciente!=null){
-    	$http({
-            url:"api/pacienteAPI.php",
-            params:{codigo_paciente    :$scope.codigo_paciente,
-                    action             :$scope.action
-                   },
-                   method:"get"
-             
-         })
-         .then(function (response){
-                $scope.paciente1 = response.data[0];
-                $scope.paciente.selected ={};
-                $scope.agendamento.nomePaciente=$scope.paciente1.nome;
-                $scope.agendamento.ultimaConsulta="";
-                $scope.agendamento.CodigoMedico = "1";
-                $scope.paciente.selected=$scope.paciente1;
-             
-             
-          });
-       
-   }
-   
     
   vm.disabled = undefined;
   vm.searchEnabled = undefined;
@@ -154,45 +179,44 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
     vm.searchEnabled = false;
   };
 
-  vm.clear = function() {
-    vm.person.selected   = undefined;
-    vm.address.selected  = undefined;
-    vm.paciente.selected = undefined;
-    vm.FoneContato.selected = undefined;
-    vm.state.selected    = undefined;
+  $scope.clear = function() {
   };
   
+  /**
+   * pega informações de paciente na tabela de Pacientes 
+   * @returns {undefined}
+   */
   $scope.getPaciente =  function (){
-      this.getUltimaConsulta($scope.paciente.selected.codigo_paciente);
+      
+      
+      
       $scope.agendamento.nomePaciente=$scope.paciente.selected.nome;
       $scope.agendamento.ultimaConsulta= this.Ultimaconsulta.dataAtendimento;
-      if($scope.paciente.selected.codigo_convenio_plano==null){
+      if($scope.paciente.selected.codigo_convenio_plano===null){
           $scope.paciente.selected.codigo_convenio_plano= 0;
       }
-    	 $http.get("http://localhost:90/medico/api/convenioAPI.php?action=buscarConvenioPlano&codigoConvenioPlano="+$scope.paciente.selected.codigo_convenio_plano).then(
-            function(response){
-                    
-                    $scope.agendamento.NomePlano = response.data[0].NomePlano;
-                    $scope.agendamento.codigo_convenio_plano = $scope.paciente.selected.codigo_convenio_plano;
-            }) ;
-      
-      
+    	 $http.get("http://localhost:90/medico/api/convenioAPI.php?action=buscarConvenioPlano&codigoConvenioPlano="+$scope.paciente.selected.codigo_convenio_plano)
+              .then(
+                    function(response){
+                            $scope.agendamento.NomePlano             = response.data[0].NomePlano;
+                            $scope.agendamento.codigo_convenio_plano = $scope.paciente.selected.codigo_convenio_plano;
+                    }) ;
+  };
+  /**
+   * pega dados de Ultima Consulta realizada
+   * @param {type} codigo_paciente
+   * @returns {undefined}
+   */
+  $scope.getUltimaConsulta = function (codigo_paciente){
+      	 $http.get("http://localhost:90/medico/api/consultaAPI.php?action=ultimaConsulta&codigoPaciente="+codigo_paciente)
+              .then(
+                    function(response){
+                            $scope.Ultimaconsulta= response.data[0];
+                    }) ;
   };
   
-  $scope.getUltimaConsulta = function (codigo_paciente){
-      
-      	 $http.get("http://localhost:90/medico/api/consultaAPI.php?action=ultimaConsulta&codigoPaciente="+codigo_paciente).then(
-            function(response){
-                
-                    $scope.Ultimaconsulta= response.data[0];
-            }) ;
-      
-  }
-  
-    $scope.salvar = function(){
-        
+  $scope.salvar = function(){
         if ($scope.agendamento.data==null){
-            
             alert("data de agendamento é obrigatório");
             return;
         }
@@ -200,17 +224,12 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
         if ($scope.agendamento.codigo_convenio_plano==null){
             alert("Escolha a rede Credenciada do Convênio");
             return;
-            
         }
         
         if ($scope.agendamento.CodigoMedico ==null){
             alert("Escolha o médico");
             return;
-            
         }
-
-        
-        
         var params1 ={
 
                     numeroProntuario      : $scope.paciente.selected.numeroProntuario,
@@ -237,39 +256,35 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
              
          })
          .then(function (response){
-             alert(response.data);
                 $scope.mensagem="Agendado!!!";
-             
           });
 
-    };
+  };
     
-    
-    $scope.buscar =  function(nome){
+  /**
+   * vai buscar lista de Pacientes da tabela Pacientes
+   * TODO mudar a api
+   */  
+  $scope.buscar =  function(nome){
     	 $http.get("http://localhost:90/medico/testeAccess.php?nome="+nome ).then(
             function(response){
                     $scope.pacientes = response.data;
             }) ;
-            
-    };
-
-    
+  };
   
-  
-  
-    $scope.showFormAgenda = function() {
-            // execute something
-            if( $scope.showTheForm){
-                $scope.showTheForm = false;
-            }else{
-                $scope.showTheForm = true;
-            }
-    };
+$scope.showFormAgenda = function() {
+        // execute something
+        if( $scope.showTheForm){
+            $scope.showTheForm = false;
+        }else{
+            $scope.showTheForm = true;
+        }
+};
     
     
-    $scope.reservar =  function(){
-        $scope.agendamento.data =  moment($scope.agenda.dia).format('DD-MM-YYYY') + " " + moment($scope.agenda.hora).format('HH:mm'); 
-    }
+$scope.reservar =  function(){
+    $scope.agendamento.data =  moment($scope.agenda.dia).format('DD-MM-YYYY') + " " + moment($scope.agenda.hora).format('HH:mm'); 
+}
     
     
     
@@ -332,43 +347,29 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
                 }) ;
 
 
-     $scope.sexos = {
-        availableOptions: [
-          {cod_sexo: 'M',   name: 'Masculino'},
-          {cod_sexo: 'F', name: 'Feminino'}
-        ]
-
-     }
- 
-     $scope.statusAgenda ={
-         availableOptions: [
-                            {StatusAgendamento : "Não veio"  },
-                            {StatusAgendamento : "Atrasado"  },
-                            {StatusAgendamento : "Confirmado"},
-                            {StatusAgendamento : "Presente"  }
-         ]
-     }
- 
  
  
  
      $scope.setPaciente = function(novo){
          if(novo=='novo'){
-            $scope.agendamento=[];
-            $scope.paciente.selected=[];
-            $scope.agendamento.novo=true;
+            $scope.agendamento = [];
+            $scope.consulta    = [];
+            $scope.paciente.selected = [];
+            $scope.agendamento.novo = true;
         }
      }
- 
+     /**
+      * gera consulta com os dados de agendamento
+      */
      $scope.gerarConsulta=function(){
-         if($scope.agendamento.codigo_agenda==null){
+         if($scope.agendamento.codigo_agenda!==null){
              
             $scope.consulta.codigo_paciente = $scope.paciente.selected.codigo_paciente;
-            $scope.consulta.DataAtendimento = Date.now();
+            
             $scope.consulta.codigo_medico   = $scope.agendamento.CodigoMedico;
             
-            $scope.consulta.numeroProntuario = $scope.paciente.selected.numeroProntuario;
-            $scope.consulta.dataAtendimento  = $scope.agendamento.data;
+            $scope.consulta.numeroProntuario =  $scope.paciente.selected.numeroProntuario;
+            $scope.consulta.dataAtendimento  =   moment($scope.consulta.DataAtendimento).format('DD-MM-YYYY') + " " + moment($scope.consulta.horaAtendimento).format('HH:mm');
             $scope.consulta.codigoConvenio   =  $scope.paciente.selected.cod_convenio;
             $scope.consulta.numeroGuia       =  $scope.agendamento.numeroGuia;
 
@@ -378,29 +379,26 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
            
              
         
-        if ($scope.agendamento.data==null){
-            
-            alert("data de agendamento é obrigatório");
-            return;
-        }
-        
-        if ($scope.agendamento.codigo_convenio_plano==null){
-            alert("Escolha a rede Credenciada do Convênio");
-            return;
-            
-        }
-        
-        if ($scope.agendamento.CodigoMedico ==null){
-            alert("Escolha o médico");
-            return;
-            
-        }
+            if ($scope.agendamento.data==null){
+                alert("data de agendamento é obrigatório");
+                return;
+            }
+
+            if ($scope.agendamento.codigo_convenio_plano==null){
+                alert("Escolha a rede Credenciada do Convênio");
+                return;
+            }
+
+            if ($scope.agendamento.CodigoMedico ==null){
+                alert("Escolha o médico");
+                return;
+            }
 
         
         
         var params1 = $.param({           
 	   codigo_paciente        : $scope.consulta.codigo_paciente ,
-           DataAtendimento        : $scope.consulta.DataAtendimento ,
+           
            codigo_medico          : $scope.consulta.codigo_medico   ,
             
            numeroProntuario       : $scope.consulta.numeroProntuario,
@@ -423,38 +421,37 @@ app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
          .success(function (response){
              alert(response);
                 $scope.mensagem="Salvo!!!";
-             
           })
           .error(function (response){
-             alert("Eita!!!");
-                
-             
+            $scope.mensagem="Salvo!!!";
+            alert("Eita!!!");
           }
-                  );
-             
-             
-             
-             
-             
-             
-             
-             
-             
-             
-             
-             
+          );
              
          }else{
              alert("Gere consulta somente após salvar o agendamento")
-             
-	     
-             
-             
              return;
          }
      }
  
- 
+    $scope.statusAgenda ={
+         availableOptions: [
+                            {StatusAgendamento : "Não veio"  },
+                            {StatusAgendamento : "Atrasado"  },
+                            {StatusAgendamento : "Confirmado"},
+                            {StatusAgendamento : "Presente"  }
+         ]
+    };
+
+    $scope.sexos = {
+        availableOptions: [
+          {cod_sexo: 'M', name: 'Masculino'},
+          {cod_sexo: 'F', name: 'Feminino'}
+        ]
+    };
+      
+      
+      
   });
   
  

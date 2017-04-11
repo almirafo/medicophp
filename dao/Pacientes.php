@@ -51,6 +51,22 @@ class Pacientes extends dbConnect {
         
     }
 
+    public function pacienteUltimaConsulta($codigo_paciente){
+        $database =  $this->getdatabase();
+         $sql = "select paciente.*, consulta.dataAtendimento from paciente LEFT JOIN consulta ON ( paciente.codigo_paciente =  consulta.codigo_paciente) 
+                where paciente.codigo_paciente = $codigo_paciente 
+                and consulta.dataAtendimento =(select max (dataAtendimento) from consulta  WHERE  codigo_paciente = $codigo_paciente ) ";
+         
+       $array = $database->prepare($sql);
+       $array->execute();
+       
+       $_array = $array->fetchAll();
+       header("Content-type: application/json; charset=utf-8"); 
+       $_array = $this->utf8_converter($_array);
+      
+       return  json_encode($_array);
+       
+    }
 
     public function find($id){
        $id = addslashes($id); 

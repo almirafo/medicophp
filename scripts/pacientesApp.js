@@ -43,12 +43,21 @@ app.controller('pacienteCtrl',[ '$scope', '$http',  function ($scope, $http ){
      
         
         
-           $scope.listaConsultas = function (){
-             $http.get("http://localhost:90/medico/api/consultaAPI.php?action=listarByPaciente&codigo_paciente=1").then(
+        $scope.listaConsultas = function (codigo_paciente){
+             $http.get("http://localhost:90/medico/api/consultaAPI.php?action=listarByPaciente&codigo_paciente="+codigo_paciente).then(
                      function(response){
                         $scope.consultas = response.data;
             }) ;
         };
+        
+        $scope.listaAgendamentos =  function (codigo_paciente){
+             $http.get("http://localhost:90/medico/api/agendaAPI.php?action=listarByPaciente&codigo_paciente="+codigo_paciente).then(
+                     function(response){
+                        $scope.consultas = response.data;
+            }) ;
+            
+        }
+        
         
      
 }]);

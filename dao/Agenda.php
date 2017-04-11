@@ -128,4 +128,18 @@ class Agenda extends dbConnect {
             
         }
         
+        public function  listarByPaciente($consultaDados){
+            
+            $db = $this->getdatabase(); 
+            $sql = "SELECT top 6 *
+                    FROM Agendamento where codigo_paciente = $consultaDados[codigo_paciente]  ";
+            
+            $array = $db->query($sql)->fetchAll();
+            header("Content-type: application/json; charset=utf-8"); 
+
+            return  json_encode($this->utf8_converter($array));
+
+            
+               
+        }
 }

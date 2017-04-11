@@ -14,3 +14,8 @@ if($action=='incluir'){
 if($action=='alterar'){
     $id = $_GET['codigo_paciente'];
 }
+
+
+if($action=="pacienteUltimaConsulta"){
+     echo $paciente->pacienteUltimaConsulta($_GET['codigo_paciente']);
+}

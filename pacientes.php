@@ -25,22 +25,16 @@
                 
         <div style="width: 90%;  top:20px; left:130px" >
 				
-				<form class="form-inline">
-				        <div class="form-group">
-				            <label >Search</label>
-				            <input type="text" ng-model="search" class="form-control" placeholder="Search">
-                                            <button type="button" class="btn btn-primary">Novo Paciente</button>
-                                            <a href="agendamento.html" class="btn btn-info">Agendar Nova Consulta</a>
-				        </div>
-				</form>
+                <form class="form-inline">
+                        <div class="form-group">
+                            <label >Search</label>
+                            <input type="text" ng-model="search" class="form-control" placeholder="Search">
+                            <button type="button" class="btn btn-primary">Novo Paciente</button>
+                            <a href="agendamento.html" class="btn btn-info">Agendar Nova Consulta</a>
+                        </div>
+                </form>
             
-             <div class="modal-header" ng-show="showTheForm" ng-hide="true" >
-               <form  id='editar'>
-                <input type="text" placeholder="nome">
-                <input type="text" placeholder="Data">
-                <button type="button"  ng-click="showForm()" class="btn btn-primary">Salvar</button>
-               </form>
-              </div>
+
                <table class="table table-striped table-hover">
                    <thead>
                        <tr >
@@ -58,7 +52,7 @@
                        <tr dir-paginate="item in pacientes|orderBy:sortKey:reverse |filter:search|itemsPerPage:20">
                            <td>{{item.nome}}</td>
                            <td>{{item.numeroProntuario}}</td>
-                           <td><button class="glyphicon glyphicon-paste" data-toggle="modal" data-target="#PlanosModal" ng-click="listaConsultas()"></button></td>
+                           <td><button class="glyphicon glyphicon-paste" data-toggle="modal" data-target="#PlanosModal" ng-click="listaConsultas(item.codigo_paciente)"></button></td>
                            <td><button type="button" class="btn btn-primary" ng-click="showForm()">Editar</button></td>
                            <td><a href='pacientevisualizar.html?codigo_paciente={{item.codigo_paciente}}&action=buscar' class="btn btn-primary" >Visualizar</a></td>
                            <td><a href="agendamento.html?codigo_paciente={{item.codigo_paciente}}&action=buscar" class="btn btn-info">Agendar Consulta</a></td>
@@ -90,14 +84,19 @@
                     <thead>
                         <tr>
                           <th>Data</th>
+                          <th>Guia Atendimento</th>
+                          <th>Convênio</th>
                         </tr>
                         
                         
                       </thead>
                     <tbody>
                         <tr ng-repeat="consulta in consultas">
-                          <td>{{consulta.DataAtendimento}}</td>
+                          <td>{{consulta.dataAtendimento}}</td>
+                          <td>{{consulta.numeroGuia}}</td>
+                          <td>{{consulta.codigoConvenio}}</td>
                         </tr>
+                      
                     </tbody>
               </table>
             </div>

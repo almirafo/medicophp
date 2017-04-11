@@ -79,8 +79,8 @@
                   <ul class="nav nav-tabs">
                     <li class="active"> <a data-toggle="tab" href="#home"> <span class="glyphicon glyphicon-home"></span> Endereço Residencial</a></li>
                     <li>               <a data-toggle="tab" href="#menu1">Endereço Comercial</a></li>
-                    <li>               <a data-toggle="tab" href="#menu2" ng-click="listaConsultas()">Ultimas Consultas</a></li>
-                    <li>               <a data-toggle="tab" href="#menu3">Ultimos Agendamentos</a></li>
+                    <li>               <a data-toggle="tab" href="#menu2" ng-click="listaConsultas(paciente.codigo_paciente)">Ultimas Consultas</a></li>
+                    <li>               <a data-toggle="tab" href="#menu3" ng-click="listaAgendamentos(paciente.codigo_paciente)">Ultimos Agendamentos</a></li>
                   </ul>
                 <div class="tab-content">
                         <div id="home" class="tab-pane fade in active">
@@ -108,16 +108,17 @@
                         <div id="menu2" class="tab-pane fade">
                             <h3>Ultimas Consultas</h3>
                             <div ng-repeat="consulta in consultas">
-                                <p>{{consulta.DataAtendimento}}</p>
+                                <p>{{consulta.dataAtendimento}}</p>
                                 
                             </div>
                         </div>
 
                         <div id="menu3" class="tab-pane fade">
                             <h3>Ultimos Agendamentos</h3>
-                            <p>30/11/2016</p>
-                            <p>30/10/2016</p>
-                            <p>15/10/2016 - Não veio</p>
+                            <div ng-repeat="agendamento in agendamentos">
+                                <p>{{agendamento.DataAgendada}} - {{agendamento.StatusAgendamento}}</p>
+                            </div>
+                            
                         </div>
 
                 </div>

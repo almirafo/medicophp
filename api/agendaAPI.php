@@ -78,3 +78,10 @@ if($action=="buscar"){
     echo $agenda->buscarPorCodigoAgenda($consultaDados);
     
 }
+
+if($action=="listarByPaciente"){
+     $consultaDados = array(
+            "codigo_paciente"       => $_GET['codigo_paciente']
+            );
+    echo $agenda->listarByPaciente($consultaDados);
+}
