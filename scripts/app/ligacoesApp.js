@@ -7,11 +7,11 @@
 
 'use strict';
 
-var app = angular.module("ligacoesApp", ['angularUtils.directives.dirPagination', 
+var ligacoesApp = angular.module("ligacoesApp", ['angularUtils.directives.dirPagination', 
                                          'ngRoute']);
 
 
-app.filter('propsFilter', function() {
+ligacoesApp.filter('propsFilter', function() {
   return function(items, props) {
     var out = [];
     if (angular.isArray(items)) {
@@ -54,19 +54,13 @@ var getUrlParameter = function getUrlParameter(sParam) {
     }
 };
 
-app.controller('ligacoesCtrl', function ($scope, $http, $timeout, $interval) {
-    
+ligacoesApp.controller('ligacoesCtrl', function ($scope, $http, $timeout, $interval) {
      $scope.ligacoes          = {};
-     
-     
      $http.get("http://localhost:90/medico/api/ligacoesAPI.php?action=listar")
      .then(
            function(result){
-                   $scope.ligacoess= result.data;
+                   $scope.ligacoes= result.data;
      }) ;
-    
-    
-    
     
     
 });

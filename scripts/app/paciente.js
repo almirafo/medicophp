@@ -6,7 +6,7 @@
 
 'use strict';
 
-var app = angular.module("pacientesApp",['ngRoute']);
+var pacientesApp = angular.module("pacientesApp",['ngRoute']);
 
 function dataAtualFormatada(date){
     var data = new Date(date);
@@ -37,7 +37,7 @@ var getUrlParameter = function getUrlParameter(sParam) {
 };
 
 
-app.controller('pacienteController',['$scope','$http', function ($scope,$http){
+pacientesApp.controller('pacienteController',['$scope','$http', function ($scope,$http){
          $scope.paciente =[];
           
 

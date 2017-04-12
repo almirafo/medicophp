@@ -7,11 +7,11 @@
 
 'use strict';
 
-var app = angular.module("consultaApp", ['angularUtils.directives.dirPagination', 
+var consultaApp = angular.module("consultaApp", ['angularUtils.directives.dirPagination', 
                                          'ngRoute']);
 
 
-app.filter('propsFilter', function() {
+consultaApp.filter('propsFilter', function() {
   return function(items, props) {
     var out = [];
     if (angular.isArray(items)) {
@@ -54,7 +54,7 @@ var getUrlParameter = function getUrlParameter(sParam) {
     }
 };
 
-app.controller('consultaCtrl', function ($scope, $http, $timeout, $interval) {
+consultaApp.controller('consultaCtrl', function ($scope, $http, $timeout, $interval) {
     
      $scope.consulta          = {};
      

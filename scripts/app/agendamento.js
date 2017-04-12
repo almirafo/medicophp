@@ -5,10 +5,10 @@
  */
 'use strict';
 
-var app = angular.module("agendamentoApp", ['ngSanitize', 'ui.select']);
+var agendamentoApp = angular.module("agendamentoApp", ['ngSanitize', 'ui.select']);
 
 
-app.filter('propsFilter', function() {
+agendamentoApp.filter('propsFilter', function() {
   return function(items, props) {
     var out = [];
     if (angular.isArray(items)) {

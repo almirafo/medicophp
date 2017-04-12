@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-var app = angular.module("agendamentoApp",['angularUtils.directives.dirPagination', 
+var agendamentoapp = angular.module("agendamentoApp",['angularUtils.directives.dirPagination', 
                                          'ngRoute']                                     
         
         
@@ -20,7 +20,7 @@ var app = angular.module("agendamentoApp",['angularUtils.directives.dirPaginatio
 
 
 
-app.controller('agendamentosCtrl',[ '$scope', '$http',  function ($scope, $http ){
+agendamentoapp.controller('agendamentosCtrl',[ '$scope', '$http',  function ($scope, $http ){
         $scope.agendamentos =[];
       
         $http.get("http://localhost:90/medico/api/agendaAPI.php?action=listar").then(

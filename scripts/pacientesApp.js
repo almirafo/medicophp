@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-var app = angular.module("pacientesApp",['angularUtils.directives.dirPagination', 
+var pacientesApp = angular.module("pacientesApp",['angularUtils.directives.dirPagination', 
                                          'ngRoute']                                     
         
         
@@ -20,7 +20,7 @@ var app = angular.module("pacientesApp",['angularUtils.directives.dirPagination'
 
 
 
-app.controller('pacienteCtrl',[ '$scope', '$http',  function ($scope, $http ){
+pacientesApp.controller('pacienteCtrl',[ '$scope', '$http',  function ($scope, $http ){
         $scope.pacientes =[];
       
         $http.get("http://localhost:90/medico/testeAccess.php").then(
