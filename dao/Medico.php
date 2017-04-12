@@ -27,7 +27,7 @@ class Medico extends dbConnect{
     
        public function listMedico(){
             $db = $this->getdatabase();  
-            $sql = "Select CODIGOMEDICO, Nome from Medico";
+            $sql = "Select * from Medico";
             $array = $db->query($sql)->fetchAll();
             header("Content-type: application/json; charset=utf-8"); 
             return  json_encode($this->utf8_converter($array));
