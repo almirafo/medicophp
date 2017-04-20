@@ -8,7 +8,7 @@ if($action=="logar"){
         
 	//Chama no DAO se tem esse usuário na base
 	if ($user === 'admin' &&  $pwd==='1234'){
-                session_start();
+        session_start();
 		$_SESSION['user'] =  $user;
 		$_SESSION['logged'] = true;
                 echo $_SESSION['logged'];
@@ -17,14 +17,14 @@ if($action=="logar"){
 };
 
 if($action=="logout"){
-     session_start();
+    session_start();
 	unset($_SESSION['user']);
 	unset($_SESSION['logged']);
         echo true;
 };
 
 if($action=="verify"){
-session_start();
+	session_start();
 	if (isset($_SESSION['logged']) ){
 		echo $_SESSION['logged'];
 	}
@@ -32,5 +32,17 @@ session_start();
 		echo "false";
 	};
 };
+
+if($action=="registre"){
+
+	/*
+		insere na tabela usuario.
+		coloca usuario na sessão.
+		retorna que foi ok para ir a tela de paciente.
+
+	*/
+};
+
+
 
 ?>

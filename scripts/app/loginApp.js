@@ -45,6 +45,31 @@ appLogin.controller('loginController',['$scope', '$http', '$window', function ($
                  });
 
     };
+
+
+    $scope.registre = function( ){
+        if ($scope.user==="" || $scope.pwd===""){
+                    return;
+                };
+        $http({
+                    url:"api/loginAPI.php?action=registre",
+                    params:{user    : $scope.user,
+                            pwd     : $scope.pwd
+                           },
+                           method:"post"
+                 })
+        .success(function (response){
+
+                if ($scope.logged) {
+                    $window.location.href ="pacientes.php";
+                } else {
+                    $window.location.href ="index.php";
+                }
+
+                 });        
+
+    };
+
     
 }]) ;
 

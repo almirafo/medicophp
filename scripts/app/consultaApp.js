@@ -7,51 +7,26 @@
 
 'use strict';
 
-var consultaApp = angular.module("consultaApp", ['angularUtils.directives.dirPagination', 
-                                         'ngRoute']);
-var consultaPersistApp = angular.module("consultaPersistApp", [ 'ngSanitize', 'ui.select']);
+var consultaApp = angular.module("consultaApp", ['angularUtils.directives.dirPagination','ngRoute'])
+    .run( function($http,$window){
+         $http.get("http://localhost:90/medico/api/loginAPI.php?action=verify")
+         .then( function(response){
+            if(response.data!="1"){
+                $window.location.href ="index.php";
+            }
+         });
 
+    });
+var consultaPersistApp = angular.module("consultaPersistApp", [ 'ngSanitize', 'ui.select'])    
+    .run( function($http,$window){
+         $http.get("http://localhost:90/medico/api/loginAPI.php?action=verify")
+         .then( function(response){
+            if(response.data!="1"){
+                $window.location.href ="index.php";
+            }
+         });
 
-
-window.routes =
-{
-    
-    "/login": {
-        templateUrl: 'login.php', 
-        requireLogin: true
-                 },
-    
-    
-    "/pacientes": {
-        templateUrl: 'pacientes.php', 
-        controller: 'WelcomeCtrl', 
-        requireLogin: true
-                  },
-    "/pacientesvisualizar": {
-        templateUrl: 'pacientesvisualizar.html', 
-        controller: 'WelcomeCtrl', 
-        requireLogin: true
-                  },     
-
-    "/agendamentos": {
-        templateUrl : 'agendamentos.html', 
-        controller  : 'WelcomeCtrl', 
-        requireLogin: true
-                  },    
-    
-    "/agendamento": {
-        templateUrl : 'agendamento.html', 
-        controller  : 'UserDetailsCtrl', 
-        requireLogin: true
-                  },
-    "/consultas": {
-        templateUrl : 'consultas.html', 
-        controller  : 'UserDetailsCtrl', 
-        requireLogin: true
-                  }              
-                  
-                  
-};
+    });
 
 
 
@@ -114,15 +89,6 @@ consultaApp.controller('consultaCtrl', function ($scope, $http, $timeout, $inter
     
     
 });
-
-consultaPersistApp.run( function($rootScope,$window){
-   if ($rootScope.logged)
-         $window.location.href ="pacientes.php";
-    else{
-        $window.location.href = 'index.php';
-        }
-});
-
 
 consultaPersistApp.controller('consultaPersist', function ($scope, $http) {
     $scope.consulta          = {};
