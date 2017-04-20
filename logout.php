@@ -14,6 +14,8 @@
     <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
     <body ng-app="loginApp"  ng-controller="loginController" ng-open="logout()">
-
+    <script type="text/javascript">
+        window.location = "/medico/index.php";
+    </script>
     </body>
 </html>

@@ -18,7 +18,7 @@ appLogin.controller('loginController',['$scope', '$http', '$window', function ($
                    method:"get"
          })
         .success(function (response){
-                    $window.location.href ="index.php";
+                    //$window.location.href ="index.php";
         });
 
     };
@@ -28,9 +28,9 @@ appLogin.controller('loginController',['$scope', '$http', '$window', function ($
             return;
         }
         $http({
-                    url:"api/loginAPI.php?action=logar",
-                    params:{user    : $scope.user,
-                            pwd     : $scope.pwd
+                    url:"api/usuarioAPI.php?action=find",
+                    params:{user         : $scope.user,
+                            password     : $scope.pwd
                            },
                            method:"post"
                  })
@@ -45,6 +45,37 @@ appLogin.controller('loginController',['$scope', '$http', '$window', function ($
                  });
 
     };
+
+    $scope.telaregistre = function( ){
+         $window.location.href ="registre.php";
+    }
+    $scope.registre = function( ){
+        if ($scope.user==="" || $scope.pwd===""){
+                    return;
+                };
+        $http({
+                    url:"api/loginAPI.php?action=registre",
+                    params:{user    : $scope.user,
+                            pwd     : $scope.pwd
+                           },
+                           method:"post"
+                 })
+        .success(function (response){
+
+                if (response==="true") {
+                    $window.location.href ="index.php";
+                }else{
+                    alert("erro ao registrar"+response);
+                }
+
+                 })
+        .error(function (error){
+
+                    alert(error);
+                 });        
+
+    };
+
     
 }]) ;
 

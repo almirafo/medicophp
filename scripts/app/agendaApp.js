@@ -4,20 +4,17 @@
  * and open the template in the editor.
  */
 
-var agendamentoapp = angular.module("agendamentoApp",['angularUtils.directives.dirPagination'  ]                                     
-        
-        
-        )
-.run( function($http,$window){
- $http.get("http://localhost:90/medico/api/loginAPI.php?action=verify")
- .then( function(response){
-    if(response.data!="1"){
-        $window.location.href ="index.php";
-    }
- })
+var agendamentoapp = angular.module("agendamentoApp",['angularUtils.directives.dirPagination'  ] )
+    .run( function($http,$window){
+         $http.get("http://localhost:90/medico/api/loginAPI.php?action=verify")
+         .then( function(response){
+            if(response.data!="1"){
+                $window.location.href ="index.php";
+            }
+         });
 
-});
-;
+    });
+
 
 
 
