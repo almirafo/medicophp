@@ -16,8 +16,8 @@ $( "#register" ).click(function() {
   $( "#login-form" ).submit();
 });
 
-
+/*
 $( "#entrar" ).click(function() {
   $( "#login-form" ).attr("action","pacientes.php");
   $( "#login-form" ).submit();
-});
+});*/

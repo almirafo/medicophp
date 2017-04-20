@@ -5,54 +5,47 @@
  */
 
 
-appLogin = angular.module('login.Services').service('SessionService', function(){
-    var userIsAuthenticated = false;
+var appLogin = angular.module('loginApp',[]);
 
-    this.setUserAuthenticated = function(value){
-        userIsAuthenticated = value;
-    };
+appLogin.controller('loginController',['$scope', '$http', '$window', function ($scope, $http, $window){
 
-    this.getUserAuthenticated = function(){
-        return userIsAuthenticated;
+    $scope.error="";
+    
+    $scope.logout = function( ){
+
+        $http({
+            url:"api/loginAPI.php?action=logout",
+                   method:"get"
+         })
+        .success(function (response){
+                    $window.location.href ="index.php";
+        });
+
     };
     
-    this.login = function(user,pwd){
-        return true;
+    $scope.logar = function( ){
+        if ($scope.user==="" || $scope.pwd===""){
+            return;
+        }
+        $http({
+                    url:"api/loginAPI.php?action=logar",
+                    params:{user    : $scope.user,
+                            pwd     : $scope.pwd
+                           },
+                           method:"post"
+                 })
+        .success(function (response){
+                            $scope.logged =  response;   
+                if ($scope.logged) {
+                    $window.location.href ="pacientes.php";
+                } else {
+                    $window.location.href ="index.php";
+                }
+
+                 });
+
     };
-});
-
-
-
-
-window.routes =
-{
-    "/pacientes": {
-        templateUrl: 'pacientes.php', 
-        controller: 'WelcomeCtrl', 
-        requireLogin: true
-                  },
-    "/pacientesvisualizar": {
-        templateUrl: 'pacientesvisualizar.html', 
-        controller: 'WelcomeCtrl', 
-        requireLogin: true
-                  },     
-
-    "/agendamentos": {
-        templateUrl : 'agendamentos.html', 
-        controller  : 'WelcomeCtrl', 
-        requireLogin: true
-                  },    
     
-    "/agendamento": {
-        templateUrl : 'agendamento.html', 
-        controller  : 'UserDetailsCtrl', 
-        requireLogin: true
-                  },
-    "/consultas": {
-        templateUrl : 'consultas.html', 
-        controller  : 'UserDetailsCtrl', 
-        requireLogin: true
-                  }              
-                  
-                  
-};
+}]) ;
+
+

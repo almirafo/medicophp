@@ -4,19 +4,20 @@
  * and open the template in the editor.
  */
 
-var agendamentoapp = angular.module("agendamentoApp",['angularUtils.directives.dirPagination', 
-                                         'ngRoute']                                     
+var agendamentoapp = angular.module("agendamentoApp",['angularUtils.directives.dirPagination'  ]                                     
         
         
         )
-    .config( function($routeProvider,$locationProvider){
-    $routeProvider.when("pacientevisualizar", {
-        templateUrl:"pacinentevisualizar.html",
-        controller : "pacienteCtrl"
-    })
-    
-    
+.run( function($http,$window){
+ $http.get("http://localhost:90/medico/api/loginAPI.php?action=verify")
+ .then( function(response){
+    if(response.data!="1"){
+        $window.location.href ="index.php";
+    }
+ })
+
 });
+;
 
 
 

@@ -6,7 +6,15 @@
 
 'use strict';
 
-var pacientesApp = angular.module("pacientesApp",['ngRoute']);
+var pacientesApp = angular.module("pacientesApp",['ngRoute']).run( function($http,$window){
+ $http.get("http://localhost:90/medico/api/loginAPI.php?action=verify")
+ .then( function(response){
+    if(response.data!="1"){
+        $window.location.href ="index.php";
+    }
+ })
+
+});;
 
 function dataAtualFormatada(date){
     var data = new Date(date);

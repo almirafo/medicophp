@@ -51,7 +51,7 @@ var getUrlParameter = function getUrlParameter(sParam) {
     }
 };
 
-app.controller('pacienteCtrl', function ($scope, $http, $timeout, $interval) {
+agendamentoApp.controller('agendamentoCtrl', function ($scope, $http) {
   var vm = this;
     $scope.paciente          = {};
     $scope.agendamento       = {};

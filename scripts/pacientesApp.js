@@ -4,25 +4,22 @@
  * and open the template in the editor.
  */
 
-var pacientesApp = angular.module("pacientesApp",['angularUtils.directives.dirPagination', 
-                                         'ngRoute']                                     
-        
-        
-        )
-    .config( function($routeProvider,$locationProvider){
-    $routeProvider.when("pacientevisualizar", {
-        templateUrl:"pacinentevisualizar.html",
-        controller : "pacienteCtrl"
-    })
-    
-    
+var pacientesApp = angular.module("pacientesApp",['angularUtils.directives.dirPagination' ]);
+
+pacientesApp.run( function($http,$window){
+ $http.get("http://localhost:90/medico/api/loginAPI.php?action=verify")
+ .then( function(response){
+    if(response.data!="1"){
+        $window.location.href ="index.php";
+    }
+ })
+
 });
 
 
-
-pacientesApp.controller('pacienteCtrl',[ '$scope', '$http',  function ($scope, $http ){
+pacientesApp.controller('pacienteCtrl',[ '$scope', '$http', function ($scope, $http){
         $scope.pacientes =[];
-      
+        
         $http.get("http://localhost:90/medico/testeAccess.php").then(
             function(response){
                     $scope.pacientes = response.data;

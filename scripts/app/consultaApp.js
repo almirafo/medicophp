@@ -9,6 +9,50 @@
 
 var consultaApp = angular.module("consultaApp", ['angularUtils.directives.dirPagination', 
                                          'ngRoute']);
+var consultaPersistApp = angular.module("consultaPersistApp", [ 'ngSanitize', 'ui.select']);
+
+
+
+window.routes =
+{
+    
+    "/login": {
+        templateUrl: 'login.php', 
+        requireLogin: true
+                 },
+    
+    
+    "/pacientes": {
+        templateUrl: 'pacientes.php', 
+        controller: 'WelcomeCtrl', 
+        requireLogin: true
+                  },
+    "/pacientesvisualizar": {
+        templateUrl: 'pacientesvisualizar.html', 
+        controller: 'WelcomeCtrl', 
+        requireLogin: true
+                  },     
+
+    "/agendamentos": {
+        templateUrl : 'agendamentos.html', 
+        controller  : 'WelcomeCtrl', 
+        requireLogin: true
+                  },    
+    
+    "/agendamento": {
+        templateUrl : 'agendamento.html', 
+        controller  : 'UserDetailsCtrl', 
+        requireLogin: true
+                  },
+    "/consultas": {
+        templateUrl : 'consultas.html', 
+        controller  : 'UserDetailsCtrl', 
+        requireLogin: true
+                  }              
+                  
+                  
+};
+
 
 
 consultaApp.filter('propsFilter', function() {
@@ -65,6 +109,31 @@ consultaApp.controller('consultaCtrl', function ($scope, $http, $timeout, $inter
                    $scope.consultas= result.data;
      }) ;
     
+    
+    
+    
+    
+});
+
+consultaPersistApp.run( function($rootScope,$window){
+   if ($rootScope.logged)
+         $window.location.href ="pacientes.php";
+    else{
+        $window.location.href = 'index.php';
+        }
+});
+
+
+consultaPersistApp.controller('consultaPersist', function ($scope, $http) {
+    $scope.consulta          = {};
+    $scope.buscar = function(nome ){
+        var paciente ={};
+        paciente.nome= "almir";
+        paciente.numeroProntuario= "BRA 1223 1231";
+        $scope.consulta.idConsulta = 1;
+        $scope.consulta.paciente = paciente;
+        $scope.consulta.dataAtendimento="01-01-2018";
+    }
     
     
     
