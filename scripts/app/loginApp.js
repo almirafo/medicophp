@@ -46,9 +46,13 @@ appLogin.controller('loginController',['$scope', '$http', '$window', function ($
 
     };
 
+<<<<<<< HEAD
     $scope.telaregistre = function( ){
          $window.location.href ="registre.php";
     }
+=======
+
+>>>>>>> e007be89df581f02b2cbd7981292e3bd6e3befa9
     $scope.registre = function( ){
         if ($scope.user==="" || $scope.pwd===""){
                     return;
@@ -62,6 +66,7 @@ appLogin.controller('loginController',['$scope', '$http', '$window', function ($
                  })
         .success(function (response){
 
+<<<<<<< HEAD
                 if (response==="true") {
                     $window.location.href ="index.php";
                 }else{
@@ -72,6 +77,14 @@ appLogin.controller('loginController',['$scope', '$http', '$window', function ($
         .error(function (error){
 
                     alert(error);
+=======
+                if ($scope.logged) {
+                    $window.location.href ="pacientes.php";
+                } else {
+                    $window.location.href ="index.php";
+                }
+
+>>>>>>> e007be89df581f02b2cbd7981292e3bd6e3befa9
                  });        
 
     };

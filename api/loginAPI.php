@@ -6,6 +6,7 @@ if($action=="logar"){
 	$user = $_GET["user"];
 	$pwd  = $_GET["pwd"];
         
+<<<<<<< HEAD
 	$login      = isset($_GET['login'])      ?$_GET['login']     :"";
     $password   = isset($_GET['password'])   ?$_GET['password']  :"";
     
@@ -16,6 +17,10 @@ if($action=="logar"){
 
     
 	if ($usuarioModel->findByUserAndPassword($userDados)>0){
+=======
+	//Chama no DAO se tem esse usuário na base
+	if ($user === 'admin' &&  $pwd==='1234'){
+>>>>>>> e007be89df581f02b2cbd7981292e3bd6e3befa9
         session_start();
 		$_SESSION['user'] =  $user;
 		$_SESSION['logged'] = true;
@@ -43,6 +48,7 @@ if($action=="verify"){
 
 if($action=="registre"){
 
+<<<<<<< HEAD
 
 	$login      = isset($_GET['login'])      ?$_GET['username']     :$_POST['username'];
     $password   = isset($_GET['password'])   ?$_GET['password']  :$_POST['password'] ;
@@ -62,6 +68,14 @@ if($action=="registre"){
 
 if($action=="create"){
 	$usuarioModel->createTable();
+=======
+	/*
+		insere na tabela usuario.
+		coloca usuario na sessão.
+		retorna que foi ok para ir a tela de paciente.
+
+	*/
+>>>>>>> e007be89df581f02b2cbd7981292e3bd6e3befa9
 };
 
 
