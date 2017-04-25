@@ -6,6 +6,7 @@ if($action=="logar"){
 	$user = $_GET["user"];
 	$pwd  = $_GET["pwd"];
         
+
 	$login      = isset($_GET['login'])      ?$_GET['login']     :"";
     $password   = isset($_GET['password'])   ?$_GET['password']  :"";
     
@@ -16,6 +17,7 @@ if($action=="logar"){
 
     
 	if ($usuarioModel->findByUserAndPassword($userDados)>0){
+
         session_start();
 		$_SESSION['user'] =  $user;
 		$_SESSION['logged'] = true;
@@ -62,6 +64,7 @@ if($action=="registre"){
 
 if($action=="create"){
 	$usuarioModel->createTable();
+
 };
 
 

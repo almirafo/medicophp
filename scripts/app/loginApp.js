@@ -49,6 +49,7 @@ appLogin.controller('loginController',['$scope', '$http', '$window', function ($
     $scope.telaregistre = function( ){
          $window.location.href ="registre.php";
     }
+
     $scope.registre = function( ){
         if ($scope.user==="" || $scope.pwd===""){
                     return;
@@ -61,7 +62,6 @@ appLogin.controller('loginController',['$scope', '$http', '$window', function ($
                            method:"post"
                  })
         .success(function (response){
-
                 if (response==="true") {
                     $window.location.href ="index.php";
                 }else{
