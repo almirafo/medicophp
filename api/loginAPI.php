@@ -3,8 +3,9 @@ require '../dao/UsuarioModel.php';
 $usuarioModel = new UsuarioModel();
 $action = $_GET['action'];
 if($action=="logar"){
-    $user = $_GET["user"];
-    $pwd  = $_GET["password"];
+	$user = $_GET["user"];
+	$pwd  = $_GET["pwd"];
+        
     
    $userDados = array(
                 "login"    => $user ,
@@ -17,6 +18,7 @@ if($action=="logar"){
             $_SESSION['user'] =  $user;
             $_SESSION['logged'] = true;
             echo true;
+
 	}
 
 };
@@ -58,7 +60,6 @@ if($action=="registre"){
 
 if($action=="create"){
 	$usuarioModel->createTable();
-
 };
 
 

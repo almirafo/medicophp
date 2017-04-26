@@ -46,6 +46,7 @@ appLogin.controller('loginController',['$scope', '$http', '$window', function ($
 
     };
 
+
     $scope.telaregistre = function( ){
          $window.location.href ="registre.php";
     }
@@ -81,6 +82,7 @@ appLogin.controller('loginController',['$scope', '$http', '$window', function ($
          })
         .then(function (response){
                 if (response.data==="1") {
+
                     $window.location.href ="index.php";
                 }else{
                     alert("erro ao registrar"+response);
