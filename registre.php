@@ -29,10 +29,10 @@
 		</div>
 	
 		<div class="content">
-			<input name="username" type="text"     class="input username"   placeholder="usuário"  />
-			<input name="password" type="password" class="input password"   placeholder="senha"    />
-			<input name="email"    type="text"     class="input email"      placeholder="email"    />
-			<input name="telefone" type="text"     class="input telefone"   placeholder="telefone" />
+			<input name="username" type="text"     ng-model="username" class="input username"   placeholder="usuário"  />
+			<input name="password" type="password" ng-model="password" class="input password"   placeholder="senha"    />
+			<input name="email"    type="text"     ng-model="email"    class="input email"      placeholder="email"    />
+			<input name="telefone" type="text"     ng-model="phone"    class="input telefone"   placeholder="telefone" />
 
 			
 	        <input type="submit" name="submit"  value="Salvar "  ng-click="registre()" id="salvar" class="salvar" />

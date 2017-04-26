@@ -70,29 +70,40 @@ class UsuarioModel extends  dbConnect {
 
 
         public function verifyUser($userDados){
-    	 $sqlVerifyUser ="SELECT * FROM user WHERE login = '$userDados->login'";
+         $login = $userDados['login']; 
+    	 $sqlVerifyUser ="SELECT * FROM user WHERE login = '$login'";
 
          $db = $this->getdatabase(); 
-             $db->beginTransaction();
-            $array = $db->query($sqlVerifyUser)->fetchAll();
-            header("Content-type: application/json; charset=utf-8"); 
-            return  json_encode($this->utf8_converter($array));
 
+         $array = $db->query($sqlVerifyUser)->fetchAll();
+         header("Content-type: application/json; charset=utf-8"); 
+         
+         $array = array_filter($array);
+
+         if (!empty($array)) {
+             return true;
+         }else{
+             return  false;
+         }
         }
 
 
         public function insertUser($userDados){
 
-    	$sqlInsertUser ="insert into user  (login,
-													password ,
-													email    ,
-													phone    ) 
-													values 
-													('$userDados->login',
-													'$userDados->password' ,
-													'$userDados->email'    ,
-													'$userDados->phone'    ) ";
+    
          try {
+
+                $sqlInsertUser ="insert into user  (id_user,
+                                                    login,
+                                                    password ,
+                                                    email    ,
+                                                    phone    ) 
+                                                    values( 
+                                                     '".reset(explode(' ', microtime())) ."',
+                                                     '".$userDados['login']."',
+                                                     '".$userDados['password']."' ,
+                                                     '".$userDados['email']."'    ,
+                                                     '".$userDados['phone']."'    ) ";
              $db = $this->getdatabase(); 
              $db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
              
@@ -100,16 +111,15 @@ class UsuarioModel extends  dbConnect {
              if($db->exec($sqlInsertUser))
                 {
 
-                 echo $e->getMessage();   
                  $db->commit();
-
+                 return true;
                 }else{
 
                     $db_err = $database->errorInfo();
-                    echo $sqlInsertUser.' Error : ('. $db_err[0] .') -- ' . $db_err[2];
+                    return $sqlInsertUser.' Error : ('. $db_err[0] .') -- ' . $db_err[2];
                 }    
          }  catch(PDOException $e) {
-                    echo $e->getMessage();
+                    return $e->getMessage();
          } 
 
          
@@ -117,8 +127,8 @@ class UsuarioModel extends  dbConnect {
 
         public function findByUserAndPassword($userDados){
 
-		 $login    = $userDados->login;
-		 $password = $userDados->password;
+		 $login    = $userDados['login'];
+		 $password = $userDados['password'];
 	     $sqlFindByUserAndPassword ="SELECT * FROM user WHERE login = '$login' AND password = '$password'";
 
 
@@ -127,8 +137,14 @@ class UsuarioModel extends  dbConnect {
            
             $array = $db->query($sqlFindByUserAndPassword)->fetchAll();
             header("Content-type: application/json; charset=utf-8"); 
+            $array = array_filter($array);
 
-            return  array_count_values($array);
+            if (!empty($array)) {
+                return true;
+            }else{
+                return  false;
+            }
+            
 
 
         }

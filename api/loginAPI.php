@@ -3,63 +3,57 @@ require '../dao/UsuarioModel.php';
 $usuarioModel = new UsuarioModel();
 $action = $_GET['action'];
 if($action=="logar"){
-	$user = $_GET["user"];
-	$pwd  = $_GET["pwd"];
-        
-
-	$login      = isset($_GET['login'])      ?$_GET['login']     :"";
-    $password   = isset($_GET['password'])   ?$_GET['password']  :"";
+    $user = $_GET["user"];
+    $pwd  = $_GET["password"];
     
    $userDados = array(
-		            "login"      => $login    ,
-		            "password"   => $password    
-					); 
+                "login"    => $user ,
+                "password" => $pwd    
+                ); 
 
-    
-	if ($usuarioModel->findByUserAndPassword($userDados)>0){
-
-        session_start();
-		$_SESSION['user'] =  $user;
-		$_SESSION['logged'] = true;
-        echo $_SESSION['logged'];
+              
+	if ($usuarioModel->findByUserAndPassword($userDados)){
+            session_start();
+            $_SESSION['user'] =  $user;
+            $_SESSION['logged'] = true;
+            echo true;
 	}
 
 };
 
 if($action=="logout"){
     session_start();
-	unset($_SESSION['user']);
-	unset($_SESSION['logged']);
-        echo true;
+    unset($_SESSION['user']);
+    unset($_SESSION['logged']);
+    echo true;
 };
 
 if($action=="verify"){
-	session_start();
-	if (isset($_SESSION['logged']) ){
-		echo $_SESSION['logged'];
-	}
-	else{
-		echo "false";
-	};
+    
+        $login    = isset($_GET['username']) ?$_GET['username'] :$_POST['username'];
+        $userDados = array(
+                    "login"      => $login);
+        
+        echo $usuarioModel->insertUser($userDados);
+   	
 };
 
 if($action=="registre"){
 
 
-	$login      = isset($_GET['login'])      ?$_GET['username']     :$_POST['username'];
-    $password   = isset($_GET['password'])   ?$_GET['password']  :$_POST['password'] ;
-    $email      = isset($_GET['email'])      ?$_GET['email']     :$_POST['email'] ;
-    $phone   = isset($_GET['phone'])   ?$_GET['phone']  :$_POST['phone'] ;
+    $login    = isset($_GET['username']) ?$_GET['username'] :$_POST['username'];
+    $password = isset($_GET['password']) ?$_GET['password'] :$_POST['password'] ;
+    $email    = isset($_GET['email'])    ?$_GET['email']    :$_POST['email'] ;
+    $phone    = isset($_GET['phone'])    ?$_GET['phone']    :$_POST['phone'] ;
     
    $userDados = array(
-		            "login"      => $login    ,
-		            "password"   => $password , 
-		            "email"      => $email    ,  
-		            "phone"      => $phone 
-					); 
+                    "login"      => $login    ,
+                    "password"   => $password , 
+                    "email"      => $email    ,  
+                    "phone"      => $phone 
+                    ); 
 
-   $usuarioModel->insertUser($userDados);
-
+   echo $usuarioModel->insertUser($userDados);;
 };
 
 if($action=="create"){
