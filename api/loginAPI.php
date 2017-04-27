@@ -4,7 +4,7 @@ $usuarioModel = new UsuarioModel();
 $action = $_GET['action'];
 if($action=="logar"){
 	$user = $_GET["user"];
-	$pwd  = $_GET["pwd"];
+	$pwd  = $_GET["password"];
         
     
    $userDados = array(
@@ -36,7 +36,7 @@ if($action=="verify"){
         $userDados = array(
                     "login"      => $login);
         
-        echo $usuarioModel->insertUser($userDados);
+        echo $usuarioModel->verifyUser($userDados);
    	
 };
 
