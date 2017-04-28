@@ -42,20 +42,32 @@ if($action=="verify"){
 
 if($action=="registre"){
 
-
+    
     $login    = isset($_GET['username']) ?$_GET['username'] :$_POST['username'];
     $password = isset($_GET['password']) ?$_GET['password'] :$_POST['password'] ;
     $email    = isset($_GET['email'])    ?$_GET['email']    :$_POST['email'] ;
     $phone    = isset($_GET['phone'])    ?$_GET['phone']    :$_POST['phone'] ;
     
-   $userDados = array(
-                    "login"      => $login    ,
-                    "password"   => $password , 
-                    "email"      => $email    ,  
-                    "phone"      => $phone 
-                    ); 
+   
+    $userDados = array(
+                    "login"      => $login);
+        
+    if( $usuarioModel->verifyUser($userDados)=="false"){
+    
+    
+        $userDados = array(
+                         "login"      => $login    ,
+                         "password"   => $password , 
+                         "email"      => $email    ,  
+                         "phone"      => $phone 
+                         ); 
 
-   echo $usuarioModel->insertUser($userDados);;
+         echo $usuarioModel->insertUser($userDados);
+
+    }else{
+        echo "99";
+    }
+    
 };
 
 if($action=="create"){

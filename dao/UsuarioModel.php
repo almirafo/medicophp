@@ -71,22 +71,19 @@ class UsuarioModel extends  dbConnect {
 
         public function verifyUser($userDados){
          $login = $userDados['login']; 
-    	 $sqlVerifyUser ="SELECT * FROM user WHERE login = '$login'";
+    	 $sqlVerifyUser ="SELECT * FROM USER WHERE login = '$login'";
 
          $db = $this->getdatabase(); 
-
+         $db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
          $array = $db->query($sqlVerifyUser)->fetchAll();
-         header("Content-type: application/json; charset=utf-8"); 
-         
-         $array = array_filter($array);
-
-         if (!empty($array)) {
-             return true;
+         if (empty($array)) {
+            return "false";
          }else{
-             return  false;
-         }
+            return "true";
+         };
         }
-
+         
+         
 
         public function insertUser($userDados){
 
@@ -99,11 +96,13 @@ class UsuarioModel extends  dbConnect {
                                                     email    ,
                                                     phone    ) 
                                                     values( 
-                                                     '".reset(explode(' ', microtime())) ."',
+                                                     ".reset(explode(' ', microtime()))*100000000 .",
                                                      '".$userDados['login']."',
                                                      '".$userDados['password']."' ,
                                                      '".$userDados['email']."'    ,
                                                      '".$userDados['phone']."'    ) ";
+                
+                                
              $db = $this->getdatabase(); 
              $db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
              

@@ -21,7 +21,7 @@
 
 <div ng-app="loginApp"  ng-controller="loginController" id="wrapperRegistre">
 
-	<form  name="registre-form"  id="registre-form"class="registre-form" action="" method="post">
+	<form  name="registre-form"  id="registre-form" class="registre-form" action="" method="post">
 	
 		<div class="header">
 			<h1>Registre-se</h1>

@@ -32,7 +32,7 @@ appLogin.controller('loginController',['$scope', '$http', '$window', function ($
                     params:{user         : $scope.user,
                             password     : $scope.pwd
                            },
-                           method:"post"
+                           method:"get"
                  })
         .success(function (response){
                 $scope.logged =  response;   
@@ -52,24 +52,24 @@ appLogin.controller('loginController',['$scope', '$http', '$window', function ($
     }
 
     $scope.registre = function( ){
-        if ($scope.user==="" || $scope.pwd===""){
+        if ($scope.username==="" || $scope.password===""){
                     return;
                 };
 
-        
+        /*
         $http({
                     url:"api/loginAPI.php?action=verify",
                     params:{username  : $scope.username
                            },
                            method:"get"
-         }).success(function (response){
+         }).then(function (response){
            
-           if (response){
+           if (response==="true"){
                alert("usuário já cadastrado");
                return;
            }
          });
-
+        */
                 
         $http({
                     url:"api/loginAPI.php?action=registre",
@@ -78,16 +78,22 @@ appLogin.controller('loginController',['$scope', '$http', '$window', function ($
                             email     : $scope.email,
                             phone     : $scope.phone
                            },
+                           async: false,
                            method:"get"
          })
-        .then(function (response){
+        .success(function (response){
                 if (response.data==="1") {
 
                     $window.location.href ="index.php";
+                }else if (response==="99"){
+                       alert("já cadastrado Erro: "+response);
                 }else{
                     alert("erro ao registrar"+response);
-                }
+                };
 
+          })
+          .error(function(error){
+                      alert("deu erro"+ error);
           });        
 
     };
