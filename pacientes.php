@@ -28,7 +28,7 @@
                 <form class="form-inline">
                         <div class="form-group">
                             <label >Search</label>
-                            <input type="text" ng-model="search" class="form-control" placeholder="Search">
+                            <input type="text" ng-model="search" class="form-control" placeholder="procurar">
                             <button type="button" class="btn btn-primary">Novo Paciente</button>
                             <a href="agendamento.html" class="btn btn-info">Agendar Nova Consulta</a>
                         </div>

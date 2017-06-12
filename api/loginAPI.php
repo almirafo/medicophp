@@ -1,3 +1,6 @@
+
+b>Notice</b>:  Undefined index: username in <b>C:\xampp\htdocs\medico\api\loginAPI.php</b> on line <b>35</b><br />
+false"
 <?php
 require '../dao/UsuarioModel.php'; 
 $usuarioModel = new UsuarioModel();
@@ -29,6 +32,11 @@ if($action=="logout"){
     unset($_SESSION['logged']);
     echo true;
 };
+
+if($action=="logged"){
+            session_start();
+            echo $_SESSION['logged'];
+}
 
 if($action=="verify"){
     
