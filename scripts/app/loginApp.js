@@ -34,7 +34,7 @@ appLogin.controller('loginController',['$scope', '$http', '$window', function ($
                            },
                            method:"get"
                  })
-        .success(function (response){
+        .then(function (response){
                 $scope.logged =  response;   
                 if ($scope.logged) {
                     $window.location.href ="pacientes.php";
@@ -42,7 +42,19 @@ appLogin.controller('loginController',['$scope', '$http', '$window', function ($
                     $window.location.href ="index.php";
                 }
 
-                });
+                }
+                , function(x) {
+                    
+                    
+                    alert(x);
+                    
+                    
+                    
+                    
+                }
+)
+             
+        ;
 
     };
 

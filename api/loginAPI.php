@@ -1,6 +1,3 @@
-
-b>Notice</b>:  Undefined index: username in <b>C:\xampp\htdocs\medico\api\loginAPI.php</b> on line <b>35</b><br />
-false"
 <?php
 require '../dao/UsuarioModel.php'; 
 $usuarioModel = new UsuarioModel();
