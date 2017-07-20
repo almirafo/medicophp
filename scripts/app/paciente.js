@@ -7,9 +7,11 @@
 'use strict';
 
 var pacientesApp = angular.module("pacientesApp",['ngRoute']).run( function($http,$window){
- $http.get("http://localhost:90/medico/api/loginAPI.php?action=verify")
+
+ $http.get("http://localhost:90/medico/api/loginAPI.php?action=logged")
  .then( function(response){
     if(response.data!="1"){
+        alert(response.data)
         $window.location.href ="index.php";
     }
  })

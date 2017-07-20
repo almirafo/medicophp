@@ -27,6 +27,7 @@ if($action=="logout"){
     session_start();
     unset($_SESSION['user']);
     unset($_SESSION['logged']);
+    session_destroy();
     echo true;
 };
 
