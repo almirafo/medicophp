@@ -55,7 +55,7 @@ public function listar(){
 
         
 public function listarByPaciente($codigo_paciente){
-      $sql = "SELECT top 6 * FROM consulta  WHERE  codigo_paciente = $codigo_paciente  ";
+      $sql = "SELECT * FROM consulta  WHERE  codigo_paciente = $codigo_paciente  ";
     
         $db = $this->getdatabase(); 
         $lista = $db->query($sql);
