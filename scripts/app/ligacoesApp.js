@@ -9,7 +9,7 @@
 
 var ligacoesApp = angular.module("ligacoesApp", ['angularUtils.directives.dirPagination', 
                                          'ngRoute']).run( function($http,$window){
- $http.get("http://localhost:90/medico/api/loginAPI.php?action=verify")
+ $http.get("http://localhost:90/medico/api/loginAPI.php?action=logged")
  .then( function(response){
     if(response.data!="1"){
         $window.location.href ="index.php";

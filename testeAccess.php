@@ -7,11 +7,11 @@ $database =$conexao->getdatabase();
 $sql="";
 
 if (!isset($_GET["nome"])){ 
-$sql = 'SELECT Top 1 * FROM paciente order by nome';
+$sql = 'SELECT Top 100 * FROM paciente order by nome';
 }
 else{
 $nome = $_GET['nome'];
-$sql = "SELECT Top 1 * FROM paciente where nome like '$nome%' order by nome";
+$sql = "SELECT Top 100 * FROM paciente where nome like '$nome%' order by nome";
 };
 /*$sql = "SELECT codigo_paciente,nome,numeroProntuario
 		FROM (

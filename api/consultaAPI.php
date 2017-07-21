@@ -16,6 +16,7 @@ if($action=="listar"){
 
 if($action=="listarByPaciente"){
     $codigo_paciente= $_GET['codigo_paciente'];
+    
     echo $consulta->listarByPaciente($codigo_paciente);
 }
 

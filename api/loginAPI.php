@@ -33,7 +33,11 @@ if($action=="logout"){
 
 if($action=="logged"){
             session_start();
-            echo $_SESSION['logged'];
+            if (isset($_SESSION['logged']) ) {
+                echo $_SESSION['logged'];
+            }else{
+                echo 0;
+            }
 }
 
 if($action=="verify"){
