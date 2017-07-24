@@ -34,8 +34,8 @@
              </div>
 
             <div class="form-group row" >
-              <div class="col-sm-3">Nome:{{paciente.nome}}</div>
-              <div class="col-sm-3">Nascimento: {{paciente.nascimento}}</div>
+              <div class="col-sm-3">Nome: <input id="nomePaciente" class="form-control form-control-sm" required ng-model="paciente.nome" placeholder="Nome do Paciente"></div>
+              <div class="col-sm-3">Nascimento: <input id="nomePaciente" class="form-control form-control-sm" required ng-model="paciente.nascimento" placeholder="Nome do Paciente"></div>
               <div class="col-sm-3">Local: {{paciente.local_nascimento}}</div>
               <div class="col-sm-3">Sexo: {{paciente.sexo}}</div>
             </div>
@@ -65,64 +65,7 @@
                 <div class="col-sm-6"> <span class=" glyphicon glyphicon-envelope"> {{paciente.email}}</span></div>
             </div>
               
-            <div class="form-group row" >
-                <div class="col-sm-2"><a href="agendamento.html?codigo_paciente={{paciente.codigo_paciente}}&action=buscar" class="btn btn-primary"><img ng-src="images/agendamento.png" height="20" width="20"/> Agendar Consulta</a></div>
-                <div class="col-sm-2"><button class="btn btn-info">Editar Dados</button></div>
-            </div>
-            
 
-
-
-            
-        
-            <div class="container">
-                  <ul class="nav nav-tabs">
-                    <li class="active"> <a data-toggle="tab" href="#home"> <span class="glyphicon glyphicon-home"></span> Endereço Residencial</a></li>
-                    <li>               <a data-toggle="tab" href="#menu1">Endereço Comercial</a></li>
-                    <li>               <a data-toggle="tab" href="#menu2" ng-click="listaConsultas(paciente.codigo_paciente)">Ultimas Consultas</a></li>
-                    <li>               <a data-toggle="tab" href="#menu3" ng-click="listaAgendamentos(paciente.codigo_paciente)">Ultimos Agendamentos</a></li>
-                  </ul>
-                <div class="tab-content">
-                        <div id="home" class="tab-pane fade in active">
-                            <h3>Endereço Residencial</h3>
-
-                            <p>{{paciente.endereco_res}}</p>
-                            <p>{{paciente.bairro_res}}</p>
-                            <p>{{paciente.cidade_res}}</p>
-                            <p>{{paciente.estado_res}}</p>
-                            <p>{{paciente.cep_res}}</p>
-                            <p> <span class="glyphicon glyphicon-phone-alt"></span> {{paciente.fone_res}}</p>
-
-                        </div>
-
-                        <div id="menu1" class="tab-pane fade">
-                            <h3>Endereço Comercial</h3>
-                            <p>{{paciente.endereco_com}}</p>
-                            <p>{{paciente.cidade_com}}</p>
-                            <p>{{paciente.estado_com}}</p>
-                            <p>{{paciente.cep_com}}</p>
-                            <p> <span class="glyphicon glyphicon-phone-alt"></span> {{paciente.fone_com}}</p>
-
-                        </div>
-
-                        <div id="menu2" class="tab-pane fade">
-                            <h3>Ultimas Consultas</h3>
-                            <div ng-repeat="consulta in consultas">
-                                <p>{{consulta.dataAtendimento}}</p>
-                                
-                            </div>
-                        </div>
-
-                        <div id="menu3" class="tab-pane fade">
-                            <h3>Ultimos Agendamentos</h3>
-                            <div ng-repeat="agendamento in agendamentos">
-                                <p>{{agendamento.DataAgendada}} - {{agendamento.StatusAgendamento}}</p>
-                            </div>
-                            
-                        </div>
-
-                </div>
-            </div>
-        </form>
+       </form>
     </body>
 </html>

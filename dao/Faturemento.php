@@ -40,13 +40,13 @@ class faturamento extends dbConnect {
  *  */
     
 
-public function listar(){
-      $sql = "SELECT  faturamento.*, paciente.nome FROM faturamento)";
+public function listarByConsulta(){
+      $sql = "SELECT  faturamento.*, paciente.nome FROM consulta left join faturamento on (consulta.condigo_consulta = faturamento.condigo_consulta)  where consulta.codigo_paciente = $faturamentoDados[codigo_paciente]";
     
         $db = $this->getdatabase(); 
         $lista = $db->query($sql);
 
-            $lista = $lista->fetchAll();
+        $lista = $lista->fetchAll();
     
     return  json_encode($this->utf8_converter($lista));
     
@@ -80,15 +80,15 @@ public function atualizar($faturamentoDados){
 
         $sql = "UPDATE Faturamento SET 
                        numeroCartao='$faturamentoDados[numeroCartao]', 
-                       numeroProntuario='$faturamentoDados[numeroProntuario]', 
-                       DataAtendimento='$faturamentoDados[DataAtendimento]', 
-                       GuiaConsulta='$faturamentoDados[GuiaConsulta]', 
-                       NumCobranca='$faturamentoDados[NumCobranca]', 
-                       DataPagamento='$faturamentoDados[DataPagamento]', 
-                       Status='$faturamentoDados[Status]', 
-                       Obs='$faturamentoDados[Obs]', 
-                       CODIGO_CONSULTA=$faturamentoDados[CODIGO_CONSULTA]
-                WHERE codigo_faturamento=$faturamentoDados[codigo_faturamento]";
+                       numeroProntuario ='$faturamentoDados[numeroProntuario]', 
+                       DataAtendimento  ='$faturamentoDados[DataAtendimento]', 
+                       GuiaConsulta     ='$faturamentoDados[GuiaConsulta]', 
+                       NumCobranca      ='$faturamentoDados[NumCobranca]', 
+                       DataPagamento    ='$faturamentoDados[DataPagamento]', 
+                       Status           ='$faturamentoDados[Status]', 
+                       Obs              ='$faturamentoDados[Obs]', 
+                       CODIGO_CONSULTA  = $faturamentoDados[CODIGO_CONSULTA]
+                WHERE codigo_faturamento = $faturamentoDados[codigo_faturamento]";
         
         $db = $this->getdatabase(); 
         
@@ -103,7 +103,7 @@ public function atualizar($faturamentoDados){
 
 }
 
-    public function inserir($faturamentoDados){
+public function inserir($faturamentoDados){
 
         $sql = "INSERT INTO faturamento
                 ( numeroProntuario, dataAtendimento, codigoConvenio, numeroGuia, observacoes, Retorno, codigo_convenio_plano, codigo_paciente)".
