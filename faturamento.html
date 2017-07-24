@@ -10,24 +10,69 @@ and open the template in the editor.
         <meta charset="UTF-8"/>
         <title>Faturamento</title>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-sanitize.js"></script>
-
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-route.min.js"></script>
         <script src="scripts/modal.js" type="text/javascript"></script>
         <script src="scripts/moment.min.js" type="text/javascript"></script>
-        <script src="scripts/select.js" type="text/javascript"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-        <link href="css/select.css" rel="stylesheet" type="text/css"/>
         <script src="scripts/jquery.dataTables.min.js" type="text/javascript"></script>
-       
+        <script src="scripts/pacientesApp.js" type="text/javascript"></script>
         <script src="scripts/dirPagination.js" type="text/javascript"></script>
         <link href="css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
        
-        <script src="scripts/app/faturamento.js" type="text/javascript"></script>
+
+       
+       
     </head>
-    
-    <body >
-                
+    <div ng-include="'views/navbar.htm'"></div>  
+   
+    <body  ng-controller="pacienteCtrl" style="align-items: center ">
+           
+          Paciente <br/>
+          No. Carteirinha<br/>
+          Convenio          Plano<br/>
+          Prontuário<br/>
+
+
+
+
+
+
+            <br/>
+            <br/>
+
+
+            <div class="table-responsive">
+             <table class="table table-condensed" >
+                    <thead>
+                        <tr>
+                          <th>Consulta</th>
+                          <th>Guia</th>
+                          <th>Pagamento</th>
+                          <th>Status</th>
+                          <th>OBS</th>
+                          <th></th> 
+                        </tr>
+                        
+                        
+                      </thead>
+                    <tbody>
+                        <tr ng-repeat="consulta in consultasCobranca">
+                          <td>{{consulta.dataAtendimento}}</td>
+                          <td>{{consulta.numeroGuia}}</td>
+                          <td>{{consulta.dataPagamento}}</td>
+                          <td>{{consulta.Status}}</td>
+                          <td>{{consulta.obs}}</td>
+                          <td>  <button type="button" class="btn btn-primary" data-dismiss="modal">Salvar</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Apagar</button>
+                         </td>
+                        </tr>
+                      
+                    </tbody>
+              </table>
+            </div>
+       </div>
+
     </body>
 </html>
