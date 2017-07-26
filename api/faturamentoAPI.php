@@ -66,3 +66,12 @@ if($action=="inserir"){
      
            echo $Faturamento->inserir($FaturamentoDados);
 }
+<<<<<<< HEAD
+=======
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+>>>>>>> 93a888ddca13c0ee8187d2fdab3372078eab2f34
