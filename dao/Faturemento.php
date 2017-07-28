@@ -17,7 +17,7 @@ require '../db/pdoConect.php';
 
 
 class faturamento extends dbConnect {
-    
+
         public function __construct(){
             parent::__construct();
         }
@@ -34,42 +34,42 @@ class faturamento extends dbConnect {
         }
 /*
 
- * 
+ *
 
- * 
+ *
  *  */
-    
+
 
 public function listarByConsulta(){
       $sql = "SELECT  faturamento.*, paciente.nome FROM consulta left join faturamento on (consulta.condigo_consulta = faturamento.condigo_consulta)  where consulta.codigo_paciente = $faturamentoDados[codigo_paciente]";
-    
-        $db = $this->getdatabase(); 
+
+        $db = $this->getdatabase();
         $lista = $db->query($sql);
 
         $lista = $lista->fetchAll();
-    
+
     return  json_encode($this->utf8_converter($lista));
-    
+
 }
 
 
-        
+
 public function listarByPaciente($codigo_paciente){
       $sql = "SELECT top 6 * FROM faturamento  WHERE  codigo_paciente = $codigo_paciente  ";
-    
-        $db = $this->getdatabase(); 
+
+        $db = $this->getdatabase();
         $lista = $db->query($sql);
 
-        
+
             $lista = $lista->fetchAll();
-     
+
     return  json_encode($this->utf8_converter($lista));
-    
+
 }
 
 public function deletar($faturamentoDados){
   $sql = "delete from  faturamento where codigo_faturamento = $faturamentoDados[codigo_faturamento]";
-        $db = $this->getdatabase(); 
+        $db = $this->getdatabase();
         $db->prepare($sql)->execute();
 
 }
@@ -78,20 +78,20 @@ public function deletar($faturamentoDados){
 public function atualizar($faturamentoDados){
 
 
-        $sql = "UPDATE Faturamento SET 
-                       numeroCartao='$faturamentoDados[numeroCartao]', 
-                       numeroProntuario ='$faturamentoDados[numeroProntuario]', 
-                       DataAtendimento  ='$faturamentoDados[DataAtendimento]', 
-                       GuiaConsulta     ='$faturamentoDados[GuiaConsulta]', 
-                       NumCobranca      ='$faturamentoDados[NumCobranca]', 
-                       DataPagamento    ='$faturamentoDados[DataPagamento]', 
-                       Status           ='$faturamentoDados[Status]', 
-                       Obs              ='$faturamentoDados[Obs]', 
+        $sql = "UPDATE Faturamento SET
+                       numeroCartao='$faturamentoDados[numeroCartao]',
+                       numeroProntuario ='$faturamentoDados[numeroProntuario]',
+                       DataAtendimento  ='$faturamentoDados[DataAtendimento]',
+                       GuiaConsulta     ='$faturamentoDados[GuiaConsulta]',
+                       NumCobranca      ='$faturamentoDados[NumCobranca]',
+                       DataPagamento    ='$faturamentoDados[DataPagamento]',
+                       Status           ='$faturamentoDados[Status]',
+                       Obs              ='$faturamentoDados[Obs]',
                        CODIGO_CONSULTA  = $faturamentoDados[CODIGO_CONSULTA]
                 WHERE codigo_faturamento = $faturamentoDados[codigo_faturamento]";
-        
-        $db = $this->getdatabase(); 
-        
+
+        $db = $this->getdatabase();
+
 
         if($db->prepare($sql)->execute()) {
             echo "faturamento atualizado ";
@@ -115,9 +115,9 @@ public function inserir($faturamentoDados){
                 . "$faturamentoDados[Retorno], "
                 . "$faturamentoDados[codigo_convenio_plano], "
                 . "$faturamentoDados[codigo_paciente]);";
-        
-        $db = $this->getdatabase(); 
-        
+
+        $db = $this->getdatabase();
+
 
         if($db->prepare($sql)->execute()) {
             echo "faturamento Salvo ";
@@ -126,5 +126,5 @@ public function inserir($faturamentoDados){
                echo $sql.' Error : ('. $db_err[0] .') -- ' . $db_err[2];
         }
     }
-    
+
 }

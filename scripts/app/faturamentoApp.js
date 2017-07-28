@@ -1,4 +1,4 @@
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -20,23 +20,23 @@ var faturamentoapp = angular.module("faturamentoApp",['angularUtils.directives.d
 
 faturamentoapp.controller('faturamentosCtrl',[ '$scope', '$http',  function ($scope, $http ){
         $scope.faturamentos =[];
-      
+
       $scope.listarByPaciente  = function(codigo_paciente){
 
         $http.get("http://localhost:90/medico/api/faturamentoAPI.php?action=listar&codigo_paciente="+codigo_paciente).then(
             function(response){
                     $scope.faturamentos = response.data;
             }) ;
-    
-       } 
- 
+
+       }
+
         $scope.salvar = function(status,codigo_faturamento,codigo_consulta){
             action=""
             if ($scope.consulta.selected.codigo_faturamento!=null){
                 action="incluir"
             } else{
                 action="alterar"
-            }  
+            }
 
 
 
@@ -50,36 +50,35 @@ faturamentoapp.controller('faturamentosCtrl',[ '$scope', '$http',  function ($sc
                             status                : $scope.consulta.selected.status,
                             observacao            : $scope.consulta.selected.observacao,
                             action                : action
-                            
+
                            }
                     $http({
                             url    : "api/faturamentoAPI.php",
                             params : params1   ,
                             method : "POST"
-                     
+
                  })
                  .then(function (response){
                         $scope.mensagem="Salvo!!!";
                   });
 
-        }    
- 
+        }
+
 	$scope.sort = function(keyname){
 	    $scope.sortKey = keyname;   //set the sortKey to the param passed
 	    $scope.reverse = !$scope.reverse; //if true make it false and vice versa
 	}
-        
+
         $scope.statusfaturamento ={
          availableOptions: [
+                            {Statusfaturamento : ""  },
                             {Statusfaturamento : "pago"  },
                             {Statusfaturamento : "aguardando"  },
                             {Statusfaturamento : "aberto"},
                             {Statusfaturamento : "glosa"  }
          ]
      }
-        
-        
-        
+
+
+
 }]);
-
-

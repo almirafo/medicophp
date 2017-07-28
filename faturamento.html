@@ -1,50 +1,58 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    
+<!-- https://ciphertrick.com/2015/06/01/search-sort-and-pagination-ngrepeat-angularjs/ -->
+
+<html ng-app="consultaApp">
     <head>
         <meta charset="UTF-8"/>
-        <title>Faturamento</title>
+     <title>Lista de Consultas</title>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-route.min.js"></script>
-        <script src="scripts/modal.js" type="text/javascript"></script>
-        <script src="scripts/moment.min.js" type="text/javascript"></script>
+        
         <script src="scripts/jquery.dataTables.min.js" type="text/javascript"></script>
-        <script src="scripts/pacientesApp.js" type="text/javascript"></script>
+       
         <script src="scripts/dirPagination.js" type="text/javascript"></script>
         <link href="css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
-       
-
-       
-       
+        <script src="scripts/app/consultaApp.js" type="text/javascript"></script>
     </head>
 
-    <div ng-include="'views/navbar.htm'"></div>  
-   
-    <body  ng-controller="pacienteCtrl" style="align-items: center ">
-           
-          Paciente <br/>
-          No. Carteirinha<br/>
-          Convenio          Plano<br/>
-          Prontuário<br/>
+    <body  ng-controller="consultaCtrl"   style="align-items: center " >
+        <div ng-include="'views/navbar.htm'"></div>
+ 
+         
+
+          <div class="container-fluid">
+              <div class="row">
+                <div class="col-xs-9 col-md-1" style="text-align: right">Paciente</div>
+                <div class="col-xs-3 col-md-5" style="color:grey;">Almir</div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6 col-md-2" style="text-align: left;">No. carteirinha</div>
+                <div class="col-xs-6 col-md-2" style="color:grey; text-align: left;">299-7856 1</div>
+              </div>
+              <div class="row">
+                <div class="col-xs-3 col-md-1" style="text-align: right">Convenio</div>
+                <div class="col-xs-3 col-md-1" style="color:grey;">BRADESCO</div>
+                <div class="col-xs-3 col-md-1" style="text-align: right">Plano</div>
+                <div class="col-xs-3 col-md-2" style="color:grey;">TOP NACIONAL</div>
+                
+              </div>
+              <div class="row">
+                <div class="col-xs-6 col-md-1" style="text-align: right">Prontuário</div>
+                <div class="col-xs-6 col-md-2" style="color:grey;">BRA 023 001 2017</div>
+              </div>
+          </div>
 
 
 
+          
 
-
-
+            <hr/>
             <br/>
-            <br/>
 
-
-            <div class="table-responsive">
+            <div class="table-responsive" ng-controller="faturamentoController">
              <table class="table table-condensed" >
                     <thead>
                         <tr>
@@ -53,28 +61,34 @@ and open the template in the editor.
                           <th>Pagamento</th>
                           <th>Status</th>
                           <th>OBS</th>
-                          <th></th> 
+                          <th></th>
                         </tr>
-                        
-                        
+
+
                       </thead>
                     <tbody>
-                        <tr ng-repeat="consulta in consultasCobranca">
-                          <td>{{consulta.dataAtendimento}}</td>
-                          <td>{{consulta.numeroGuia}}</td>
-                          <td>{{consulta.dataPagamento}}</td>
-                          <td>{{consulta.Status}}</td>
-                          <td>{{consulta.obs}}</td>
+                        <tr ng-repeat="faturamento in faturamentos">
+                          <td>{{faturamento.dataAtendimento}}</td>
+                          <td><input type="text" name="numeroGuia" value="" placeholder="Guia"> </td>
+                          <td>{{faturamento.dataPagamento}}</td>
+                          <td>
+                              <select class="form-control form-control-sm" ng-model="faturamento.status" ng-value="faturamento.status"
+                              ng-options="faturamento.status as faturamento.status for faturamento in faturamento.availableOptions"></select>
+                            </td>
+                          <td><input type="text" name="OBS" value="" placeholder="OBSERVAÇÃO"> </td>
                           <td>  <button type="button" class="btn btn-primary" data-dismiss="modal">Salvar</button>
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Apagar</button>
                          </td>
                         </tr>
-                      
+
                     </tbody>
               </table>
             </div>
        </div>
 
 
+
+
     </body>
 </html>
+
