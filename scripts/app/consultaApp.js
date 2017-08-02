@@ -85,7 +85,12 @@ consultaApp.controller('consultaCtrl', function ($scope, $http, $timeout, $inter
      }) ;
     
     
-    
+    $scope.cobranca     =  function (item) {
+       $scope.cobranca.nome = item.nome;
+       $scope.cobranca.numeroProntuario= item.numeroProntuario;
+       $scope.cobranca.dataAtendimento= item.dataAtendimento;
+       item.nome  = "Seila";
+    }
     
     
 });

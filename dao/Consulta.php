@@ -41,7 +41,7 @@ class Consulta extends dbConnect {
     
 
 public function listar(){
-      $sql = "SELECT  consulta.*, paciente.nome FROM consulta  inner join paciente on (consulta.codigo_paciente= paciente.codigo_paciente) order by dataAtendimento desc";
+      $sql = "SELECT  consulta.*, paciente.nome  FROM consulta  inner join paciente on (consulta.codigo_paciente= paciente.codigo_paciente) order by dataAtendimento desc";
     
         $db = $this->getdatabase(); 
         $lista = $db->query($sql);

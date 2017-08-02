@@ -21,7 +21,7 @@ var faturamentoapp = angular.module("faturamentoApp",['angularUtils.directives.d
 faturamentoapp.controller('faturamentosCtrl',[ '$scope', '$http',  function ($scope, $http ){
         $scope.faturamentos =[];
 
-      $scope.listarByPaciente  = function(codigo_paciente){
+       $scope.listarByPaciente  = function(codigo_paciente){
 
         $http.get("http://localhost:90/medico/api/faturamentoAPI.php?action=listar&codigo_paciente="+codigo_paciente).then(
             function(response){
