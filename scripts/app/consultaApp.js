@@ -78,6 +78,15 @@ consultaApp.controller('consultaCtrl', function ($scope, $http, $timeout, $inter
      $scope.consulta          = {};
      
      
+ $scope.statusFaturamento ={
+         availableOptions: [
+                            {StatusFaturamento : "PAGO"  },
+                            {StatusFaturamento : "GLOSA"},
+                            {StatusFaturamento : "PENDENTE"  }
+         ]
+    };
+
+
      $http.get("http://localhost:90/medico/api/consultaAPI.php?action=listar")
      .then(
            function(result){
