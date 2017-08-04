@@ -8,7 +8,7 @@ var agendamentoapp = angular.module("agendamentoApp",['angularUtils.directives.d
     .run( function($http,$window){
  $http.get("http://localhost:90/medico/api/loginAPI.php?action=logged")
  .then( function(response){
-    SSSS
+    
     if(response.data!="1"){
         $window.location.href ="index.php";
     }

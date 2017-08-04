@@ -1,8 +1,10 @@
-<?
+<?php
 require '../dao/UsuarioModel.php'; 
 
 //$action =  isset($_GET['action'])? $_GET['action'] :isset($_POST['action'])?$_POST['action']:"";
 $usuarioModel  = new UsuarioModel();
+
+
 $action = $_GET['action'];
 if($action=="verify"){
     
@@ -43,4 +45,4 @@ if($action=="find"){
 		            "password"   => $password    
 					); 
     echo $usuarioModel->findByUserAndPassword($userDados);};
-?>
+php?>

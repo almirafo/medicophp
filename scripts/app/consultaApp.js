@@ -77,7 +77,8 @@ consultaApp.controller('consultaCtrl', function ($scope, $http, $timeout, $inter
     
      $scope.consulta          = {};
      
-     
+     $scope.cobranca={};
+     $scope.item={};
  $scope.statusFaturamento ={
          availableOptions: [
                             {StatusFaturamento : "PAGO"  },
@@ -98,7 +99,49 @@ consultaApp.controller('consultaCtrl', function ($scope, $http, $timeout, $inter
        $scope.cobranca.nome = item.nome;
        $scope.cobranca.numeroProntuario= item.numeroProntuario;
        $scope.cobranca.dataAtendimento= item.dataAtendimento;
-       item.nome  = "Seila";
+       $scope.item = item;
+       
+    }
+
+    $scope.salvar = function (item){
+
+        var acao = "inserir"
+        if ($scope.item.numeroGuia!=""){
+          acao ="alterar"
+        }
+
+
+      $scope.item.numeroGuia = $scope.cobranca.numeroGuia;
+      $scope.consultas.push($scope.item);
+        var params1 ={
+
+                    numeroProntuario      : $scope.paciente.selected.numeroProntuario,
+                    DataAgendada          : $scope.agendamento.data,
+                    StatusAgendamento     : "null",
+                    observacao            : $scope.agendamento.observacao,
+                    action                : acao
+                    
+                   }
+
+
+          $http({
+                    url    : "api/agendaAPI.php",
+                    params : params1   ,
+                    method : "POST"
+             
+         })
+         .then(function (response){
+                $scope.mensagem="salvo!!!";
+          });
+
+
+
+
+
+
+
+
+
     }
     
     
