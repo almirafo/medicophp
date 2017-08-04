@@ -49,6 +49,7 @@
                            </th>
                            <th>numero Prontuario</th>
                            <th>Guia</th>
+                           <th>Status</th>
                        </tr>
                    </thead>
                    <tbody>
@@ -56,7 +57,8 @@
                            <td>{{item.dataAtendimento}}</td>
                            <td>{{item.nome}}</td>
                            <td>{{item.numeroProntuario}}</td>
-                           <td>{{item.numeroGuia}}</td>
+                           <td>{{item.GuiaConsulta}}</td>
+                           <td ng-style="getColor(item.status)">{{item.status}}</td>
                            <td><a href='pacientevisualizar.html?codigo_paciente={{item.codigo_paciente}}&action=buscar' class="btn btn-primary" ><img ng-src="images/paciente.png" height="20" width="20"/>Visualizar Paciente</a></td>
                            <td><a href="consulta.html?codigo_consulta={{item.codigo_consulta}}&action=buscar&from=listaConsulta" class="btn btn-info"><img ng-src="images/medic-icon.png" height="20" width="20"/> Editar Consulta</a></td>
                            <td><button class="btn btn-primary"  data-toggle="modal" data-target="#FaturamentoModal" ng-click="cobranca(item)"> <img ng-src="images/cobranca.png" height="20" width="20"/> Cobrança</button></td>
@@ -109,7 +111,7 @@
                         <div class="form-group row" >
                           <div class="col-sm-2  col-form-label col-form-label-sm">Guia: </div>
                           <div class="col-sm-6  col-form-label col-form-label-sm"> 
-                          <input id="numeroGuia" class="form-control form-control-sm" required ng-model="cobranca.numeroGuia"  placeholder="Guia">
+                          <input id="GuiaConsulta" class="form-control form-control-sm" required ng-model="cobranca.GuiaConsulta"  placeholder="Guia">
                           </div>
                         </div>
 
@@ -119,7 +121,7 @@
                           <div class="col-sm-2  col-form-label col-form-label-sm">Status: </div>
                           <div class="col-sm-6  col-form-label col-form-label-sm"> 
 
-                          <select class="form-control form-control-sm" ng-model="item.StatusAgendamento" ng-value="item.StatusAgendamento"
+                          <select class="form-control form-control-sm" ng-model="item.statusFaturamento" ng-value="item.status"
                                     ng-options="statusFaturamento.StatusFaturamento as statusFaturamento.StatusFaturamento for statusFaturamento in statusFaturamento.availableOptions"></select> 
 
 
@@ -139,13 +141,9 @@
                           <div class="col-sm-2  col-form-label col-form-label-sm">Pagamento: </div>
                           <div class="col-sm-6  col-form-label col-form-label-sm"> 
 
-                           <input class="form-control" type="date" ng-model="cobranca.dataPagamento">
-                          
+                           <input type="date"  class="form-control" ng-model="cobranca.dataPagamento">
                           </div>
                         </div>
-
-
-
 
                       </div>
 

@@ -76,10 +76,10 @@ var getUrlParameter = function getUrlParameter(sParam) {
 consultaApp.controller('consultaCtrl', function ($scope, $http, $timeout, $interval) {
     
      $scope.consulta          = {};
-     
-     $scope.cobranca={};
+ 
+    
      $scope.item={};
- $scope.statusFaturamento ={
+      $scope.statusFaturamento ={
          availableOptions: [
                             {StatusFaturamento : "PAGO"  },
                             {StatusFaturamento : "GLOSA"},
@@ -97,22 +97,45 @@ consultaApp.controller('consultaCtrl', function ($scope, $http, $timeout, $inter
     
     $scope.cobranca     =  function (item) {
        $scope.cobranca.nome = item.nome;
-       $scope.cobranca.numeroProntuario= item.numeroProntuario;
-       $scope.cobranca.dataAtendimento= item.dataAtendimento;
+       $scope.cobranca.numeroProntuario = item.numeroProntuario;
+       $scope.cobranca.dataAtendimento  = item.dataAtendimento;
+       $scope.cobranca.GuiaConsulta     = item.GuiaConsulta;
        $scope.item = item;
+
        
+    }
+
+
+
+    $scope.getColor  = function (status){
+
+      if (status=="PAGO"){
+        return {'color': 'green'};
+      } else if(status=="GLOSA"){
+        return {'color': 'red'};
+      } else if(status=="PENDENTE"){
+        return {'color': 'blue'};
+      }else{
+        return {'color': 'grey'};
+      }
+
     }
 
     $scope.salvar = function (item){
 
         var acao = "inserir"
-        if ($scope.item.numeroGuia!=""){
+        if ($scope.item.GuiaConsulta!=undefined){
           acao ="alterar"
         }
 
 
-      $scope.item.numeroGuia = $scope.cobranca.numeroGuia;
+      $scope.item.GuiaConsulta = $scope.cobranca.GuiaConsulta;
+      $scope.item.status       = item.statusFaturamento;
+      $scope.cobranca.GuiaConsulta="";
+      item.statusFaturamento="";
+      $scope.cobranca.status="";
       $scope.consultas.push($scope.item);
+      /*
         var params1 ={
 
                     numeroProntuario      : $scope.paciente.selected.numeroProntuario,
@@ -133,18 +156,8 @@ consultaApp.controller('consultaCtrl', function ($scope, $http, $timeout, $inter
          .then(function (response){
                 $scope.mensagem="salvo!!!";
           });
-
-
-
-
-
-
-
-
-
+          */
     }
-    
-    
 });
 
 consultaPersistApp.controller('consultaPersist', function ($scope, $http) {
