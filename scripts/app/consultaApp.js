@@ -121,7 +121,7 @@ consultaApp.controller('consultaCtrl', function ($scope, $http, $timeout, $inter
 
     }
 
-    $scope.salvar = function (item){
+    $scope.salvarCobranca = function (item){
 
         var acao = "inserir"
         if ($scope.item.GuiaConsulta!=undefined){
@@ -129,34 +129,44 @@ consultaApp.controller('consultaCtrl', function ($scope, $http, $timeout, $inter
         }
 
 
-      $scope.item.GuiaConsulta = $scope.cobranca.GuiaConsulta;
-      $scope.item.status       = item.statusFaturamento;
-      $scope.cobranca.GuiaConsulta="";
-      item.statusFaturamento="";
-      $scope.cobranca.status="";
-      $scope.consultas.push($scope.item);
-      /*
+      
         var params1 ={
 
-                    numeroProntuario      : $scope.paciente.selected.numeroProntuario,
-                    DataAgendada          : $scope.agendamento.data,
-                    StatusAgendamento     : "null",
-                    observacao            : $scope.agendamento.observacao,
-                    action                : acao
+
+
+                       numeroCartao     :$scope.item.numeroCartao,
+                       numeroProntuario :$scope.paciente.selected.numeroProntuario,
+                       DataAtendimento  :$scope.item.DataAtendimento,
+                       GuiaConsulta     :$scope.item.GuiaConsulta,
+                       NumCobranca      :'',
+                       DataPagamento    :$scope.cobranca.DataPagamento,
+                       Status           :$scope.cobranca.status,
+                       Obs              :$scope.cobranca.Obs,
+                       CODIGO_CONSULTA  :$scope.cobranca.CODIGO_CONSULTA,
+                       codigoFaturamento:$scope.cobranca.codigoFaturamento ,
+                       action           : acao
                     
                    }
 
 
           $http({
-                    url    : "api/agendaAPI.php",
+                    url    : "api/faturamentoAPI.php",
                     params : params1   ,
                     method : "POST"
              
          })
          .then(function (response){
                 $scope.mensagem="salvo!!!";
+
+                $scope.item.GuiaConsulta = $scope.cobranca.GuiaConsulta;
+                $scope.item.status       = item.statusFaturamento;
+                $scope.cobranca.GuiaConsulta="";
+                item.statusFaturamento="";
+                $scope.cobranca.status="";
+                $scope.consultas.push($scope.item);
+
           });
-          */
+          
     }
 });
 

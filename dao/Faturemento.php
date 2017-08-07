@@ -75,7 +75,7 @@ public function deletar($faturamentoDados){
 }
 
 
-public function atualizar($faturamentoDados){
+public function atualizarFaturamento($faturamentoDados){
 
 
         $sql = "UPDATE Faturamento SET
@@ -103,18 +103,23 @@ public function atualizar($faturamentoDados){
 
 }
 
-public function inserir($faturamentoDados){
+public function inserirFaturamento($faturamentoDados){
 
-        $sql = "INSERT INTO faturamento
-                ( numeroProntuario, dataAtendimento, codigoConvenio, numeroGuia, observacoes, Retorno, codigo_convenio_plano, codigo_paciente)".
-                "VALUES( '$faturamentoDados[numeroProntuario]', "
-                . "'$faturamentoDados[dataAtendimento]', "
-                . "'$faturamentoDados[codigoConvenio]', "
-                . "'$faturamentoDados[numeroGuia]', "
-                . "'$faturamentoDados[observacoes]', "
-                . "$faturamentoDados[Retorno], "
-                . "$faturamentoDados[codigo_convenio_plano], "
-                . "$faturamentoDados[codigo_paciente]);";
+        $sql = "INSERT INTO `Faturamento` ".
+               "( `numeroProntuario`, ".
+               "  `DataAtendimento`, ".
+               "  `GuiaConsulta`, ".
+               "  `NumCobranca`,".
+               "  `RetornoFaturamento`, ".
+               "  `DataPagamento`, ".
+               "  `Status`, ".
+               "  `Obs`, ".
+               "  `codigo_consulta`, ".
+               "  `novo`) ".
+               " VALUES(0, '', '', '', '', '', '', '', '', '', '', '', 0, true)";
+
+
+
 
         $db = $this->getdatabase();
 

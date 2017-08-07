@@ -43,7 +43,7 @@ class Consulta extends dbConnect {
 public function listar(){
 
 
-         $sql ="select p.codigo_paciente,p.nome, c.numeroProntuario,c.dataAtendimento,c.codigo_consulta,c.codigoConvenio ,f.GuiaConsulta,f.status ".       
+         $sql ="select p.codigo_paciente,p.nome, c.numeroProntuario,c.dataAtendimento,c.codigo_consulta,c.codigoConvenio ,f.GuiaConsulta,f.status,f.codigo_faturamento ".       
         " from (( paciente  p inner join consulta    c on p.codigo_paciente = c.codigo_paciente ) ".
         "                              left join Faturamento f on c.codigo_consulta = f.codigo_consulta ) ".
         " WHERE c.codigoConvenio<>'PAR'   ".                           
@@ -70,20 +70,6 @@ public function listarByPaciente($codigo_paciente){
 
         
             $lista = $lista->fetchAll();
-        
-    
-    
-    
-    /*
-    $lista= array(
-             array("DataAtendimento"=>'10/08/2016'),
-             array("DataAtendimento"=>'10/07/2016'),
-             array("DataAtendimento"=>'10/06/2016'),
-             array("DataAtendimento"=>'10/05/2016'),
-             array("DataAtendimento"=>'10/04/2016')
-            );
-    */
-    
     
     return  json_encode($this->utf8_converter($lista));
     
@@ -122,8 +108,6 @@ public function inserir($consultaDados){
                 $db = $this->getdatabase(); 
        
                 $array = $db->query($sql)->fetchAll();
-                
-                //return  json_encode($this->utf8_converter($array));
                 return  json_encode($array);
         }
         
@@ -136,7 +120,6 @@ public function inserir($consultaDados){
        
                 $array = $db->query($sql)->fetchAll();
                 
-                //return  json_encode($this->utf8_converter($array));
                 return  json_encode($array);
         }
     

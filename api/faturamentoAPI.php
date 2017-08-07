@@ -33,45 +33,49 @@ if($action=="apagar"){
 
 }
 
-if($action=="atualizar"){
+if($action=="alterar"){
+
+     $FaturamentoDados = array(
+                       "numeroCartao"       => $_POST['numeroCartao'],
+                       "numeroProntuario"   => $_POST['numeroProntuario'],
+                       "DataAtendimento"    => $_POST['DataAtendimento'],
+                       "GuiaConsulta"       => $_POST['GuiaConsulta'],
+                       "NumCobranca"        => $_POST['NumCobranca'],
+                       "DataPagamento"      => $_POST['DataPagamento'],
+                       "Status"             => $_POST['Status'],
+                       "Obs"                => $_POST['Obs'],
+                       "CODIGO_CONSULTA"    => $_POST['CODIGO_CONSULTA'],
+                       "codigo_faturamento" => $_POST['codigo_faturamento']
+            );
+
+           echo $Faturamento->atualizarFaturamento($FaturamentoDados);
 
 }
 
 
-if($action=="buscar"){
+if($action=="buscarPorPaciente"){
 
      $FaturamentoDados = array(
-            "codigo_agenda"      => $_POST['codigo_agenda']     ,
-            "codigo_paciente"       => $_POST['codigo_paciente']
-            );
+                       "numeroProntuario" =>$_POST['numeroProntuario'],
+           );
      
-           echo $Faturamento->buscarPorCodigoAgenda($FaturamentoDados);
-
-
+      echo $Faturamento->buscarFaturamentoPorPaciente($FaturamentoDados);
     
 }
 
 if($action=="inserir"){
     
-     $FaturamentoDados = array(
-            "numeroProntuario"      => $_POST['numeroProntuario']     ,
-            "dataAtendimento"       => $_POST['dataAtendimento']      ,
-            "codigoConvenio"        => $_POST['codigoConvenio']       ,
-            "numeroGuia"            => $_POST['numeroGuia']           ,
-            "observacoes"           => $_POST['observacoes']          ,
-            "Retorno"               => "false"            , 
-            "codigo_convenio_plano" => $_POST['codigo_convenio_plano'],
-            "codigo_paciente"       => $_POST['codigo_paciente']
+    $FaturamentoDados = array(
+                       "numeroCartao"     =>$_POST['numeroCartao'],
+                       "numeroProntuario" =>$_POST['numeroProntuario'],
+                       "DataAtendimento"  =>$_POST['DataAtendimento'],
+                       "GuiaConsulta"     =>$_POST['GuiaConsulta'],
+                       "NumCobranca"      =>$_POST['NumCobranca'],
+                       "DataPagamento"    =>$_POST['DataPagamento'],
+                       "Status"           =>$_POST['Status'],
+                       "Obs"              =>$_POST['Obs'],
+                       "CODIGO_CONSULTA"  =>$_POST['CODIGO_CONSULTA']
             );
-     
-           echo $Faturamento->inserir($FaturamentoDados);
-}
-<<<<<<< HEAD
-=======
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
->>>>>>> 93a888ddca13c0ee8187d2fdab3372078eab2f34
+           echo $Faturamento->inserirFaturamento($FaturamentoDados);
+}
