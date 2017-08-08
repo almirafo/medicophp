@@ -16,7 +16,7 @@
 require '../db/pdoConect.php';
 
 
-class faturamento extends dbConnect {
+class Faturamento extends dbConnect {
 
         public function __construct(){
             parent::__construct();
@@ -87,7 +87,7 @@ public function atualizarFaturamento($faturamentoDados){
                        DataPagamento    ='$faturamentoDados[DataPagamento]',
                        Status           ='$faturamentoDados[Status]',
                        Obs              ='$faturamentoDados[Obs]',
-                       CODIGO_CONSULTA  = $faturamentoDados[CODIGO_CONSULTA]
+                       codigo_consulta  = $faturamentoDados[codigo_consulta]
                 WHERE codigo_faturamento = $faturamentoDados[codigo_faturamento]";
 
         $db = $this->getdatabase();
@@ -105,21 +105,24 @@ public function atualizarFaturamento($faturamentoDados){
 
 public function inserirFaturamento($faturamentoDados){
 
-        $sql = "INSERT INTO `Faturamento` ".
-               "( `numeroProntuario`, ".
-               "  `DataAtendimento`, ".
-               "  `GuiaConsulta`, ".
-               "  `NumCobranca`,".
-               "  `RetornoFaturamento`, ".
-               "  `DataPagamento`, ".
-               "  `Status`, ".
-               "  `Obs`, ".
-               "  `codigo_consulta`, ".
-               "  `novo`) ".
-               " VALUES(0, '', '', '', '', '', '', '', '', '', '', '', 0, true)";
-
-
-
+        $sql = "INSERT INTO Faturamento ".
+               "( numeroProntuario, ".
+               "  DataAtendimento, ".
+               "  GuiaConsulta, ".
+               "  DataPagamento, ".
+               "  Status, ".
+               "  Obs, ".
+               "  codigo_consulta ".
+               ") ".
+               
+               " VALUES('$faturamentoDados[numeroProntuario]', ".
+               "  '$faturamentoDados[DataAtendimento]', ".
+               "  '$faturamentoDados[GuiaConsulta]', ".
+               "  '$faturamentoDados[DataPagamento]', ".
+               "  '$faturamentoDados[Status]', ".
+               "  '$faturamentoDados[Obs]', ".
+               "  '$faturamentoDados[codigo_consulta]' ".
+               " )";
 
         $db = $this->getdatabase();
 

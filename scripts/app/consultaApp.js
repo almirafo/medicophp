@@ -124,7 +124,7 @@ consultaApp.controller('consultaCtrl', function ($scope, $http, $timeout, $inter
     $scope.salvarCobranca = function (item){
 
         var acao = "inserir"
-        if ($scope.item.GuiaConsulta!=undefined){
+        if ($scope.item.codigo_faturamento!=null){
           acao ="alterar"
         }
 
@@ -133,18 +133,18 @@ consultaApp.controller('consultaCtrl', function ($scope, $http, $timeout, $inter
         var params1 ={
 
 
-
-                       numeroCartao     :$scope.item.numeroCartao,
-                       numeroProntuario :$scope.paciente.selected.numeroProntuario,
-                       DataAtendimento  :$scope.item.DataAtendimento,
-                       GuiaConsulta     :$scope.item.GuiaConsulta,
-                       NumCobranca      :'',
-                       DataPagamento    :$scope.cobranca.DataPagamento,
-                       Status           :$scope.cobranca.status,
-                       Obs              :$scope.cobranca.Obs,
-                       CODIGO_CONSULTA  :$scope.cobranca.CODIGO_CONSULTA,
-                       codigoFaturamento:$scope.cobranca.codigoFaturamento ,
-                       action           : acao
+                       codigo_faturamento:$scope.item.codigo_faturamento,
+                       numeroCartao      :$scope.item.numeroCartao,
+                       numeroProntuario  :$scope.item.numeroProntuario,
+                       DataAtendimento   :$scope.cobranca.dataAtendimento,
+                       GuiaConsulta      :$scope.cobranca.GuiaConsulta,
+                       NumCobranca       :'',
+                       DataPagamento     :$scope.cobranca.dataPagamento.toLocaleString(),
+                       Status            :item.statusFaturamento,
+                       obs               :$scope.cobranca.obs,
+                       codigo_consulta   :item.codigo_consulta,
+                       codigo_faturamento :item.codigo_faturamento ,
+                       action            : acao
                     
                    }
 
@@ -155,18 +155,23 @@ consultaApp.controller('consultaCtrl', function ($scope, $http, $timeout, $inter
                     method : "POST"
              
          })
-         .then(function (response){
+         .success(function (response){
                 $scope.mensagem="salvo!!!";
 
-                $scope.item.GuiaConsulta = $scope.cobranca.GuiaConsulta;
+            
+
+          })
+         .error(function(err){
+          $scope.mensagem="err!!!";
+         })
+         ;
+          
+              $scope.item.GuiaConsulta = $scope.cobranca.GuiaConsulta;
                 $scope.item.status       = item.statusFaturamento;
                 $scope.cobranca.GuiaConsulta="";
                 item.statusFaturamento="";
                 $scope.cobranca.status="";
                 $scope.consultas.push($scope.item);
-
-          });
-          
     }
 });
 

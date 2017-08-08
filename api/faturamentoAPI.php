@@ -44,7 +44,7 @@ if($action=="alterar"){
                        "DataPagamento"      => $_POST['DataPagamento'],
                        "Status"             => $_POST['Status'],
                        "Obs"                => $_POST['Obs'],
-                       "CODIGO_CONSULTA"    => $_POST['CODIGO_CONSULTA'],
+                       "codigo_consulta"    => $_POST['codigo_consulta'],
                        "codigo_faturamento" => $_POST['codigo_faturamento']
             );
 
@@ -74,8 +74,9 @@ if($action=="inserir"){
                        "DataPagamento"    =>$_POST['DataPagamento'],
                        "Status"           =>$_POST['Status'],
                        "Obs"              =>$_POST['Obs'],
-                       "CODIGO_CONSULTA"  =>$_POST['CODIGO_CONSULTA']
+                       "codigo_consulta"  =>$_POST['codigo_consulta']
             );
+
 
            echo $Faturamento->inserirFaturamento($FaturamentoDados);
 }
