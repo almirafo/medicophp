@@ -100,6 +100,9 @@ consultaApp.controller('consultaCtrl', function ($scope, $http, $timeout, $inter
        $scope.cobranca.numeroProntuario = item.numeroProntuario;
        $scope.cobranca.dataAtendimento  = item.dataAtendimento;
        $scope.cobranca.GuiaConsulta     = item.GuiaConsulta;
+       $scope.cobranca.obs              = item.obs;
+       $scope.cobranca.dataPagamento    = item.DataPagamento;
+       item.statusFaturamento           = item.status;
        $scope.item = item;
 
        
@@ -134,13 +137,13 @@ consultaApp.controller('consultaCtrl', function ($scope, $http, $timeout, $inter
 
 
                        codigo_faturamento:$scope.item.codigo_faturamento,
-                       numeroCartao      :$scope.item.numeroCartao,
+                       numeroCartao      :'',
                        numeroProntuario  :$scope.item.numeroProntuario,
                        DataAtendimento   :$scope.cobranca.dataAtendimento,
                        GuiaConsulta      :$scope.cobranca.GuiaConsulta,
                        NumCobranca       :'',
                        DataPagamento     :$scope.cobranca.dataPagamento.toLocaleString(),
-                       Status            :item.statusFaturamento,
+                       status            :item.statusFaturamento,
                        obs               :$scope.cobranca.obs,
                        codigo_consulta   :item.codigo_consulta,
                        codigo_faturamento :item.codigo_faturamento ,

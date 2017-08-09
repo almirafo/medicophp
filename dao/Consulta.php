@@ -43,7 +43,7 @@ class Consulta extends dbConnect {
 public function listar(){
 
 
-         $sql ="select p.codigo_paciente,p.nome, c.numeroProntuario,c.dataAtendimento,c.codigo_consulta,c.codigoConvenio ,f.GuiaConsulta,f.status,f.codigo_faturamento ".       
+         $sql ="select p.codigo_paciente,p.nome, c.numeroProntuario,c.dataAtendimento,c.codigo_consulta,c.codigoConvenio ,f.GuiaConsulta,f.status,f.codigo_faturamento ,f.obs , f.DataPagamento".       
         " from (( paciente  p inner join consulta    c on p.codigo_paciente = c.codigo_paciente ) ".
         "                              left join Faturamento f on c.codigo_consulta = f.codigo_consulta ) ".
         " WHERE c.codigoConvenio<>'PAR'   ".                           

@@ -78,17 +78,18 @@ public function deletar($faturamentoDados){
 public function atualizarFaturamento($faturamentoDados){
 
 
-        $sql = "UPDATE Faturamento SET
-                       numeroCartao='$faturamentoDados[numeroCartao]',
-                       numeroProntuario ='$faturamentoDados[numeroProntuario]',
-                       DataAtendimento  ='$faturamentoDados[DataAtendimento]',
-                       GuiaConsulta     ='$faturamentoDados[GuiaConsulta]',
-                       NumCobranca      ='$faturamentoDados[NumCobranca]',
-                       DataPagamento    ='$faturamentoDados[DataPagamento]',
-                       Status           ='$faturamentoDados[Status]',
-                       Obs              ='$faturamentoDados[Obs]',
-                       codigo_consulta  = $faturamentoDados[codigo_consulta]
-                WHERE codigo_faturamento = $faturamentoDados[codigo_faturamento]";
+        $sql = "UPDATE Faturamento SET ".
+                       "numeroCartao     ='".$faturamentoDados['numeroCartao'].     "',".
+                       "numeroProntuario ='".$faturamentoDados['numeroProntuario']. "',".
+                       "DataAtendimento  ='".$faturamentoDados['DataAtendimento'].  "',".
+                       "GuiaConsulta     ='".$faturamentoDados['GuiaConsulta'].     "',".
+                       "NumCobranca      ='".$faturamentoDados['NumCobranca'].      "',".
+                       "DataPagamento    ='".$faturamentoDados['DataPagamento'].    "',".
+                       "status           ='".$faturamentoDados['status'].           "',".
+                       "obs              ='".$faturamentoDados['obs'].              "',".
+                       "codigo_consulta  = ".$faturamentoDados['codigo_consulta'].
+                       "		WHERE codigo_faturamento = ".$faturamentoDados['codigo_faturamento'];
+echo $sql;
 
         $db = $this->getdatabase();
 
@@ -110,20 +111,22 @@ public function inserirFaturamento($faturamentoDados){
                "  DataAtendimento, ".
                "  GuiaConsulta, ".
                "  DataPagamento, ".
-               "  Status, ".
-               "  Obs, ".
+               "  status, ".
+               "  obs, ".
                "  codigo_consulta ".
                ") ".
                
-               " VALUES('$faturamentoDados[numeroProntuario]', ".
-               "  '$faturamentoDados[DataAtendimento]', ".
-               "  '$faturamentoDados[GuiaConsulta]', ".
-               "  '$faturamentoDados[DataPagamento]', ".
-               "  '$faturamentoDados[Status]', ".
-               "  '$faturamentoDados[Obs]', ".
-               "  '$faturamentoDados[codigo_consulta]' ".
+               " VALUES('".$faturamentoDados["numeroProntuario"]."', ".
+               "  '".      $faturamentoDados["DataAtendimento"]. "', ".
+               "  '".      $faturamentoDados["GuiaConsulta"].    "', ".
+               "  '".      $faturamentoDados["DataPagamento"].   "', ".
+               "  '".      $faturamentoDados["status"].          "', ".
+               "  '".      $faturamentoDados["obs"].             "', ".
+               "  ".       $faturamentoDados["codigo_consulta"] .
                " )";
 
+        
+       echo $sql;
         $db = $this->getdatabase();
 
 

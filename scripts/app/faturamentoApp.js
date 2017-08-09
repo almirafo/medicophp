@@ -31,7 +31,7 @@ faturamentoapp.controller('faturamentosCtrl',[ '$scope', '$http',  function ($sc
        }
 
         $scope.salvar = function(status,codigo_faturamento,codigo_consulta){
-            action=""
+            var action=""
             if ($scope.consulta.selected.codigo_faturamento!=null){
                 action="incluir"
             } else{
@@ -48,7 +48,7 @@ faturamentoapp.controller('faturamentosCtrl',[ '$scope', '$http',  function ($sc
                             DataAgendada          : $scope.consulta.selected.data,
                             DataPagamento         : $scope.consulta.selected.DataPagamento,
                             status                : $scope.consulta.selected.status,
-                            observacao            : $scope.consulta.selected.observacao,
+                            obs                   : $scope.consulta.selected.observacao,
                             action                : action
 
                            }
