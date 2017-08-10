@@ -125,13 +125,13 @@ public function inserirFaturamento($faturamentoDados){
                "  ".       $faturamentoDados["codigo_consulta"] .
                " )";
 
-        
-       echo $sql;
         $db = $this->getdatabase();
 
 
         if($db->prepare($sql)->execute()) {
-            echo "faturamento Salvo ";
+            return $db->prepare("select codigo_faturamento from Faturamento where codigo_consulta = " 
+                   .$faturamentoDados["codigo_consulta"])->execute();
+
            }else{
                $db_err = $database->errorInfo();
                echo $sql.' Error : ('. $db_err[0] .') -- ' . $db_err[2];

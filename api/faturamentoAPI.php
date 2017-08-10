@@ -90,6 +90,6 @@ if($action=="inserir"){
 			"codigo_faturamento" => $codigo_faturamento
 	);
 	
-
-           echo $Faturamento->inserirFaturamento($FaturamentoDados);
+  print_r( $Faturamento->inserirFaturamento($FaturamentoDados));
+   //echo $Faturamento->inserirFaturamento($FaturamentoDados);
 }

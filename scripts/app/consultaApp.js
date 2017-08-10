@@ -101,7 +101,7 @@ consultaApp.controller('consultaCtrl', function ($scope, $http, $timeout, $inter
        $scope.cobranca.dataAtendimento  = item.dataAtendimento;
        $scope.cobranca.GuiaConsulta     = item.GuiaConsulta;
        $scope.cobranca.obs              = item.obs;
-       $scope.cobranca.dataPagamento    = item.DataPagamento;
+       $scope.cobranca.dataPagamento    =  new Date(item.DataPagamento) ;
        item.statusFaturamento           = item.status;
        $scope.item = item;
 
@@ -128,7 +128,10 @@ consultaApp.controller('consultaCtrl', function ($scope, $http, $timeout, $inter
 
         var acao = "inserir"
         if ($scope.item.codigo_faturamento!=null){
+          
           acao ="alterar"
+        }else{
+          $scope.item.codigo_faturamento=0;
         }
 
 
@@ -160,8 +163,9 @@ consultaApp.controller('consultaCtrl', function ($scope, $http, $timeout, $inter
          })
          .success(function (response){
                 $scope.mensagem="salvo!!!";
-
-            
+                if (acao=="inserir"){
+                $scope.item.codigo_faturamento = response;
+                }
 
           })
          .error(function(err){
@@ -169,8 +173,10 @@ consultaApp.controller('consultaCtrl', function ($scope, $http, $timeout, $inter
          })
          ;
           
-              $scope.item.GuiaConsulta = $scope.cobranca.GuiaConsulta;
+                $scope.item.GuiaConsulta = $scope.cobranca.GuiaConsulta;
                 $scope.item.status       = item.statusFaturamento;
+                $scope.item.obs          =  $scope.cobranca.obs;
+                $scope.item.DataPagamento= $scope.cobranca.dataPagamento.toLocaleString();
                 $scope.cobranca.GuiaConsulta="";
                 item.statusFaturamento="";
                 $scope.cobranca.status="";
