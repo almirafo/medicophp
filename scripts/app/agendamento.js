@@ -215,6 +215,28 @@ agendamentoApp.controller('agendamentoCtrl', function ($scope, $http) {
                     }) ;
   };
   
+  $scope.apagar = function(codigo_consulta){
+      var params1  ={
+        codigo_consulta = codigo_consulta,
+        action = "apagar"
+      };
+
+
+         $http({
+
+                 url: "http://localhost:90/medico/api/agendaAPI.php",
+                 params: params1,
+                 method:"POST"}
+                 )
+                .then(
+                    function(response){
+                            $scope.mensagem= response;
+                    }) ;
+
+
+  }
+
+
   $scope.salvar = function(){
         if ($scope.agendamento.data==null){
             alert("data de agendamento é obrigatório");

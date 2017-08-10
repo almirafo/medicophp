@@ -188,11 +188,40 @@ consultaPersistApp.controller('consultaPersist', function ($scope, $http) {
     $scope.consulta          = {};
     $scope.buscar = function(nome ){
         var paciente ={};
+
+
         paciente.nome= "almir";
         paciente.numeroProntuario= "BRA 1223 1231";
         $scope.consulta.idConsulta = 1;
         $scope.consulta.paciente = paciente;
         $scope.consulta.dataAtendimento="01-01-2018";
+
+
+       var params1 ={
+                       codigo_consulta   :  item.codigo_consulta,
+                       action            : "buscar"
+                          
+                    };
+
+         $http({
+                    url    : "api/faturamentoAPI.php",
+                    params : params1   ,
+                    method : "POST"
+             
+         })
+         .success(function (response){
+                $scope.consulta = response;
+                }
+
+          })
+         .error(function (response){
+                $scope.mensagem = response;
+                }
+
+          });
+
+         ;
+
     }
     
     
