@@ -7,11 +7,10 @@ require '../dao/Faturamento.php';
 $Faturamento  = new Faturamento();
 $action = isset($_GET['action'])?$_GET['action']:$_POST['action'];
 
-$numeroCartao       = isset($_GET['numeroCartao'])?       $_GET['numeroCartao']:$_POST['numeroCartao'];
+
 $numeroProntuario   = isset($_GET['numeroProntuario'])?   $_GET['numeroProntuario']:$_POST['numeroProntuario'];
 $DataAtendimento    = isset($_GET['DataAtendimento'])?    $_GET['DataAtendimento']:$_POST['DataAtendimento'];
 $GuiaConsulta       = isset($_GET['GuiaConsulta'])?       $_GET['GuiaConsulta']:$_POST['GuiaConsulta'];
-$NumCobranca        = isset($_GET['NumCobranca'])?        $_GET['NumCobranca']:$_POST['NumCobranca'];
 $DataPagamento      = isset($_GET['DataPagamento'])?      $_GET['DataPagamento']:$_POST['DataPagamento'];
 $Status             = isset($_GET['status'])?             $_GET['status']:$_POST['status'];
 $obs                = isset($_GET['obs'])?                $_GET['obs']:$_POST['obs'];
@@ -48,11 +47,9 @@ if($action=="apagar"){
 if($action=="alterar"){
 
      $FaturamentoDados = array(
-                       "numeroCartao"       => $numeroCartao,
                        "numeroProntuario"   => $numeroProntuario,
                        "DataAtendimento"    => $DataAtendimento,
                        "GuiaConsulta"       => $GuiaConsulta,
-                       "NumCobranca"        => $NumCobranca,
                        "DataPagamento"      => $DataPagamento,
                        "status"             => $Status,
                        "obs"                => $obs,
@@ -78,11 +75,9 @@ if($action=="buscarPorPaciente"){
 if($action=="inserir"){
     
 	$FaturamentoDados = array(
-			"numeroCartao"       => $numeroCartao,
 			"numeroProntuario"   => $numeroProntuario,
 			"DataAtendimento"    => $DataAtendimento,
 			"GuiaConsulta"       => $GuiaConsulta,
-			"NumCobranca"        => $NumCobranca,
 			"DataPagamento"      => $DataPagamento,
 			"status"             => $Status,
 			"obs"                => $obs,
@@ -90,6 +85,6 @@ if($action=="inserir"){
 			"codigo_faturamento" => $codigo_faturamento
 	);
 	
-  print_r( $Faturamento->inserirFaturamento($FaturamentoDados));
-   //echo $Faturamento->inserirFaturamento($FaturamentoDados);
+   
+   echo $Faturamento->inserirFaturamento($FaturamentoDados)[0][0];
 }

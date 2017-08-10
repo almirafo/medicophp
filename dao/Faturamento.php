@@ -79,11 +79,10 @@ public function atualizarFaturamento($faturamentoDados){
 
 
         $sql = "UPDATE Faturamento SET ".
-                       "numeroCartao     ='".$faturamentoDados['numeroCartao'].     "',".
+
                        "numeroProntuario ='".$faturamentoDados['numeroProntuario']. "',".
                        "DataAtendimento  ='".$faturamentoDados['DataAtendimento'].  "',".
                        "GuiaConsulta     ='".$faturamentoDados['GuiaConsulta'].     "',".
-                       "NumCobranca      ='".$faturamentoDados['NumCobranca'].      "',".
                        "DataPagamento    ='".$faturamentoDados['DataPagamento'].    "',".
                        "status           ='".$faturamentoDados['status'].           "',".
                        "obs              ='".$faturamentoDados['obs'].              "',".
@@ -129,9 +128,17 @@ public function inserirFaturamento($faturamentoDados){
 
 
         if($db->prepare($sql)->execute()) {
-            return $db->prepare("select codigo_faturamento from Faturamento where codigo_consulta = " 
-                   .$faturamentoDados["codigo_consulta"])->execute();
+        	try {
 
+        		$array =$db->query("SELECT @@Identity")->fetchAll();
+        	} catch (Exception $e) {
+        		return $e;
+        	}
+        	
+        	
+        	return  $array; 
+        	
+        	
            }else{
                $db_err = $database->errorInfo();
                echo $sql.' Error : ('. $db_err[0] .') -- ' . $db_err[2];
