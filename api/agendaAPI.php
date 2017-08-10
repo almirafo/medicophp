@@ -5,16 +5,14 @@ require '../dao/Agenda.php';
 $agenda  = new Agenda();
 $action = $_GET['action'];
 if($action=="listar"){
-    $cod_medico= 1;//$_GET['cod_medico'];
+    $cod_medico= $_GET['cod_medico'];
     echo $agenda->getAgendaByMedico($cod_medico);
 };
 
 
 if($action == 'alterarStatus'){
-    $statusAgendamento      = isset($_GET['statusAgendamento'])      ?$_GET['statusAgendamento']     :"";
+    $statusAgendamento      = isset($_GET['statusAgendamento'])  ?$_GET['statusAgendamento']     :"";
     $codigo_agenda          = isset($_GET['codigo_agenda'])      ?$_GET['codigo_agenda']     :0;
-    
-    
     $agendaDados = array(
 		    "statusAgendamento"      => $statusAgendamento   ,
                     "codigo_agenda"           => $codigo_agenda        
@@ -61,11 +59,23 @@ if($action=="inserir"){
 };
 
 if($action=="alterar"){
-    
+	$codigo_agenda          = isset($_GET['codigo_agenda'])      ?$_GET['codigo_agenda']     :0;
+	// colocar aqui os outros campos de agenda
+	$agendaDados = array(
+			"codigo_agenda"          => $codigo_agenda
+	);
+	echo $agenda->alterar($agendaDados);
+	
 };
 
 if($action=="apagar"){
-    
+	$codigo_agenda          = isset($_GET['codigo_agenda'])      ?$_GET['codigo_agenda']     :0;
+	
+	$agendaDados = array(
+				"codigo_agenda"          => $codigo_agenda
+	);
+	echo $agenda->apagar($agendaDados);
+
 };
 
 if($action=="buscar"){
