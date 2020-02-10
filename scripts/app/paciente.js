@@ -8,7 +8,7 @@
 
 var pacientesApp = angular.module("pacientesApp",['ngRoute']).run( function($http,$window){
 
- $http.get("http://localhost:90/medico/api/loginAPI.php?action=logged")
+ $http.get("http://"+host+"/medico/api/loginAPI.php?action=logged")
  .then( function(response){
     if(response.data!="1"){
         alert(response.data)
@@ -73,7 +73,7 @@ pacientesApp.controller('pacienteController',['$scope','$http', function ($scope
           });
          
             $scope.listaConsultas = function (codigo_paciente){
-             $http.get("http://localhost:90/medico/api/consultaAPI.php?action=listarByPaciente&codigo_paciente="+codigo_paciente).then(
+             $http.get("http://"+host+"/medico/api/consultaAPI.php?action=listarByPaciente&codigo_paciente="+codigo_paciente).then(
                      function(response){
                         $scope.consultas = response.data;
             }) ;
@@ -81,7 +81,7 @@ pacientesApp.controller('pacienteController',['$scope','$http', function ($scope
         
         
         $scope.listaAgendamentos =  function (codigo_paciente){
-             $http.get("http://localhost:90/medico/api/agendaAPI.php?action=listarByPaciente&codigo_paciente="+codigo_paciente).then(
+             $http.get("http://"+host+"/medico/api/agendaAPI.php?action=listarByPaciente&codigo_paciente="+codigo_paciente).then(
                      function(response){
                         $scope.agendamentos = response.data;
             }) ;

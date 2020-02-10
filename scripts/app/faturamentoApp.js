@@ -6,7 +6,7 @@
 
 var faturamentoapp = angular.module("faturamentoApp",['angularUtils.directives.dirPagination'  ] )
     .run( function($http,$window){
- $http.get("http://localhost:90/medico/api/loginAPI.php?action=logged")
+ $http.get("http://"+host+"/medico/api/loginAPI.php?action=logged")
  .then( function(response){
     SSSS
     if(response.data!="1"){
@@ -23,7 +23,7 @@ faturamentoapp.controller('faturamentosCtrl',[ '$scope', '$http',  function ($sc
 
        $scope.listarByPaciente  = function(codigo_paciente){
 
-        $http.get("http://localhost:90/medico/api/faturamentoAPI.php?action=listar&codigo_paciente="+codigo_paciente).then(
+        $http.get("http://"+host+"/medico/api/faturamentoAPI.php?action=listar&codigo_paciente="+codigo_paciente).then(
             function(response){
                     $scope.faturamentos = response.data;
             }) ;

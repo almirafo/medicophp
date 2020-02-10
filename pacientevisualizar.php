@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<?php header('Access-Control-Allow-Origin: *'); ?>
+
+<script type="text/javascript">
+  var host = <?php echo "'".$_SERVER['HTTP_HOST'] ."'";?>
+
+</script>
+
+<html ng-app="pacientesApp">
+    <head>
+        <title>Paciente</title>
+        <meta charset="UTF-8">
+        
+
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-sanitize.js"></script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-route.js"></script>
+        
+        <script src="scripts/modal.js" type="text/javascript"></script>
+        <script src="scripts/moment.min.js" type="text/javascript"></script>
+        <script src="scripts/select.js" type="text/javascript"></script>
+        <link href="css/select.css" rel="stylesheet" type="text/css"/>
+        
+         <script src="scripts/app/paciente.js" type="text/javascript"></script>
+    </head>
+    <body ng-controller="pacienteController">
+        
+        <div ng-include="'views/navbar.htm'"></div>
+        <form id="visualizarPaciente">
+             <div class="form-group row" >
+                    <div class="col-sm-3  col-form-label col-form-label-sm"> Código : {{paciente.numeroProntuario}}</div>
+                    
+                    <div class="col-sm-3  col-form-label col-form-label-sm">Cartão:   {{paciente.numeroCartao}}</div>
+                    <div class="col-sm-3  col-form-label col-form-label-sm">Convenio: {{paciente.cod_convenio}}</div>
+                    <div class="col-sm-3  col-form-label col-form-label-sm">Plano:    {{paciente.codigo_convenio_plano}} {{paciente.NomePlano}} </div>
+             </div>
+
+            <div class="form-group row" >
+              <div class="col-sm-3">Nome:{{paciente.nome}}</div>
+              <div class="col-sm-3">Nascimento: {{paciente.nascimento}}</div>
+              <div class="col-sm-3">Local: {{paciente.local_nascimento}}</div>
+              <div class="col-sm-3">Sexo: {{paciente.sexo}}</div>
+            </div>
+            
+            <div class="form-group row" >  
+              <div class="col-sm-6">Estado Civil: {{paciente.estadocivil}}</div>
+              <div class="col-sm-6">Filhos : {{paciente.filhos}}</div>
+            </div>
+            <div class="form-group row" >    
+              <div class="col-sm-4">RG:{{paciente.rg}}</div>
+              <div class="col-sm-4">CPF:{{paciente.cpf}}</div>
+              <div class="col-sm-4">Enviado por: {{paciente.enviado_por}}</div>
+            </div>  
+              
+            <div class="form-group row" >
+              <div class="col-sm-2">Celular: {{paciente.celular}}</div>
+              <div class="col-sm-2"> <img ng-src="images/jobIco.png" height="20" width="20"/> {{paciente.profissao}}</div>
+              
+              <div class="col-sm-2">{{paciente.cargo}}</div>
+              <div class="col-sm-2">{{paciente.atividade}}</div>
+              <div class="col-sm-2">{{paciente.empresa}}</div>
+            </div> 
+            
+            
+            <div class="form-group row" >
+                <div class="col-sm-2">Motivo da Consulta: {{paciente.motivo}}</div>
+                <div class="col-sm-6"> <span class=" glyphicon glyphicon-envelope"> {{paciente.email}}</span></div>
+            </div>
+              
+            <div class="form-group row" >
+                <div class="col-sm-2"><a href="agendamento.php?codigo_paciente={{paciente.codigo_paciente}}&action=buscar" class="btn btn-primary"><img ng-src="images/agendamento.png" height="20" width="20"/> Agendar Consulta</a></div>
+                <div class="col-sm-2"><a href='pacienteedita.php?codigo_paciente={{paciente.codigo_paciente}}&action=buscar' class="btn btn-primary" >Editar</a></div>
+            </div>
+            
+
+
+
+            
+        
+            <div class="container">
+                  <ul class="nav nav-tabs">
+                    <li class="active"> <a data-toggle="tab" href="#home"> <span class="glyphicon glyphicon-home"></span> Endereço Residencial</a></li>
+                    <li>               <a data-toggle="tab" href="#menu1">Endereço Comercial</a></li>
+                    <li>               <a data-toggle="tab" href="#menu2" ng-click="listaConsultas(paciente.codigo_paciente)">Ultimas Consultas</a></li>
+                    <li>               <a data-toggle="tab" href="#menu3" ng-click="listaAgendamentos(paciente.codigo_paciente)">Ultimos Agendamentos</a></li>
+                  </ul>
+                <div class="tab-content">
+                        <div id="home" class="tab-pane fade in active">
+                            <h3>Endereço Residencial</h3>
+
+                            <p>{{paciente.endereco_res}}</p>
+                            <p>{{paciente.bairro_res}}</p>
+                            <p>{{paciente.cidade_res}}</p>
+                            <p>{{paciente.estado_res}}</p>
+                            <p>{{paciente.cep_res}}</p>
+                            <p> <span class="glyphicon glyphicon-phone-alt"></span> {{paciente.fone_res}}</p>
+
+                        </div>
+
+                        <div id="menu1" class="tab-pane fade">
+                            <h3>Endereço Comercial</h3>
+                            <p>{{paciente.endereco_com}}</p>
+                            <p>{{paciente.cidade_com}}</p>
+                            <p>{{paciente.estado_com}}</p>
+                            <p>{{paciente.cep_com}}</p>
+                            <p> <span class="glyphicon glyphicon-phone-alt"></span> {{paciente.fone_com}}</p>
+
+                        </div>
+
+                        <div id="menu2" class="tab-pane fade">
+                            <h3>Ultimas Consultas</h3>
+                            <div ng-repeat="consulta in consultas">
+                                <p>{{consulta.dataAtendimento}}</p>
+                                
+                            </div>
+                        </div>
+
+                        <div id="menu3" class="tab-pane fade">
+                            <h3>Ultimos Agendamentos</h3>
+                            <div ng-repeat="agendamento in agendamentos">
+                                <p>{{agendamento.DataAgendada}} - {{agendamento.StatusAgendamento}}</p>
+                            </div>
+                            
+                        </div>
+
+                </div>
+            </div>
+        </form>
+    </body>
+</html>

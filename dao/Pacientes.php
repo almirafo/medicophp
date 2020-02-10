@@ -72,7 +72,7 @@ class Pacientes extends dbConnect {
        $id = addslashes($id); 
          
        $database =  $this->getdatabase();  
-       $sql = "SELECT * FROM paciente where codigo_paciente = $id ";
+       $sql = "SELECT * FROM paciente inner join convenio_plano on (paciente.codigo_convenio_plano = convenio_plano.codigo_convenio_plano) where codigo_paciente = $id  ";
        $array = $database->prepare($sql);
        $array->execute();
        

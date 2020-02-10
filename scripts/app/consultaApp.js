@@ -9,7 +9,7 @@
 
 var consultaApp = angular.module("consultaApp", ['angularUtils.directives.dirPagination','ngRoute'])
     .run( function($http,$window){
-         $http.get("http://localhost:90/medico/api/loginAPI.php?action=logged")
+         $http.get("http://"+host+"/medico/api/loginAPI.php?action=logged")
          .then( function(response){
             if(response.data!="1"){
                 $window.location.href ="index.php";
@@ -19,7 +19,7 @@ var consultaApp = angular.module("consultaApp", ['angularUtils.directives.dirPag
     });
 var consultaPersistApp = angular.module("consultaPersistApp", [ 'ngSanitize', 'ui.select'])    
     .run( function($http,$window){
-         $http.get("http://localhost:90/medico/api/loginAPI.php?action=logged")
+         $http.get("http://"+host+"/medico/api/loginAPI.php?action=logged")
          .then( function(response){
             if(response.data!="1"){
                 $window.location.href ="index.php";
@@ -88,7 +88,7 @@ consultaApp.controller('consultaCtrl', function ($scope, $http, $timeout, $inter
     };
 
 
-     $http.get("http://localhost:90/medico/api/consultaAPI.php?action=listar")
+     $http.get("http://"+host+"/medico/api/consultaAPI.php?action=listar")
      .then(
            function(result){
                    $scope.consultas= result.data;

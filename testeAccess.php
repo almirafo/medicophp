@@ -1,18 +1,19 @@
 
 <?php
-require 'utils/coxexao.php';
-
-$conexao =  new Conexao();
+require 'db/pdoConect.php';
+$conexao =  new dbConnect();
 $database =$conexao->getdatabase(); 
 $sql="";
 
 if (!isset($_GET["nome"])){ 
-$sql = 'SELECT Top 100 * FROM paciente order by nome';
+$sql = 'SELECT  * FROM paciente order by nome';
 }
 else{
 $nome = $_GET['nome'];
-$sql = "SELECT Top 100 * FROM paciente where nome like '$nome%' order by nome";
+$sql = "SELECT  * FROM paciente where nome like '$nome%' order by nome";
 };
+
+//echo $sql;
 /*$sql = "SELECT codigo_paciente,nome,numeroProntuario
 		FROM (
 		  SELECT Top {$pageSize} 
@@ -31,6 +32,7 @@ $sql = "SELECT Top 100 * FROM paciente where nome like '$nome%' order by nome";
 
 */
 $array = $database->query($sql)->fetchAll();
+//echo $array;
 header("Content-type: application/json; charset=utf-8");
 
 function toUtf8(&$v, $k) {

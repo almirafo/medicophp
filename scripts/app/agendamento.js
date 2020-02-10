@@ -93,7 +93,7 @@ agendamentoApp.controller('agendamentoCtrl', function ($scope, $http) {
                 
                 //getUltimaConsulta($scope.paciente.selected.codigo_paciente);
                 
-                $http.get("http://localhost:90/medico/api/consultaAPI.php?action=ultimaConsulta&codigoPaciente="+$scope.codigo_paciente)
+                $http.get("http://"+host+"/medico/api/consultaAPI.php?action=ultimaConsulta&codigoPaciente="+$scope.codigo_paciente)
               .then(
                     function(result){
                             $scope.agendamento.ultimaConsulta= result.data[0].dataAtendimento;
@@ -101,7 +101,7 @@ agendamentoApp.controller('agendamentoCtrl', function ($scope, $http) {
                 
                 
                 
-              $http.get("http://localhost:90/medico/api/convenioAPI.php?action=buscarConvenioPlano&codigoConvenioPlano="+response[0].codigo_convenio_plano)
+              $http.get("http://"+host+"/medico/api/convenioAPI.php?action=buscarConvenioPlano&codigoConvenioPlano="+response[0].codigo_convenio_plano)
               .then(
                     function(responsePlano){
                             $scope.agendamento.NomePlano             = responsePlano.data[0].NomePlano;
@@ -195,7 +195,7 @@ agendamentoApp.controller('agendamentoCtrl', function ($scope, $http) {
       if($scope.paciente.selected.codigo_convenio_plano===null){
           $scope.paciente.selected.codigo_convenio_plano= 0;
       }
-    	 $http.get("http://localhost:90/medico/api/convenioAPI.php?action=buscarConvenioPlano&codigoConvenioPlano="+$scope.paciente.selected.codigo_convenio_plano)
+    	 $http.get("http://"+host+"/medico/api/convenioAPI.php?action=buscarConvenioPlano&codigoConvenioPlano="+$scope.paciente.selected.codigo_convenio_plano)
               .then(
                     function(response){
                             $scope.agendamento.NomePlano             = response.data[0].NomePlano;
@@ -208,7 +208,7 @@ agendamentoApp.controller('agendamentoCtrl', function ($scope, $http) {
    * @returns {undefined}
    */
   $scope.getUltimaConsulta = function (codigo_paciente){
-      	 $http.get("http://localhost:90/medico/api/consultaAPI.php?action=ultimaConsulta&codigoPaciente="+codigo_paciente)
+      	 $http.get("http://"+host+"/medico/api/consultaAPI.php?action=ultimaConsulta&codigoPaciente="+codigo_paciente)
               .then(
                     function(response){
                             $scope.Ultimaconsulta= response.data[0];
@@ -224,7 +224,7 @@ agendamentoApp.controller('agendamentoCtrl', function ($scope, $http) {
 
          $http({
 
-                 url: "http://localhost:90/medico/api/agendaAPI.php",
+                 url: "http://"+host+"/medico/api/agendaAPI.php",
                  params: params1,
                  method:"POST"}
                  )
@@ -288,7 +288,7 @@ agendamentoApp.controller('agendamentoCtrl', function ($scope, $http) {
    * TODO mudar a api
    */  
   $scope.buscar =  function(nome){
-    	 $http.get("http://localhost:90/medico/testeAccess.php?nome="+nome ).then(
+    	 $http.get("http://"+host+"/medico/testeAccess.php?nome="+nome ).then(
             function(response){
                     $scope.pacientes = response.data;
             }) ;
@@ -318,7 +318,7 @@ $scope.reservar =  function(){
     
     $scope.listaAgenda= function (){
         $scope.agenda=[];
-        $http.get("http://localhost:90/medico/api/agendaAPI.php?action=listar&cod_medico="+$scope.agendamento.CodigoMedico ).then(
+        $http.get("http://"+host+"/medico/api/agendaAPI.php?action=listar&cod_medico="+$scope.agendamento.CodigoMedico ).then(
             function(response){
                      angular.forEach(response.data, function(value) {
                            var dia =new Date( value.DataAgendada);
@@ -340,7 +340,7 @@ $scope.reservar =  function(){
   }
   
   $scope.getPlano = function (cod_convenio){
-       $http.get("http://localhost:90/medico/api/getPlanoAPI.php?cod_convenio="+cod_convenio ).then(
+       $http.get("http://"+host+"/medico/api/getPlanoAPI.php?cod_convenio="+cod_convenio ).then(
             function(response){
                     $scope.planos = response.data;
             }) ;
@@ -349,20 +349,20 @@ $scope.reservar =  function(){
   
   
     //Lista Medicos
-    $http.get("http://localhost:90/medico/api/medicoAPI.php?action=listar" ).then(
+    $http.get("http://"+host+"/medico/api/medicoAPI.php?action=listar" ).then(
             function(response){
                     $scope.medicos = response.data;
             }) ;
     
   
     //Lista Pacientes 
-    $http.get("http://localhost:90/medico/testeAccess.php" ).then(
+    $http.get("http://"+host+"/medico/testeAccess.php" ).then(
             function(response){
                     $scope.pacientes = response.data;
             }) ;
   
     //lista Convenios
-    $http.get("http://localhost:90/medico/api/convenioAPI.php?action=listar" ).then(
+    $http.get("http://"+host+"/medico/api/convenioAPI.php?action=listar" ).then(
                 function(response){
                         $scope.convenios
                                 = response.data;

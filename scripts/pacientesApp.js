@@ -7,7 +7,7 @@
 var pacientesApp = angular.module("pacientesApp",['angularUtils.directives.dirPagination' ]);
 
 pacientesApp.run( function($http,$window){
- $http.get("http://localhost:90/medico/api/loginAPI.php?action=logged")
+ $http.get("http://"+host+"/medico/api/loginAPI.php?action=logged")
  .then( function(response){
     if(response.data!="1"){
         $window.location.href ="index.php";
@@ -20,7 +20,7 @@ pacientesApp.run( function($http,$window){
 pacientesApp.controller('pacienteCtrl',[ '$scope', '$http', function ($scope, $http){
         $scope.pacientes =[];
         
-        $http.get("http://localhost:90/medico/testeAccess.php").then(
+        $http.get("http://"+host+"/medico/testeAccess.php").then(
             function(response){
                     $scope.pacientes = response.data;
             }) ;
@@ -31,7 +31,7 @@ pacientesApp.controller('pacienteCtrl',[ '$scope', '$http', function ($scope, $h
 	    $scope.reverse = !$scope.reverse; //if true make it false and vice versa
 	}
 
-        $scope.showForm = function() { $http.get("http://localhost:90/medico/api/pacienteAPI.php?action=buscar&id="+id).then(
+        $scope.showForm = function() { $http.get("http://"+host+"/medico/api/pacienteAPI.php?action=buscar&id="+id).then(
                      function(response){
                         $scope.paciente = response.data;
             }) ;
@@ -41,14 +41,14 @@ pacientesApp.controller('pacienteCtrl',[ '$scope', '$http', function ($scope, $h
         
         
         $scope.listaConsultas = function (codigo_paciente){
-             $http.get("http://localhost:90/medico/api/consultaAPI.php?action=listarByPaciente&codigo_paciente="+codigo_paciente).then(
+             $http.get("http://"+host+"/medico/api/consultaAPI.php?action=listarByPaciente&codigo_paciente="+codigo_paciente).then(
                      function(response){
                         $scope.consultas = response.data;
             }) ;
         };
         
         $scope.listaAgendamentos =  function (codigo_paciente){
-             $http.get("http://localhost:90/medico/api/agendaAPI.php?action=listarByPaciente&codigo_paciente="+codigo_paciente).then(
+             $http.get("http://"+host+"/medico/api/agendaAPI.php?action=listarByPaciente&codigo_paciente="+codigo_paciente).then(
                      function(response){
                         $scope.consultas = response.data;
             }) ;

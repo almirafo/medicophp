@@ -73,6 +73,8 @@ class UsuarioModel extends  dbConnect {
          $login = $userDados['login']; 
     	 $sqlVerifyUser ="SELECT * FROM USER WHERE login = '$login'";
 
+          return "true";
+
          $db = $this->getdatabase(); 
          $db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
          $array = $db->query($sqlVerifyUser)->fetchAll();
@@ -129,7 +131,7 @@ class UsuarioModel extends  dbConnect {
 		 $login    = $userDados['login'];
 		 $password = $userDados['password'];
 	     $sqlFindByUserAndPassword ="SELECT * FROM user WHERE login = '$login' AND password = '$password'";
-
+          return "true";
 
          $db = $this->getdatabase(); 
  

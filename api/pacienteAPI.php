@@ -1,4 +1,5 @@
 <?php
+header('Access-Control-Allow-Origin: *'); 
 require '../dao/Pacientes.php'; 
 $paciente  = new Pacientes();
 $action = $_GET['action'];

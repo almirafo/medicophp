@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 <!-- https://ciphertrick.com/2015/06/01/search-sort-and-pagination-ngrepeat-angularjs/ -->
+<?php header('Access-Control-Allow-Origin: *'); ?>
+
+
+<script type="text/javascript">
+  var host = <?php echo "'".$_SERVER['HTTP_HOST'] ."'";?>
+
+</script>
 
 <html ng-app="pacientesApp">
     <head>
@@ -14,8 +21,10 @@
                 <script src="scripts/modal.js" type="text/javascript"></script>
         <script src="scripts/moment.min.js" type="text/javascript"></script>
         <script src="scripts/jquery.dataTables.min.js" type="text/javascript"></script>
+        <script src="scripts/app/config.js" type="text/javascript"></script>
         <script src="scripts/pacientesApp.js" type="text/javascript"></script>
         <script src="scripts/dirPagination.js" type="text/javascript"></script>
+        
         <link href="css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
         
     </head>
@@ -53,8 +62,9 @@
                            <td>{{item.nome}}</td>
                            <td>{{item.numeroProntuario}}</td>
                            <td><button class="glyphicon glyphicon-paste" data-toggle="modal" data-target="#PlanosModal" ng-click="listaConsultas(item.codigo_paciente)"></button></td>
-                           <td><button type="button" class="btn btn-primary" ng-click="showForm()">Editar</button></td>
-                           <td><a href='pacientevisualizar.html?codigo_paciente={{item.codigo_paciente}}&action=buscar' class="btn btn-primary" >Visualizar</a></td>
+                           
+                           <td><a href='pacienteedita.php?codigo_paciente={{item.codigo_paciente}}&action=buscar' class="btn btn-primary" >Editar</a></td>
+                           <td><a href='pacientevisualizar.php?codigo_paciente={{item.codigo_paciente}}&action=buscar' class="btn btn-primary" >Visualizar</a></td>
                            <td><a href="agendamento.html?codigo_paciente={{item.codigo_paciente}}&action=buscar" class="btn btn-info">Agendar Consulta</a></td>
                        </tr>
                    </tbody>

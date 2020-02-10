@@ -6,7 +6,7 @@
 
 var agendamentoapp = angular.module("agendamentoApp",['angularUtils.directives.dirPagination'  ] )
     .run( function($http,$window){
- $http.get("http://localhost:90/medico/api/loginAPI.php?action=logged")
+ $http.get("http://"+host+"/medico/api/loginAPI.php?action=logged")
  .then( function(response){
     
     if(response.data!="1"){
@@ -21,7 +21,7 @@ var agendamentoapp = angular.module("agendamentoApp",['angularUtils.directives.d
 agendamentoapp.controller('agendamentosCtrl',[ '$scope', '$http',  function ($scope, $http ){
         $scope.agendamentos =[];
       
-        $http.get("http://localhost:90/medico/api/agendaAPI.php?action=listar").then(
+        $http.get("http://"+host+"/medico/api/agendaAPI.php?action=listar").then(
             function(response){
                     $scope.agendamentos = response.data;
             }) ;
@@ -29,7 +29,7 @@ agendamentoapp.controller('agendamentosCtrl',[ '$scope', '$http',  function ($sc
  
  
         $scope.alterarStatus = function(status,codigo_agenda){
-        $http.get("http://localhost:90/medico/api/agendaAPI.php?action=alterarStatus&statusAgendamento="+status+"&codigo_agenda="+codigo_agenda).then(
+        $http.get("http://"+host+"/medico/api/agendaAPI.php?action=alterarStatus&statusAgendamento="+status+"&codigo_agenda="+codigo_agenda).then(
             function(response){
                     $scope.mensagem = response.data;
                     

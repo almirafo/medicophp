@@ -9,7 +9,7 @@
 
 var ligacoesApp = angular.module("ligacoesApp", ['angularUtils.directives.dirPagination', 
                                          'ngRoute']).run( function($http,$window){
- $http.get("http://localhost:90/medico/api/loginAPI.php?action=logged")
+ $http.get("http://"+host+"/medico/api/loginAPI.php?action=logged")
  .then( function(response){
     if(response.data!="1"){
         $window.location.href ="index.php";
@@ -64,7 +64,7 @@ var getUrlParameter = function getUrlParameter(sParam) {
 
 ligacoesApp.controller('ligacoesCtrl', function ($scope, $http, $timeout, $interval) {
      $scope.ligacoes          = {};
-     $http.get("http://localhost:90/medico/api/ligacoesAPI.php?action=listar")
+     $http.get("http://"+host+"/medico/api/ligacoesAPI.php?action=listar")
      .then(
            function(result){
                    $scope.ligacoes= result.data;
